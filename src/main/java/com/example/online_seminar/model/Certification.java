@@ -3,9 +3,8 @@ package com.example.online_seminar.model;
 import lombok.Data;
 
 @Data
-public class User {
+public class Certification {
     private String user_id;
-    private String user_name;
-    private int user_role;
+    private String password;
     private boolean delete_flag;
 }
