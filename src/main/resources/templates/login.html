@@ -2,9 +2,16 @@
 <html xmlns:th="http://www/thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>ログイン画面</title>
 </head>
 <body>
+<form th:action="@{/form}" method="post" th:object="${user}">
+    <label for="ID">ID</label><br>
+    <input type="text" th:field="*{id}"><br>
+    <label for="password">パスワード</label><br>
+    <input type="text" th:field="*{password}"><br>
 
+    <botton>送信</botton>
+    </form>
 </body>
 </html>
