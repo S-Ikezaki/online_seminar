@@ -5,13 +5,13 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class Request {
-    private String request_id;
+public class DirectMessage {
+    private String direct_message_id;
     private String create_user_id;
     private String create_user_name;
     private String address_user_id;
     private String address_user_name;
-    private String request_content;
-    private Date request_datetime;
+    private String direct_message_content;
+    private Date create_datetime;
     private boolean delete_flag;
 }
