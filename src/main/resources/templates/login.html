@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www/thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <title>ログイン画面</title>
 </head>
-<body>
-<form th:action="@{/form}" method="post" th:object="${user}">
-    <label for="ID">ID</label><br>
-    <input type="text" th:field="*{id}"><br>
-    <label for="password">パスワード</label><br>
-    <input type="text" th:field="*{password}"><br>
+<body class="bg-light">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="border-bottom" my-3>ログイン画面</h4>
 
-    <botton>送信</botton>
-    </form>
+            <form th:action="@{/}" th:object="${certification}" method="post" novalidate>
+                <dic class="mb-3"></dic>
+                <label>ID</label><br>
+                <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{user_id}">
+                <div class="invalid-feedback" th:errors="*{user_id}"></div>
+                <dic class="mb-3"></dic>
+                <label>パスワード</label><br>
+                <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{password}">
+                <div class="invalid-feedback" th:errors="*{password}"></div>
+                <button>送信</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
