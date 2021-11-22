@@ -1,6 +1,5 @@
 package com.example.online_seminar.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,25 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
-public class TagUser {
+public class MeetingMember {
     @Id
     @NotBlank
-    private int id;
-
+    private String meeting_id;
     @Id
     @NotBlank
-    private int tag_id;
-
     private String user_id;
+
+    private Date user_name;
     private boolean delete_flag;
 
     @ManyToOne
-    private User user;
+    private Group group;
 
     @ManyToOne
-    private Tag tag;
+    private User user;
 }
+

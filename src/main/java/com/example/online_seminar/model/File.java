@@ -1,12 +1,23 @@
 package com.example.online_seminar.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 
-@Data
+@Entity
+@Getter
+@Setter
 public class File {
+    @Id
+    @NotBlank
     private String file_id;
+
     private String file_name;
     private String file_pass;
     private String user_id;
@@ -14,4 +25,7 @@ public class File {
     private Date create_datetime;
     private String group_id;
     private boolean delete_flag;
+
+    @ManyToOne
+    private Group group;
 }
