@@ -1,5 +1,8 @@
 package com.example.online_seminar.model;
 
+import lombok.Data;
+
+@Data
 public class MeetingChat {
     private String meeting_chat_id;
     private String meeting_chat_contents;
