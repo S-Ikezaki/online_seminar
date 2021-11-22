@@ -1,35 +1,34 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.group;
 
-import lombok.Data;
+import com.example.online_seminar.model.group.Group;
+import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
-public class Meeting {
+public class MeetingMember {
     @Id
     @NotBlank
     private String meeting_id;
+    @Id
+    @NotBlank
+    private String user_id;
 
-    private String group_id;
-    private String user_name;
-    private int status;
+    private Date user_name;
     private boolean delete_flag;
 
     @ManyToOne
     private Group group;
 
-    @OneToMany
-    List<MeetingMember> meetingMember;
-
-    @OneToMany
-    List<MeetingChat> meetingChats;
+    @ManyToOne
+    private User user;
 }
+

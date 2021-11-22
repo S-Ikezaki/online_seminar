@@ -1,9 +1,8 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.user;
 
-import lombok.Data;
+import com.example.online_seminar.model.tag.TagUser;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

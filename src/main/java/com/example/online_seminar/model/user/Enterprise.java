@@ -1,7 +1,6 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.user;
 
-import lombok.Data;
-import lombok.Generated;
+import com.example.online_seminar.model.user.Employee;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,22 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class School {
+public class Enterprise {
     @Id
     @NotBlank
-    private String school_id;
+    private String enterprise_id;
 
-    private String school_name;
+    private String enterprise_name;
     private boolean delete_flag;
 
     @OneToMany
-    List<Teacher> teachers;
-
-    @OneToMany
-    List<Student> students;
+    private Employee employee;
 }

@@ -1,6 +1,5 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.user;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,18 +12,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Tag {
+public class School {
     @Id
     @NotBlank
-    private int tag_id;
+    private String school_id;
 
-
-    private String tag_name;
+    private String school_name;
     private boolean delete_flag;
 
     @OneToMany
-    List<TagUser> tagUsers;
+    List<Teacher> teachers;
 
     @OneToMany
-    List<TagRequest> tagRequests;
+    List<Student> students;
 }

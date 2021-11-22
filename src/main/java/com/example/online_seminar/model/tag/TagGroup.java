@@ -1,6 +1,6 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.tag;
 
-import lombok.Data;
+import com.example.online_seminar.model.group.Group;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,18 +12,23 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-public class Teacher {
+public class TagGroup {
     @Id
     @NotBlank
-    private String user_id;
+    private int id;
 
-    private String school_id;
-    private boolean permission_cd;
+    @Id
+    @NotBlank
+    private int tag_id;
+
+    @Id
+    @NotBlank
+    private String group_id;
     private boolean delete_flag;
 
     @ManyToOne
-    private School school;
+    private Tag tag;
 
     @ManyToOne
-    private User user;
+    private Group group;
 }

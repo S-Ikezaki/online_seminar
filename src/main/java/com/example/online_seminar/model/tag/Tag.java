@@ -1,26 +1,29 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.tag;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Enterprise {
+public class Tag {
     @Id
     @NotBlank
-    private String enterprise_id;
+    private int tag_id;
 
-    private String enterprise_name;
+
+    private String tag_name;
     private boolean delete_flag;
 
     @OneToMany
-    private Employee employee;
+    List<TagUser> tagUsers;
+
+    @OneToMany
+    List<TagRequest> tagRequests;
 }

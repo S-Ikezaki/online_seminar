@@ -1,7 +1,7 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.tag;
 
-import jdk.jfr.Enabled;
-import lombok.Data;
+import com.example.online_seminar.model.tag.Tag;
+import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-public class TagRequest {
+public class TagUser {
     @Id
     @NotBlank
     private int id;
@@ -22,10 +22,11 @@ public class TagRequest {
     @NotBlank
     private int tag_id;
 
+    private String user_id;
     private boolean delete_flag;
 
     @ManyToOne
-    private Request request;
+    private User user;
 
     @ManyToOne
     private Tag tag;

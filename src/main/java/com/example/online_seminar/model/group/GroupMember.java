@@ -1,6 +1,7 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.group;
 
-import lombok.Data;
+import com.example.online_seminar.model.group.Group;
+import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 

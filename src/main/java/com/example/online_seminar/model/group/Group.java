@@ -1,15 +1,13 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.group;
 
-import lombok.Data;
+import com.example.online_seminar.model.tag.TagGroup;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.internal.engine.groups.GroupWithInheritance;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Getter

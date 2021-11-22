@@ -1,15 +1,13 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.user;
 
-import lombok.Data;
+import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 //認証のゲッターセッター
 @Getter

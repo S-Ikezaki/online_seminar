@@ -1,13 +1,12 @@
-package com.example.online_seminar.model;
+package com.example.online_seminar.model.group;
 
-import lombok.Data;
+import com.example.online_seminar.model.group.Meeting;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.SecondaryTable;
 import javax.validation.constraints.NotBlank;
 
 @Getter
