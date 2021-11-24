@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Getter
 @Setter
-public class File {
+public class File implements Serializable {
     @Id
     @NotBlank
     private String file_id;

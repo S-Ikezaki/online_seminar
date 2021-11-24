@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-public class Enterprise {
+public class Enterprise implements Serializable {
     @Id
     @NotBlank
     private String enterprise_id;

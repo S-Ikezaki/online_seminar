@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
-public class GroupMessage {
+public class GroupMessage implements Serializable {
     @Id
     @NotBlank
     private String group_message_id;

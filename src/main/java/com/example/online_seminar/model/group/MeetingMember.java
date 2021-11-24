@@ -9,12 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
-public class MeetingMember {
+public class MeetingMember implements Serializable {
     @Id
     @NotBlank
     private String meeting_id;

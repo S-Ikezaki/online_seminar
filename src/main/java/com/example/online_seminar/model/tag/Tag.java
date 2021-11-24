@@ -13,11 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Tag {
+public class Tag implements Serializable{
     @Id
     @NotBlank
     private int tag_id;
-
 
     private String tag_name;
 

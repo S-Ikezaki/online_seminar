@@ -9,11 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-public class TagRequest {
+public class TagRequest implements Serializable {
     @Id
     @NotBlank
     private int id;

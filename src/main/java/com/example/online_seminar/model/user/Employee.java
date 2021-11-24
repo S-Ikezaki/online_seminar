@@ -6,11 +6,12 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     @Id
     private String user_id;
     private String enterprise_id;

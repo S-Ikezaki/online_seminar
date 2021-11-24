@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-public class TagUser{
+public class TagUser implements Serializable{
     @Id
     @NotBlank
     private int id;

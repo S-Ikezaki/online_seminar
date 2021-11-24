@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-public class TagGroup {
+public class TagGroup implements Serializable{
     @Id
     @NotBlank
     private int id;

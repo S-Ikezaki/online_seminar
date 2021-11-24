@@ -9,13 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Request {
+public class Request implements Serializable {
     @Id
     @NotBlank
     private String request_id;

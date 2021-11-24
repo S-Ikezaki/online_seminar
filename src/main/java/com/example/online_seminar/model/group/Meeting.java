@@ -8,12 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Meeting {
+public class Meeting implements Serializable {
     @Id
     @NotBlank
     private String meeting_id;
