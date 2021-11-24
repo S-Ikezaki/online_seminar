@@ -18,15 +18,15 @@ import java.util.List;
 public class Group {
     @Id
     @NotBlank
-    private String group_id;
+    private String groupId;
 
-    private String group_name;
+    private String groupName;
 
     @NotNull
     private int role;
 
-    private String group_bio;
-    private boolean delete_flag;
+    private String groupBio;
+    private boolean deleteFlag;
 
     @OneToMany
     List<TagGroup> tagGroups;

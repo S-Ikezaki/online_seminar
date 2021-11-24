@@ -20,7 +20,7 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public List<Group> search(String group_Id, String group_name,int role,String group_bio,boolean delete_flag){
+    public List<Group> search(String groupId, String groupName,int role,String groupBio,boolean deleteFlag){
         List<Group> result;
         result = groupRepository.findAll();
         return result;
