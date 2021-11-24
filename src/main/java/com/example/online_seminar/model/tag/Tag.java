@@ -19,7 +19,6 @@ public class Tag {
 
 
     private String tag_name;
-    private boolean delete_flag;
 
     @OneToMany
     List<TagUser> tagUsers;

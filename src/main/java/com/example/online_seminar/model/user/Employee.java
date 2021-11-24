@@ -15,7 +15,6 @@ public class Employee {
     private String user_id;
     private String enterprise_id;
     private String introduction;
-    private boolean delete_flag;
 
     @ManyToOne
     private User user;

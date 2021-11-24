@@ -33,7 +33,6 @@ public class Request {
     private String address_user_name;
     private String request_content;
     private Date request_datetime;
-    private boolean delete_flag;
 
     @ManyToOne
     private User user;

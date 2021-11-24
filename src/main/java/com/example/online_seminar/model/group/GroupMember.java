@@ -24,7 +24,6 @@ public class GroupMember {
 
     private Date user_name;
     private String group_role;
-    private boolean delete_flag;
 
     @ManyToOne
     private Group group;

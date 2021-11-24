@@ -23,7 +23,6 @@ public class MeetingMember {
     private String user_id;
 
     private Date user_name;
-    private boolean delete_flag;
 
     @ManyToOne
     private Group group;

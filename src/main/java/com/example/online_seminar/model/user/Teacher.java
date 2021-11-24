@@ -20,7 +20,6 @@ public class Teacher {
 
     private String school_id;
     private boolean permission_cd;
-    private boolean delete_flag;
 
     @ManyToOne
     private School school;

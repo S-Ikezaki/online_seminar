@@ -29,7 +29,6 @@ public class DirectMessage {
     private String address_user_name;
     private String direct_message_content;
     private Date create_datetime;
-    private boolean delete_flag;
 
     @ManyToOne
     private User user;

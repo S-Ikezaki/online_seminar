@@ -21,7 +21,6 @@ public class Meeting {
     private String group_id;
     private String user_name;
     private int status;
-    private boolean delete_flag;
 
     @ManyToOne
     private Group group;

@@ -18,7 +18,6 @@ public class School {
     private String school_id;
 
     private String school_name;
-    private boolean delete_flag;
 
     @OneToMany
     List<Teacher> teachers;

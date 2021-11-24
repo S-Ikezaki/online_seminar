@@ -24,7 +24,6 @@ public class File {
     private String user_name;
     private Date create_datetime;
     private String group_id;
-    private boolean delete_flag;
 
     @ManyToOne
     private Group group;

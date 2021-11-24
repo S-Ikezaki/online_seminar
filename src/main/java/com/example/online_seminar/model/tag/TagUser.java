@@ -23,7 +23,6 @@ public class TagUser {
     private int tag_id;
 
     private String user_id;
-    private boolean delete_flag;
 
     @ManyToOne
     private User user;

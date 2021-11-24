@@ -22,8 +22,6 @@ public class TagRequest {
     @NotBlank
     private int tag_id;
 
-    private boolean delete_flag;
-
     @ManyToOne
     private Request request;
 

@@ -24,7 +24,6 @@ public class TagGroup {
     @Id
     @NotBlank
     private String group_id;
-    private boolean delete_flag;
 
     @ManyToOne
     private Tag tag;

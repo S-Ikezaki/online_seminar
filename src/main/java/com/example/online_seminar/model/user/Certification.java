@@ -21,9 +21,6 @@ public class Certification {
     @NotBlank
     private String password;
 
-    @NotBlank
-    private boolean delete_flag;
-
     @OneToOne
     private User user;
 }

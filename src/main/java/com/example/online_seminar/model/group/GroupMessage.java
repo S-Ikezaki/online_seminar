@@ -24,7 +24,7 @@ public class GroupMessage {
 
     private Date create_datetime;
     private String message_contents;
-    private boolean delete_flag;
+
 
     @ManyToOne
     private Group group;

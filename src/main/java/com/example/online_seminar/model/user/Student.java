@@ -20,7 +20,6 @@ public class Student {
     private String school_id;
     private int school_grade;
     private Date graduation_date;
-    private boolean delete_flag;
 
     @ManyToOne
     private Student student;

@@ -22,7 +22,6 @@ public class MeetingChat {
     private String user_id;
     private String user_name;
     private String meeting_chat_datetime;
-    private boolean delete_flag;
 
     @ManyToOne
     private Meeting meeting;

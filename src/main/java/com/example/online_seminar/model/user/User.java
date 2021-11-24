@@ -21,7 +21,6 @@ public class User {
 
     private String user_name;
     private int user_role;
-    private boolean delete_flag;
 
     @OneToMany
     List<Student> students;
