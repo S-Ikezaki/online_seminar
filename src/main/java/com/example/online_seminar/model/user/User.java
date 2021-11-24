@@ -22,7 +22,7 @@ public class User {
     private String user_name;
     private int user_role;
 
-    @OneToMany
+   /* @OneToMany
     List<Student> students;
 
     @OneToMany
@@ -41,5 +41,5 @@ public class User {
     List<DirectMessage> directMessages;
 
     @OneToOne
-    private Certification certification;
+    private Certification certification;*/
 }

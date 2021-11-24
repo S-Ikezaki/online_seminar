@@ -23,6 +23,6 @@ public class MeetingChat {
     private String user_name;
     private String meeting_chat_datetime;
 
-    @ManyToOne
-    private Meeting meeting;
+    /*@ManyToOne
+    private Meeting meeting;*/
 }

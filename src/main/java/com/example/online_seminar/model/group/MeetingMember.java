@@ -24,10 +24,10 @@ public class MeetingMember {
 
     private Date user_name;
 
-    @ManyToOne
+    /*@ManyToOne
     private Group group;
 
     @ManyToOne
-    private User user;
+    private User user;*/
 }
 

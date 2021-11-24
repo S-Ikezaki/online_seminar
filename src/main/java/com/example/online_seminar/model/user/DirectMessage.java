@@ -30,6 +30,6 @@ public class DirectMessage {
     private String direct_message_content;
     private Date create_datetime;
 
-    @ManyToOne
-    private User user;
+    /*@ManyToOne
+    private User user;*/
 }

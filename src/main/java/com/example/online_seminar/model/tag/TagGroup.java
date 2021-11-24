@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -25,9 +26,9 @@ public class TagGroup {
     @NotBlank
     private String group_id;
 
-    @ManyToOne
+   /* @ManyToOne
     private Tag tag;
 
     @ManyToOne
-    private Group group;
+    private Group group;*/
 }

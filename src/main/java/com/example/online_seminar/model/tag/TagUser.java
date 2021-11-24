@@ -9,11 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-public class TagUser {
+public class TagUser{
     @Id
     @NotBlank
     private int id;
@@ -24,9 +25,9 @@ public class TagUser {
 
     private String user_id;
 
-    @ManyToOne
+    /*@ManyToOne
     private User user;
 
     @ManyToOne
-    private Tag tag;
+    private Tag tag;*/
 }

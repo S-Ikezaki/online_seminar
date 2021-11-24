@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -20,9 +21,9 @@ public class Tag {
 
     private String tag_name;
 
-    @OneToMany
+    /*@OneToMany
     List<TagUser> tagUsers;
 
     @OneToMany
-    List<TagRequest> tagRequests;
+    List<TagRequest> tagRequests;*/
 }

@@ -26,7 +26,7 @@ public class Group {
 
     private String groupBio;
 
-    @OneToMany
+    /*@OneToMany
     List<TagGroup> tagGroups;
 
     @OneToMany
@@ -39,6 +39,6 @@ public class Group {
     List<GroupMessage> groupMessages;
 
     @OneToMany
-    List<Meeting> meetings;
+    List<Meeting> meetings;*/
 
 }

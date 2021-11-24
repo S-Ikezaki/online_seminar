@@ -21,9 +21,9 @@ public class Teacher {
     private String school_id;
     private boolean permission_cd;
 
-    @ManyToOne
+    /*@ManyToOne
     private School school;
 
     @ManyToOne
-    private User user;
+    private User user;*/
 }

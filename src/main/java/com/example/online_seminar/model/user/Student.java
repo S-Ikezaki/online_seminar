@@ -21,9 +21,9 @@ public class Student {
     private int school_grade;
     private Date graduation_date;
 
-    @ManyToOne
+    /*@ManyToOne
     private Student student;
 
     @ManyToOne
-    private User user;
+    private User user;*/
 }

@@ -25,9 +25,9 @@ public class GroupMember {
     private Date user_name;
     private String group_role;
 
-    @ManyToOne
+    /*@ManyToOne
     private Group group;
 
     @ManyToOne
-    private User user;
+    private User user;*/
 }

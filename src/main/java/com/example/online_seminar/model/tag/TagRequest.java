@@ -22,9 +22,9 @@ public class TagRequest {
     @NotBlank
     private int tag_id;
 
-    @ManyToOne
+    /*@ManyToOne
     private Request request;
 
     @ManyToOne
-    private Tag tag;
+    private Tag tag;*/
 }

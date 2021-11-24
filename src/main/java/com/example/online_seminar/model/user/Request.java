@@ -34,9 +34,9 @@ public class Request {
     private String request_content;
     private Date request_datetime;
 
-    @ManyToOne
+   /* @ManyToOne
     private User user;
 
     @OneToMany
-    List<TagRequest> tagRequestList;
+    List<TagRequest> tagRequestList;*/
 }

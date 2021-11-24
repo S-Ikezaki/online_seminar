@@ -21,7 +21,7 @@ public class Certification {
     @NotBlank
     private String password;
 
-    @OneToOne
-    private User user;
+    /*@OneToOne
+    private User user;*/
 }
 

@@ -22,12 +22,12 @@ public class Meeting {
     private String user_name;
     private int status;
 
-    @ManyToOne
+    /*@ManyToOne
     private Group group;
 
     @OneToMany
     List<MeetingMember> meetingMember;
 
     @OneToMany
-    List<MeetingChat> meetingChats;
+    List<MeetingChat> meetingChats;*/
 }

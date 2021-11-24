@@ -19,6 +19,6 @@ public class Enterprise {
 
     private String enterprise_name;
 
-    @OneToMany
-    private Employee employee;
+    /*@OneToMany
+    private Employee employee;*/
 }

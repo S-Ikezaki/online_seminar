@@ -26,6 +26,6 @@ public class GroupMessage {
     private String message_contents;
 
 
-    @ManyToOne
-    private Group group;
+    /*@ManyToOne
+    private Group group;*/
 }

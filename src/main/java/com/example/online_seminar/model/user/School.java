@@ -19,9 +19,9 @@ public class School {
 
     private String school_name;
 
-    @OneToMany
+    /*@OneToMany
     List<Teacher> teachers;
 
     @OneToMany
-    List<Student> students;
+    List<Student> students;*/
 }

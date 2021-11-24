@@ -16,9 +16,9 @@ public class Employee {
     private String enterprise_id;
     private String introduction;
 
-    @ManyToOne
+   /* @ManyToOne
     private User user;
 
     @ManyToOne
-    private Enterprise enterprise;
+    private Enterprise enterprise;*/
 }

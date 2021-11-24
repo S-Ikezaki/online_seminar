@@ -25,6 +25,6 @@ public class File {
     private Date create_datetime;
     private String group_id;
 
-    @ManyToOne
-    private Group group;
+    /*@ManyToOne
+    private Group group;*/
 }
