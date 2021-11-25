@@ -3,8 +3,10 @@ package com.example.online_seminar.controller;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +27,9 @@ public class GroupController {
 
     @GetMapping("/group/showGroupList")
     @ResponseBody
-    public List<Group> showGroupList(){
+    public List<Group> showGroupList(Model model, HttpSession session){
         //全件取得
+        session.setAttribute("");
        return groupRepository.findAll();
     }
 

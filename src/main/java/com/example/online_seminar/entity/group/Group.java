@@ -1,33 +1,34 @@
 package com.example.online_seminar.entity.group;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.example.online_seminar.entity.tag.TagGroup;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "group_mst")
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
-public class Group  {
+@Table(name="group_mst")
+public class Group implements Serializable {
     @Id
-    @NotBlank
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String groupId;
+    @Column(name = "group_id",nullable = false)
+    private Long groupId;
 
-    @NotNull
+    @Column(name = "group_name",nullable = false)
     private String groupName;
 
-    @NotNull
+    @Column(name = "role",nullable = false)
     private int role;
 
     private String groupBio;
 
-    /*@OneToMany
+    @OneToMany
     List<TagGroup> tagGroups;
 
     @OneToMany
@@ -40,6 +41,6 @@ public class Group  {
     List<GroupMessage> groupMessages;
 
     @OneToMany
-    List<Meeting> meetings;*/
+    List<Meeting> meetings;
 
 }
