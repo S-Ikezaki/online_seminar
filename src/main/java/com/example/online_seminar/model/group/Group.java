@@ -1,6 +1,7 @@
 package com.example.online_seminar.model.group;
 
 import com.example.online_seminar.model.tag.TagGroup;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
-@Entity
+@Data
 public class Group implements Serializable {
     @Id
     @NotBlank
