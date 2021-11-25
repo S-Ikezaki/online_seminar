@@ -1,1 +1,1 @@
-insert into group_mst values ("1111","sampleSeminar",0,"サンプルのゼミです",0)
+insert into group_mst values ("1111","sampleSeminar",0,"サンプルのゼミです")
