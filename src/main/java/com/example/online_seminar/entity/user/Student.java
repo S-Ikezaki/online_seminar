@@ -1,29 +1,28 @@
-package com.example.online_seminar.model.user;
+package com.example.online_seminar.entity.user;
 
-import com.example.online_seminar.model.user.School;
-import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Getter
 @Setter
 @Entity
-public class Teacher implements Serializable {
+public class Student{
     @Id
     @NotBlank
     private String user_id;
 
     private String school_id;
-    private boolean permission_cd;
+    private int school_grade;
+    private Date graduation_date;
 
     /*@ManyToOne
-    private School school;
+    private Student student;
 
     @ManyToOne
     private User user;*/

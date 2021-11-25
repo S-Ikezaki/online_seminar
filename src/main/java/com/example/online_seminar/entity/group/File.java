@@ -1,31 +1,28 @@
-package com.example.online_seminar.model.group;
+package com.example.online_seminar.entity.group;
 
-import com.example.online_seminar.model.group.Group;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class GroupMessage implements Serializable {
+public class File {
     @Id
     @NotBlank
-    private String group_message_id;
+    private String file_id;
 
-    @Id
-    @NotBlank
-    private String group_id;
-
+    private String file_name;
+    private String file_pass;
+    private String user_id;
+    private String user_name;
     private Date create_datetime;
-    private String message_contents;
-
+    private String group_id;
 
     /*@ManyToOne
     private Group group;*/

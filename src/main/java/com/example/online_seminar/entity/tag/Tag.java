@@ -1,19 +1,17 @@
-package com.example.online_seminar.model.tag;
+package com.example.online_seminar.entity.tag;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Tag implements Serializable{
+public class Tag{
     @Id
     @NotBlank
     private int tag_id;

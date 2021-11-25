@@ -1,12 +1,10 @@
-package com.example.online_seminar.model.user;
+package com.example.online_seminar.entity.user;
 
-import com.example.online_seminar.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
@@ -14,7 +12,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-public class DirectMessage implements Serializable {
+public class DirectMessage{
     @NotBlank
     @Id
     private String direct_message_id;
