@@ -4,31 +4,26 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@Entity
 @Data
+@Entity
 @Table(name = "teacher_mst")
 public class Teacher implements Serializable {
     @Id
     @Column(name = "user_id" ,nullable = false)
-    private String user_id;
+    private String userId;
 
     @Column(name = "school_id" ,nullable = false)
-    private String school_id;
+    private String schoolId;
 
     @Column(name = "permission_cd" ,nullable = false)
-    private boolean permission_cd;
+    private boolean permissionCd;
 
-    /*@ManyToOne
+    @ManyToOne
     private School school;
 
     @ManyToOne
-    private User user;*/
+    private User user;
 }

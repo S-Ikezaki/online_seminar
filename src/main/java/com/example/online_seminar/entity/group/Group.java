@@ -11,9 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@Table(name="group_mst")
+@Data
+@Table(name = "group_mst")
 public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
