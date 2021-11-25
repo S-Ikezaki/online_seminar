@@ -47,5 +47,27 @@ public class GroupController {
         return groupService.selectOne(groupId);
     }
 
+    //一件更新メソッド
+    @PostMapping("/updateOne")
+    public String updateOne(@RequestBody Group group) {
+        String result = "";
+        if (groupService.updateOne(group)) {
+            result = "一見更新";
+        } else {
+            result = "更新失敗";
+        }
+        return result;
+    }
 
+    //一件削除
+    @PostMapping("/deleteOne/{id:.+")
+    public String deleteOne(@PathVariable("id") String groupId){
+        String result = "";
+        if(groupService.deleteOne(groupId)){
+            result = "一件削除";
+        }else{
+            result = "削除しました";
+        }
+        return result;
+    }
 }
