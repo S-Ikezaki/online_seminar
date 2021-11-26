@@ -12,13 +12,13 @@ import java.util.List;
 @Table(name="user_mst")
 public class User implements Serializable {
     @Id
-    @Column(name = "user_id" ,nullable = false)
+    @Column(name = "user_id", nullable = false)
     private long userId;
 
-    @Column(name = "user_name" ,nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
-    @Column(name = "user_role" ,nullable = false)
+    @Column(name = "user_role", nullable = false)
     private int userRole;
 
     @OneToMany
