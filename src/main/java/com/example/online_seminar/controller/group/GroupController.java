@@ -87,6 +87,4 @@ public class GroupController {
         model.addAttribute("hoge",groupMemberRepository.findAll());
         return "hoge";
     }
-
-
 }
