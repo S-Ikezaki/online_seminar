@@ -1,12 +1,9 @@
 package com.example.online_seminar.entity.user;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
 @Data
 @Entity
 @Table(name = "teacher_mst")
@@ -20,6 +17,10 @@ public class Teacher implements Serializable {
 
     @Column(name = "permission_cd" ,nullable = false)
     private boolean permissionCd;
+
+    @Column(name = "role" ,nullable = false)
+    private boolean role;
+
 
     @ManyToOne
     private School school;
