@@ -1,26 +1,32 @@
 package com.example.online_seminar.entity.tag;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
-@Getter
-@Setter
+
 @Entity
+@Data
+@Table(name = "tag")
 public class Tag{
     @Id
-    @NotBlank
-    private int tag_id;
+    @Column(name = "tag_id",nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int tagId;
 
-    private String tag_name;
+    private String tagName;
 
-    /*@OneToMany
+    @OneToMany
     List<TagUser> tagUsers;
 
     @OneToMany
-    List<TagRequest> tagRequests;*/
+    List<TagRequest> tagRequests;
+
+    @OneToMany
+    List<TagGroup> tagGroups;
 }
