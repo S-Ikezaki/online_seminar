@@ -1,12 +1,12 @@
 package com.example.online_seminar.entity.group;
 
+import lombok.CustomLog;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Currency;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
@@ -16,17 +16,21 @@ import java.sql.Date;
 @Table(name = "group_message")
 public class GroupMessage {
     @Id
-    @NotBlank
-    private String group_message_id;
+    @Column(name="group_message_id",nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long groupMessageId;
 
     @Id
-    @NotBlank
-    private String group_id;
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
+    private String groupId;
 
-    private Date create_datetime;
-    private String message_contents;
+    @Column(name="create_datetime")
+    private Date createDatetime;
+
+    @Column(name="message_contents")
+    private String messageContents;
 
 
-    /*@ManyToOne
-    private Group group;*/
+    @ManyToOne
+    private Group group;
 }

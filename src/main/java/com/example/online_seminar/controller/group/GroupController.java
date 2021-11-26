@@ -3,6 +3,7 @@ package com.example.online_seminar.controller.group;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMessage;
 import com.example.online_seminar.entity.tag.Tag;
+import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -33,6 +34,9 @@ public class GroupController {
 
     @Autowired
     private TagRepository tagRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /*@GetMapping("/add")
     public String addGroup(@ModelAttribute Group group){
@@ -108,5 +112,22 @@ public class GroupController {
         model.addAttribute("hoge", groupMessageRepository.findAll());
         return "hoge";
     }
+    //投稿削除
+    @PostMapping("/deleteGroupMessage")
+    public String deleteGroupMessage(@PathVariable Long groupMessageId) {
+        groupRepository.deleteById(groupMessageId);
+        return "hoge";
+    }
+
+    //教師による権限付与（情報更新）
+    @PostMapping("/updateStudentRole")
+    public String updateStudentRole(@RequestBody User user){
+        userRepository.save(user);
+        return "hoge";
+    }
+
+
+
+
 
 }
