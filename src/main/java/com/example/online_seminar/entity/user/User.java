@@ -1,12 +1,14 @@
 package com.example.online_seminar.entity.user;
 
 import com.example.online_seminar.entity.tag.TagUser;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name="user_mst")
 public class User implements Serializable {
     @Id
