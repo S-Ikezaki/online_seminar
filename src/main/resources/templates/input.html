@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>groupIdInput</title>
+</head>
+<body>
+    <form th:action="@{/group}" th:object="${group}" method="post">
+
+        <label for="group_id">グループID:</label>
+        <input type="text" th:field="*{group_id}"><br>
+
+        <button>確認</button>
+    </form>
+</body>
+</html>
