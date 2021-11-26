@@ -1,9 +1,9 @@
 package com.example.online_seminar.controller.group;
 
 import com.example.online_seminar.entity.group.Group;
-import com.example.online_seminar.repository.GroupMemberRepository;
-import com.example.online_seminar.repository.GroupRepository;
-import com.example.online_seminar.repository.TagGroupRepository;
+import com.example.online_seminar.entity.group.GroupMessage;
+import com.example.online_seminar.entity.tag.Tag;
+import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +26,13 @@ public class GroupController {
     private TagGroupRepository tagGroupRepository;
 
     @Autowired
+    private GroupMessageRepository groupMessageRepository;
+
+    @Autowired
     private GroupMemberRepository groupMemberRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     /*@GetMapping("/add")
     public String addGroup(@ModelAttribute Group group){
@@ -87,4 +93,20 @@ public class GroupController {
         model.addAttribute("hoge",groupMemberRepository.findAll());
         return "hoge";
     }
+
+    //グループのタグを表示
+    @GetMapping("/showGroupTag")
+    public String showGroupTag(Model model,Group group) {
+        model.addAttribute("hoge", tagRepository.findByGroup(group));
+        return "hoge";
+    }
+
+    //投稿一覧取得
+    @GetMapping("/showGroupMessage")
+    @ResponseBody
+    public String showGroupMessage(Model model, GroupMessage groupMessage){
+        model.addAttribute("hoge", groupMessageRepository.findAll());
+        return "hoge";
+    }
+
 }
