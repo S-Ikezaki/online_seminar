@@ -1,32 +1,29 @@
 package com.example.online_seminar.entity.tag;
 
+import com.example.online_seminar.entity.group.Group;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-@Getter
-@Setter
 @Entity
+@Data
+@Table(name = "tag_group")
 public class TagGroup{
     @Id
-    @NotBlank
-    private int id;
+    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id")
+    private int tagId;
 
     @Id
-    @NotBlank
-    private int tag_id;
+    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
+    private String groupId;
 
-    @Id
-    @NotBlank
-    private String group_id;
-
-   /* @ManyToOne
+    @ManyToOne
     private Tag tag;
 
     @ManyToOne
-    private Group group;*/
+    private Group group;
 }
