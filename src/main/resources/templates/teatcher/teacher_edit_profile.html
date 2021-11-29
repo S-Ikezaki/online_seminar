@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>プロフィール編集</title>
+</head>
+<body>
+<!-- サイドバーの表示 -->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
+
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside bg-light">
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+    </div>
+</main>
+<h1>プロフィール編集</h1>
+<form th:action="@{/User/editUserPassword}" th:object="${certification}" method="post">
+        <label>変更前パスワード:[[${certification.password}]]</label>
+        <input type="text" th:field="*{password}"><br>
+    <input type="submit" value="変更">
+</form>
+<form th:action="@{/User/editUserTag}" th:object="${tagUser}" method="post">
+    <table>
+        <tr><td>タグ</td></tr>
+    <tr th:if="${!#lists.isEmpty(tagUsers)}" th:each="tagUser : ${tagUsers}">
+        <td th:text="${tagUser.tagname}"></td>
+    </tr>
+    </table>
+    <input type="text" th:field="*{tagName}">
+    <input type="submit" value="タグ登録">
+</form>
+
+
+</body>
+</html>
