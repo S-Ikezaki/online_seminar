@@ -1,13 +1,12 @@
 package com.example.online_seminar.entity.user;
 
+import com.example.online_seminar.entity.tag.TagRequest;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,12 +16,17 @@ public class Request implements Serializable {
     @Column(name = "request_id" ,nullable = false)
     private long requestId;
 
-    @Id
-    @Column(name = "user_id" ,nullable = false)
-    private long createUserId;
+    @JoinColumn(name = "user_id" ,nullable = false,referencedColumnName = "user_id")
+    private long requestUserId;
+
+    @JoinColumn(name = "user_id",nullable = false,referencedColumnName = "teacher_id")
+    private long teacherId;
+
+    @JoinColumn(name = "group_id",nullable = false,referencedColumnName = "group_id")
+    private long groupId;
 
     @Column(name = "user_name")
-    private String createUserName;
+    private String requestUserName;
 
     @Column(name = "request_content" ,nullable = false)
     private String requestContent;
@@ -30,9 +34,9 @@ public class Request implements Serializable {
     @Column(name = "request_datetime" ,nullable = false)
     private Date requestDatetime;
 
-   /* @ManyToOne
+    @ManyToOne
     private User user;
 
     @OneToMany
-    List<TagRequest> tagRequestList;*/
+    List<TagRequest> tagRequestList;
 }
