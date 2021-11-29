@@ -78,7 +78,7 @@ public class UserController {
             @RequestParam() String password,
             Model model
     ) {
-        certificationRepository.save()
+        certificationRepository.save();
     }
 
     public String usersGroup() {
