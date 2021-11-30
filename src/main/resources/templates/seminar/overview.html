@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <style>
+        body {
+            background-color: darkturquoise;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 80px;
+
+            border-collapse: separate;
+            border-spacing: 50px;
+        }
+
+        .button {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    </style>
+    <title>seminarIndex</title>
+</head>
+<body>
+
+<form th:action="@{/group}" th:object="${GroupList}">
+    <table style="font-size: 20pt;">
+        <tr style="font-size: 40pt" th:each="list : ${GroupList}">
+        <th th:text="${list.getGrooup_name()}"></th>
+        </tr>
+        <tr th:each="list : ${GroupList}">
+            <td th:text="${list.getGroup_bio()}"></td>
+        </tr>
+    </table>
+
+    <div align="center"><button type="button" onclick="location.href='後で作成するゼミ参加申請のURL'">ゼミ参加申請</button>
+         <button type="button" onclick="location.href='後で作成する検索画面のURL'">検索画面に戻る</button>
+    </div>
+</form>
+</body>
+</html>

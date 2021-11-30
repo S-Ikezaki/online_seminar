@@ -84,12 +84,16 @@ public class UserController {
             @ModelAttribute() String password,
             Model model
     ) {
+<<<<<<< HEAD
         Certification certification = new Certification();
         certification.setUserId(userId);
         certification.setPassword(password);
         certificationRepository.save(certification);
 
         return "";
+=======
+        certificationRepository.save();
+>>>>>>> efbd7f114c76047f9da43ac6c28b19ffedfcdcb8
     }
 
     // ユーザが所属しているグループを取得

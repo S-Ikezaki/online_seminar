@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: bisque;
+        }
+        button {
+            width: 50%;
+            min-width: 50px;
+            max-width: 100px;
+            padding: 10px;
+            background-color: chartreuse;
+            cursor: pointer;
+        }
+        .center{
+            margin-left: auto;
+            margin-right: auto;
+
+            justify-content: center;
+        }
+    </style>
+    <title>join apply</title>
+</head>
+<body>
+<div class="center">
+    <h2>参加申請画面</h2>
+</div>
+<form th:action="@{/DM}" th:object="${DM}" >
+        <textarea name="comment" cols="120" rows="30" placeholder="コメント">
+        </textarea><br>
+
+    <div align="right">
+        <button type="button" name="apply"> 申請 </button>
+        <button type="button" name="back"> 戻る </button>
+    </div>
+</form>
+
+</body>
+</html>
