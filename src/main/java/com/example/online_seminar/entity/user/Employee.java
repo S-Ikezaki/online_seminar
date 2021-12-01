@@ -2,10 +2,7 @@ package com.example.online_seminar.entity.user;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -23,9 +20,9 @@ public class Employee implements Serializable {
 //    private String introduction;  // 紹介文（いる？）
 
 
-   /* @ManyToOne
+    @ManyToOne
     private User user;
 
     @ManyToOne
-    private Enterprise enterprise;*/
+    private Enterprise enterprise;
 }
