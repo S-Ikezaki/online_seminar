@@ -2,10 +2,7 @@ package com.example.online_seminar.entity.user;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -19,6 +16,6 @@ public class Enterprise implements Serializable {
     @Column(name = "enterprise_name" ,nullable = false)
     private String enterpriseName;
 
-    /*@OneToMany
-    private Employee employee;*/
+    @OneToMany
+    private Employee employee;
 }

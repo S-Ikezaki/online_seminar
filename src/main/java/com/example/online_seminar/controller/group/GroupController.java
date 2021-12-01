@@ -15,28 +15,35 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-//HTTPを受け取るクラス
 @RestController
 @RequestMapping("groups")
 public class GroupController {
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private TagGroupRepository tagGroupRepository;
+    private final TagGroupRepository tagGroupRepository;
 
-    @Autowired
-    private GroupMessageRepository groupMessageRepository;
+    private final GroupMessageRepository groupMessageRepository;
 
-    @Autowired
-    private GroupMemberRepository groupMemberRepository;
+    private final GroupMemberRepository groupMemberRepository;
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public GroupController(GroupRepository groupRepository,
+                           TagGroupRepository tagGroupRepository,
+                           GroupMessageRepository groupMessageRepository,
+                           GroupMemberRepository groupMemberRepository,
+                           TagRepository tagRepository,
+                           UserRepository userRepository) {
+        this.groupRepository = groupRepository;
+        this.tagGroupRepository = tagGroupRepository;
+        this.groupMessageRepository = groupMessageRepository;
+        this.groupMemberRepository = groupMemberRepository;
+        this.tagRepository = tagRepository;
+        this.userRepository = userRepository;
+    }
 
     /*@GetMapping("/add")
     public String addGroup(@ModelAttribute Group group){
@@ -45,7 +52,8 @@ public class GroupController {
 
     //グループの一件追加用メソッド
     @GetMapping("/addGroup")
-    public String addGroup(@Validated @ModelAttribute Group group, Model model, BindingResult result){
+    public String addGroup(@Validated @ModelAttribute Group group,
+                           Model model, BindingResult result){
         model.addAttribute("groups",groupRepository.findAll());
         if(result.hasErrors()){
             return "hoge";

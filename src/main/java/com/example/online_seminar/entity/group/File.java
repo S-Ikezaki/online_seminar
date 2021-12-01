@@ -35,6 +35,7 @@ public class File {
     @JoinColumn(name = "group_id",nullable = false,referencedColumnName = "group_id")
     private String groupId;
 
-    /*@ManyToOne
-    private Group group;*/
+    @ManyToOne
+    private Group group;
+
 }
