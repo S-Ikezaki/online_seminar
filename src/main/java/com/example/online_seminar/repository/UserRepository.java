@@ -12,7 +12,6 @@ public interface UserRepository  extends JpaRepository<User,Long> {
     //グループで検索するメソッド
     List<User> findByGroup(Group group);
 
-    //タグでユーザーを検索するメソッド
-    @Query(name = "User.searchByTagNqVariable" ,nativeQuery = true)
-    Collection<User> searchByTagNqVariable(String tag);
+    @Query(name = "User.searchByTagNqVariable",nativeQuery = true)
+    Collection<User> searchByTagNqVariable(String Tag);
 }
