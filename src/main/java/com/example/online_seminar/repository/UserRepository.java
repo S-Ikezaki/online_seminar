@@ -12,10 +12,16 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     //何らかのタグを持つユーザーのタグ名とユーザー名を一覧表示
     @Query(name = "User.findByTagNqVariable",nativeQuery = true)
-    List<User> findStudentByTagNqVariable(String Tag);
+    List<User> findByTagNq(String Tag);
+
+    @Query(name = "User.findByUserRoleVariable")
+    List<User> findByUserRole(String userRole);
 
     @Query(name = "User.findStudentByRoleVariable")
     List<User> findStudentByRole(String userRole);
+
+    @Query(name = "User.findStudentByTagNqVariable",nativeQuery = true)
+    List<User> findStudentByTagNq(String Tag);
 
     @Query(name = "User.findStudentAllInfoByTagNqVariable",nativeQuery = true)
     List<User> findStudentAllInfoByTagNq(String Tag);
@@ -24,6 +30,20 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findStudentInGroupByRoleNq(String userRole);
 
     @Query(name = "User.findTeacherByRoleVariable")
-    List<User> findTeacherByRoleVariable(String userRole);
+    List<User> findTeacherByRole(String userRole);
+
+    @Query(name = "User.findTeacherByTagNqVariable",nativeQuery = true)
+    List<User> findTeacherByTagNq(String Tag);
+
+    @Query(name = "User.findTeacherAllInfoByTagNqVariable",nativeQuery = true)
+    List<User> findTeacherAllInfoByTagNq(String Tag);
+
+    @Query(name = "User.findTeacherInGroupByRoleNqVariable",nativeQuery = true)
+    List<User> findTeacherInGroupByRoleNq(String userRole);
+
+    @Query(name = "User.findEmployeeByRoleVariable")
+    List<User> findEmployeeByRole(String userRole);
+
+
 
 }
