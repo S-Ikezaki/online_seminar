@@ -41,6 +41,30 @@ public class UserController {
         return "";
     }
 
+    //ユーザ一覧表示
+    @GetMapping("/showUserList")
+    @ResponseBody
+    public String showUserList(Model model) {
+        model.addAttribute("", userRepository.findAll());
+        return "";
+    }
+
+    // 学生一覧表示
+    @GetMapping("/showUserList/{role}")
+    @ResponseBody
+    public String showStudentList(Model model, @PathVariable("role") String role) {
+        model.addAttribute("", userRepository.findStudentByRole(role));
+        return "";
+    }
+
+    // 教師一覧表示
+    @GetMapping("/showUserList/{role}")
+    @ResponseBody
+    public String showTeacherList(Model model, @PathVariable("role") String role) {
+        model.addAttribute("", userRepository.findTeacherByRole(role));
+        return "";
+    }
+
     // ユーザ一件追加
     @PostMapping("/add")
     public String addUser(
