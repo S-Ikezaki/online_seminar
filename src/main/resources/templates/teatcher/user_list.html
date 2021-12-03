@@ -55,13 +55,14 @@
         <td th:text="${user.schoolName}"></td>
         <td th:text="${user.grade}"></td>
         <td th:text="${user.graduationDate}"></td>
+        <!--                userの値を持ったままedit_accountに飛ばしてほしいです、後で修正するかも-->
         <form th:action="@{/User/editAccount}" method="post">
             <button type="submit">編集</button>
-            <input type="hidden" th:value="${user.id}" name="id">
+            <input type="hidden" th:value="${user}">
         </form>
         <form th:action="@{/User/userDelete}" method="post">
             <button class="delete-action" type="submit">削除</button>
-            <input type="hidden" th:value="${user.id}" name="id">
+            <input type="hidden" th:value="${user}">
         </form>
     </tr>
     </tbody>
@@ -85,17 +86,17 @@
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.schoolName}"></td>
-<!--                <td th:text="${user.grade}"></td>-->
                 <td th:if="${user.AdminRole() == true}">
                     あり
                 </td>
+<!--                userの値を持ったままedit_accountに飛ばしてほしいです、後で修正するかも-->
                 <form th:action="@{/User/editAccount}" method="post">
                     <button type="submit">編集</button>
-                    <input type="hidden" th:value="${user.id}" name="id">
+                    <input type="hidden" th:value="${user}">
                 </form>
                 <form th:action="@{/User/userDelete}" method="post">
                     <button class="delete-action" type="submit">削除</button>
-                    <input type="hidden" th:value="${user.id}" name="id">
+                    <input type="hidden" th:value="${user}">
                 </form>
                 </tr>
                 </tbody>
@@ -118,13 +119,14 @@
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.enterpriseName}"></td>
+<!--                userの値を持ったままedit_accountに飛ばしてほしいです、後で修正するかも-->
                 <form th:action="@{/User/editAccount}" method="post">
                     <button type="submit">編集</button>
-                    <input type="hidden" th:value="${user.id}" name="id">
+                    <input type="hidden" th:value="${user}">
                 </form>
                 <form th:action="@{/User/userDelete}" method="post">
                     <button class="delete-action" type="submit">削除</button>
-                    <input type="hidden" th:value="${user.id}" name="id">
+                    <input type="hidden" th:value="${user}">
                 </form>
                 </tr>
                 </tbody>
