@@ -13,14 +13,11 @@ import java.util.Optional;
 
 public interface GroupRepository extends JpaRepository<Group,Long>{
     //名前で検索するメソッド
-    @Query(name = "Group.searchByNameVariable")
-    Collection<Group> findByName(String name);
+    @Query(name = "Group.findByNameVariable")
+    List<Group> findByName(String name);
 
     //タグで検索するメソッド
-    @Query(name = "Group.searchByTagVariable")
-    Collection<Group> findByTag(Tag tagName);
-
-
-
+    @Query(name = "Group.findByTagNqVariable",nativeQuery = true)
+    List<Group> findByTagNq(Tag tagName);
 
 }
