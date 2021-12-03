@@ -1,6 +1,5 @@
 package com.example.online_seminar.controller.user;
 
-import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.user.Certification;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.CertificationRepository;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("users")
@@ -71,7 +68,7 @@ public class UserController {
         return "";
     }
 
-    @RequestMapping()
+//    @RequestMapping()
     // ユーザ（卒業した学生）複数削除
 //    public String deleteMultiUser(){
 //        Date date = new Date();
@@ -84,25 +81,21 @@ public class UserController {
             @ModelAttribute() String password,
             Model model
     ) {
-<<<<<<< HEAD
         Certification certification = new Certification();
         certification.setUserId(userId);
         certification.setPassword(password);
         certificationRepository.save(certification);
 
         return "";
-=======
-        certificationRepository.save();
->>>>>>> efbd7f114c76047f9da43ac6c28b19ffedfcdcb8
     }
 
     // ユーザが所属しているグループを取得
     @RequestMapping("/")
     public String usersGroup(User user, Model model) {
 
-        List<Group> groups = groupRepository.findByUser(user);
+//        List<Group> groups = groupRepository.findByUser(user);
 
-        model.addAttribute(groups);
+//        model.addAttribute(groups);
         return "";
     }
 
