@@ -20,7 +20,7 @@ public class Group implements Serializable {
     private String groupName;
 
     @Column(name = "role",nullable = false)
-    private int role;
+    private int groupRole;
 
     private String groupBio;
 

@@ -16,7 +16,7 @@ public class Teacher implements Serializable {
     private String schoolId;
 
     @Column(name = "permission_cd" ,nullable = false)
-    private boolean role;
+    private boolean teacherRole;
 
 
     @ManyToOne
