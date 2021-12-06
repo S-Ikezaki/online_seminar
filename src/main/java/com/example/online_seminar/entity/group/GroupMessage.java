@@ -13,12 +13,12 @@ import java.sql.Date;
 
 @Data
 @Entity
-@Table(name = "group_message")
+@Table(name = "group_message_mst")
 public class GroupMessage {
     @Id
     @Column(name="group_message_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupMessageId;
+    private String groupMessageId;
 
     @Id
     @JoinColumn(name="group_id",referencedColumnName = "group_id")

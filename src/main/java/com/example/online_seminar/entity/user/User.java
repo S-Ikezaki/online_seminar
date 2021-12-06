@@ -13,7 +13,7 @@ import java.util.List;
 public class User implements Serializable {
     @Id
     @Column(name = "user_id", nullable = false)
-    private long userId;
+    private String userId;
 
     @Column(name = "user_name", nullable = false)
     private String userName;

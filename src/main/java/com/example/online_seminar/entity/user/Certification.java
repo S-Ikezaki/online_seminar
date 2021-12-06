@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Certification implements Serializable {
     @Id
     @Column(name = "user_id" ,nullable = false)
-    private long userId;
+    private String userId;
 
     @Column(name = "password" ,nullable = false)
     private String password;

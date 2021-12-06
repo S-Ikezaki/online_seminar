@@ -14,16 +14,10 @@ import java.util.List;
 public class Request implements Serializable {
     @Id
     @Column(name = "request_id" ,nullable = false)
-    private long requestId;
+    private String requestId;
 
     @JoinColumn(name = "user_id" ,nullable = false,referencedColumnName = "user_id")
-    private long requestUserId;
-
-    @JoinColumn(name = "user_id",nullable = false,referencedColumnName = "teacher_id")
-    private long teacherId;
-
-    @JoinColumn(name = "group_id",nullable = false,referencedColumnName = "group_id")
-    private long groupId;
+    private String requestUserId;
 
     @Column(name = "user_name")
     private String requestUserName;
