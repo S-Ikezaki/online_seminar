@@ -10,9 +10,9 @@
 <form>
     <table>
         <tr th:each="${Request}">
-        <th th:text="${Request.getRequest_user_id}">リクエスト申請者</th>
-        <th th:text="${Request.getRequest_content}">申請内容</th>
-        <th th:text="${Tag.GetTag_requests}">タグ名</th>
+            <th th:text="${Request.getRequest_user_id}">リクエスト申請者</th>
+            <th th:text="${Request.getRequest_content}">申請内容</th>
+            <th th:text="${Tag.GetTag_requests}">タグ名</th>
         </tr>
     </table>
 </form>
