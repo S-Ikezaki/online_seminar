@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudentController {
 
     private final UserRepository userRepository;
-    private final CertificationRepository certificationRepository
+    private final CertificationRepository certificationRepository;
 
     public StudentController(
             UserRepository userRepository,
