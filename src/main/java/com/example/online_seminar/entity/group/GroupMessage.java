@@ -15,7 +15,7 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "group_message_mst")
-public class GroupMessage {
+public class GroupMessage implements Serializable {
     @Id
     @Column(name="group_message_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

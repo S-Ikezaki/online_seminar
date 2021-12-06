@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "tag_user_mst")
-public class TagUser{
+public class TagUser implements Serializable{
     @Id
     @Column(name = "tag_id",nullable = false)
     private int tagId;
