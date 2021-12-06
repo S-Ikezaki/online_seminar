@@ -31,7 +31,7 @@ public class DirectMessage implements Serializable {
     @Column(name = "address_user_name" ,nullable = false)
     private String addressUserName;
 
-    @Column(name = "direct_message_content" ,nullable = false)
+    @Column(name = "direct_message_contents" ,nullable = false)
     private String directMessageContent;
 
     @Column(name = "create_datetime" ,nullable = false)
