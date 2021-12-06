@@ -1,10 +1,10 @@
-package com.example.online_seminar.controller;
+package com.example.online_seminar.controller.user;
 
+import com.example.online_seminar.entity.user.Certification;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.CertificationRepository;
 import com.example.online_seminar.repository.GroupRepository;
 import com.example.online_seminar.repository.UserRepository;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,24 +41,45 @@ public class UserController {
         return "";
     }
 
-    public String usersGroup() {
+    //ユーザ一覧表示
+    @GetMapping("/showUserList")
+    @ResponseBody
+    public String showUserList(Model model) {
+        model.addAttribute("", userRepository.findAll());
+        return "";
+    }
 
+    // 学生一覧表示
+    @GetMapping("/showUserList/{role}")
+    @ResponseBody
+    public String showStudentList(Model model, @PathVariable("role") String role) {
+        model.addAttribute("", userRepository.findStudentByRole(role));
+        return "";
+    }
+
+    // 教師一覧表示
+    @GetMapping("/showUserList/{role}")
+    @ResponseBody
+    public String showTeacherList(Model model, @PathVariable("role") String role) {
+        model.addAttribute("", userRepository.findTeacherByRole(role));
+        return "";
     }
 
     // ユーザ一件追加
     @PostMapping("/add")
     public String addUser(
-            @RequestParam() String userName,
-            @RequestParam() int userRole,
+            @ModelAttribute() String userName,
+            @ModelAttribute() int userRole,
             Model model
     ){
         User user = new User();
-        user.setUserId();
+        user.setUserId(12);
         user.setUserName(userName);
         user.setUserRole(userRole);
         userRepository.save(user);
 
         model.addAttribute("user", user);
+        return "";
     }
 
     // ユーザ一件削除
@@ -71,18 +92,35 @@ public class UserController {
         return "";
     }
 
+//    @RequestMapping()
+    // ユーザ（卒業した学生）複数削除
+//    public String deleteMultiUser(){
+//        Date date = new Date();
+//    }
+
     // パスワード更新
     @PostMapping("updatepass")
     public String updatePassword(
-            @RequestParam() long userId,
-            @RequestParam() String password,
+            @ModelAttribute() long userId,
+            @ModelAttribute() String password,
             Model model
     ) {
-        certificationRepository.save();
+        Certification certification = new Certification();
+        certification.setUserId(userId);
+        certification.setPassword(password);
+        certificationRepository.save(certification);
+
+        return "";
     }
 
-    public String usersGroup() {
+    // ユーザが所属しているグループを取得
+    @RequestMapping("/")
+    public String usersGroup(User user, Model model) {
 
+//        List<Group> groups = groupRepository.findByUser(user);
+
+//        model.addAttribute(groups);
+        return "";
     }
 
 }
