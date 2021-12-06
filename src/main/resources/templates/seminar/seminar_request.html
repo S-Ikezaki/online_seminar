@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>request</title>
+</head>
+<body>
+    <h2>ゼミ作成リクエスト</h2>
+
+<form>
+    <table>
+        <tr th:each="${Request}">
+        <th th:text="${Request.getRequest_user_id}">リクエスト申請者</th>
+        <th th:text="${Request.getRequest_content}">申請内容</th>
+        <th th:text="${Tag.GetTag_requests}">タグ名</th>
+        </tr>
+    </table>
+</form>
+
+<form>
+    <button type="button" onclick="location.href='後で作成するメニュー画面のURL'">メニュー画面に戻る</button>
+</form>
+
+<form>
+    <button type="button" onclick="location.href='seminar_request_completed.html'">リクエスト掲示</button>
+</form>
+
+</body>
+</html>

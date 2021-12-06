@@ -101,7 +101,7 @@ public class UserController {
     // パスワード更新
     @PostMapping("updatepass")
     public String updatePassword(
-            @ModelAttribute() long userId,
+            @ModelAttribute() String userId,
             @ModelAttribute() String password,
             Model model
     ) {

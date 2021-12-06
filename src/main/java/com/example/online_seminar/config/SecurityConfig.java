@@ -7,12 +7,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private UserDetailsService userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -21,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web)throws Exception{
-        web.ignoring().antMatchers("/css/**","/img/**","/webjars/**");
+        web.ignoring().antMatchers("/js/**","/css/**","/img/**","/webjars/**");
     }
 
     @Override
@@ -35,21 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("logout"))
-                .and()
-                .rememberMe();
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder().encode("password"))
-                .authorities("ROLE_ADMIN")
-                .and()
-                .withUser("user")
-                .password(passwordEncoder().encode("password"))
-                .authorities("ROLE_USER");
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 }
