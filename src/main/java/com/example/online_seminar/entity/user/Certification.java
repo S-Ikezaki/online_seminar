@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "certification_mst")
-
 public class Certification implements Serializable{
     @Id
     @Column(name = "user_id", nullable = false)
