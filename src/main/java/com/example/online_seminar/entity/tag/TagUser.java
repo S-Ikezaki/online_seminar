@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(name = "tag_user_mst")
 public class TagUser{
     @Id
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
+    @Column(name = "tag_id",nullable = false)
     private int tagId;
 
     @Id
