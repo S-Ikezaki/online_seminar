@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(name = "tag_user_mst")
 public class TagUser implements Serializable{
     @Id
-    @Column(name = "tag_id", nullable = false)
+    @Column(name = "tag_id",nullable = false)
     private int tagId;
 
     @Id

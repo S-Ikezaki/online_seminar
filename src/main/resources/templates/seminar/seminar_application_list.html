@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>application list</title>
+</head>
+<body>
+    <h2>ゼミ参加申請一覧</h2>
+
+<form>
+    <table>
+        <tr th:each="Participation">
+            <td th:text="${Participation.getCreate_user_id}">申請者ID:</td>
+        </tr>
+        <tr>
+            <td th:text="${Participation.getCreate_user_name}">申請者名:</td>
+        </tr>
+        <tr>
+            <td th:text="${Participation.getParticipation_contents}">申請内容:</td>
+        </tr>
+        <tr>
+            <td><button type="button">許可</button></td>
+            <td><button type="button">拒否</button></td>
+        </tr>
+    </table>
+</form>
+
+<button type="button" onclick="location.href='seminar_menu_teacher.html'">ゼミメニュー</button>
+<button type="button" onclick="location.href='seminar_member_list_teacher.html'">ゼミメンバー一覧</button>
+
+</body>
+</html>
