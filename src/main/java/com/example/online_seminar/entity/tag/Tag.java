@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "tag")
+@Table(name = "tag_mst")
 public class Tag{
     @Id
     @Column(name = "tag_id",nullable = false)
@@ -23,11 +23,14 @@ public class Tag{
     private String tagName;
 
     @OneToMany
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
     List<TagUser> tagUsers;
 
     @OneToMany
-    List<TagRequest> tagRequests;
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
+    List<TagRequest> tagRequestList;
 
     @OneToMany
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
     List<TagGroup> tagGroups;
 }

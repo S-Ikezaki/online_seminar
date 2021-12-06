@@ -21,8 +21,10 @@ public class Employee implements Serializable {
 
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "enterprise_id",referencedColumnName = "enterprise_id")
     private Enterprise enterprise;
 }

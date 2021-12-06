@@ -20,8 +20,10 @@ public class Teacher implements Serializable {
 
 
     @ManyToOne
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
     private School school;
 
     @ManyToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 }

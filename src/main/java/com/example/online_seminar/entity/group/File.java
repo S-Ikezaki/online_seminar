@@ -23,19 +23,17 @@ public class File {
     @Column(name = "file_pass",nullable = false)
     private String filePass;
 
-    @JoinColumn(name = "user_id",nullable = false,referencedColumnName = "user_id")
-    private String userId;
-
     @Column(name = "user_name")
     private String userName;
 
     @Column(name = "create_datetime")
     private Date createDatetime;
 
-    @JoinColumn(name = "group_id",nullable = false,referencedColumnName = "group_id")
+    @Column(name = "group_id",nullable = false)
     private String groupId;
 
     @ManyToOne
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     private Group group;
 
 }

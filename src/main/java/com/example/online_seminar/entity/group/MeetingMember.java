@@ -1,31 +1,29 @@
 package com.example.online_seminar.entity.group;
 
+import com.example.online_seminar.entity.user.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
 
-@Getter
-@Setter
 @Entity
+@Data
+@Table(name = "meeting_member_mst")
 public class MeetingMember{
     @Id
-    @NotBlank
-    private String meeting_id;
-    @Id
-    @NotBlank
-    private String user_id;
+    @Column(name = "group_id")
+    private String groupId;
 
-    private Date user_name;
-
-    /*@ManyToOne
-    private Group group;
+    @Column(name = "user_name")
+    private Date userName;
 
     @ManyToOne
-    private User user;*/
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
+    private Group group;
+
 }
 

@@ -2,10 +2,7 @@ package com.example.online_seminar.entity.user;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -26,9 +23,11 @@ public class Student implements Serializable {
     @Column(name = "graduation_date" ,nullable = false)
     private Date graduationDate;
 
-    /*@ManyToOne
-    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
+    private School school;
 
     @ManyToOne
-    private User user;*/
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    private User user;
 }

@@ -22,21 +22,27 @@ public class Group implements Serializable {
     @Column(name = "role",nullable = false)
     private int groupRole;
 
+    @Column(name = "group_bio")
     private String groupBio;
 
     @OneToMany
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
     List<TagGroup> tagGroups;
 
     @OneToMany
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
     List<File> files;
 
     @OneToMany
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
     List<GroupMember> groupMembers;
 
     @OneToMany
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
     List<GroupMessage> groupMessages;
 
     @OneToMany
+    @JoinColumn(name="group_id",referencedColumnName = "group_id")
     List<Meeting> meetings;
 
 }
