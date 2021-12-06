@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Employee implements Serializable {
     @Id
     @Column(name = "user_id" ,nullable = false)
-    private long userId;
+    private String userId;
 
     @Column(name = "enterprise_id" ,nullable = false)
     private long enterpriseId;

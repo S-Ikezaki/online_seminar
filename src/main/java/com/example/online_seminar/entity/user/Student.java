@@ -15,7 +15,7 @@ import java.sql.Date;
 public class Student implements Serializable {
     @Id
     @Column(name = "user_id" ,nullable = false)
-    private long userId;
+    private String userId;
 
     @Column(name = "school_id" ,nullable = false)
     private String schoolId;

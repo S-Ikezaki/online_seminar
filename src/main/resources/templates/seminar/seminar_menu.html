@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>seminar menu</title>
+</head>
+<body>
+    <h4>投稿一覧</h4>
+
+<form>
+    <button type="submit">投稿</button>
+    <input type="text">
+</form>
+
+    <h4>会議</h4>
+
+<form>
+    参加者:<input type="text" th:each="${MeetingMember}"><br>
+    主催者:<input type="text" th:each="${Meeting}"><br>
+    <button type="submit">参加</button>
+</form>
+
+<form>
+    <button type="submit">新しく会議を始める</button>
+</form>
+
+<form>
+    <button type="submit">ファイル共有</button>
+</form>
+
+<form>
+    <button type="button" onclick="location.href='member_list.html'">メンバー一覧</button>
+</form>
+
+<form>
+    <button type="submit">メニューに戻る</button>
+</form>
+
+</body>
+</html>

@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Enterprise implements Serializable {
     @Id
     @Column(name = "enterprise_id" ,nullable = false)
-    private long enterpriseId;
+    private String enterpriseId;
 
     @Column(name = "enterprise_name" ,nullable = false)
     private String enterpriseName;
