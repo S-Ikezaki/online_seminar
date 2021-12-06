@@ -9,29 +9,32 @@
 
 <form>
     <table border="1">
-        <tr th:each="User"></tr>
+        <tr th:each="User">
         <th th:text="list.getUser_name">教師名</th>
+        </tr>
     </table>
 </form>
 
     <h4>部長</h4>
 <form>
     <table border="1">
-        <tr th:each="User"></tr>
+        <tr th:each="User">
         <th th:text="list.getUser_name">部長名</th>
+        </tr>
     </table>
 </form>
 
     <h4>学生</h4>
 <form>
     <table border="1">
-        <tr th:each="User"></tr>
+        <tr th:each="User">
         <th th:text="list.getUser_name">学生名</th>
+        </tr>
     </table>
 </form>
 
 <form>
-    <button type="button" onclick="location.href='menu.html'">ゼミメニューに戻る</button>
+    <button type="button" onclick="location.href='seminar_menu.html'">ゼミメニューに戻る</button>
 </form>
 
 </body>
