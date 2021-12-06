@@ -29,8 +29,7 @@ public class Request implements Serializable {
     private Date requestDatetime;
 
     @ManyToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
     private User user;
 
-    @OneToMany
-    List<TagRequest> tagRequestList;
 }

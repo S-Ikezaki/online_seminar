@@ -10,9 +10,9 @@
 <form>
     <table>
         <tr th:each="${Request}">
-        <th th:text="${Request.getRequest_user_id}">リクエスト申請者</th>
-        <th th:text="${Request.getRequest_content}">申請内容</th>
-        <th th:text="${Tag.GetTag_requests}">タグ名</th>
+            <th th:text="${Request.getRequest_user_id}">リクエスト申請者</th>
+            <th th:text="${Request.getRequest_content}">申請内容</th>
+            <th th:text="${Tag.GetTag_requests}">タグ名</th>
         </tr>
     </table>
 </form>
@@ -22,7 +22,7 @@
 </form>
 
 <form>
-    <button type="button" onclick="location.href='後で作成するリクエスト完了画面のURL'">リクエスト掲示</button>
+    <button type="button" onclick="location.href='seminar_request_completed.html'">リクエスト掲示</button>
 </form>
 
 </body>

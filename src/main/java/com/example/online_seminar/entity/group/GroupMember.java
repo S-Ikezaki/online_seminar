@@ -13,12 +13,13 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "group_member_mst")
-public class GroupMember {
+public class GroupMember implements Serializable {
     @Id
-    @JoinColumn(name = "group_id",nullable = false,referencedColumnName = "group_id")
+    @Column(name = "group_id")
     private String groupId;
+
     @Id
-    @JoinColumn(name = "user_id",nullable = false,referencedColumnName = "user_id")
+    @Column(name = "user_id")
     private String userId;
 
     @Column(name = "user_name",nullable = false)
@@ -28,8 +29,10 @@ public class GroupMember {
     private int groupRole = 0;
 
     @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
     private Group group;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 }

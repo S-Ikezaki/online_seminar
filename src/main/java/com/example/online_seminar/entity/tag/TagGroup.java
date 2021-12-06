@@ -11,19 +11,21 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "tag_group")
-public class TagGroup{
+@Table(name = "tag_group_mst")
+public class TagGroup implements Serializable{
     @Id
-    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id")
+    @Column(name = "tag_id", nullable = false)
     private int tagId;
 
     @Id
-    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
+    @Column(name = "group_id", nullable = false)
     private String groupId;
 
     @ManyToOne
+    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id")
     private Tag tag;
 
     @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
     private Group group;
 }

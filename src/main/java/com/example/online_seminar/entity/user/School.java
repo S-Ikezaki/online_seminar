@@ -2,11 +2,9 @@ package com.example.online_seminar.entity.user;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,9 +17,11 @@ public class School implements Serializable {
     @Column(name = "school_name")
     private String schoolName;
 
-    /*@OneToMany
-    List<Teacher> teachers;
+    @OneToMany
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
+    List<Teacher> teacher;
 
     @OneToMany
-    List<Student> students;*/
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
+    List<Student> student;
 }

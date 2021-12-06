@@ -22,23 +22,32 @@ public class User implements Serializable {
     private int userRole;
 
     @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     List<Student> students;
 
     @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     List<Teacher> teachers;
 
     @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     List<Employee> employees;
 
     @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     List<TagUser> tagUsers;
 
     @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     List<Request> requests;
 
     @OneToMany
+    @JoinColumn(name="create_user_id",referencedColumnName = "user_id")
+    //@JoinColumn(name="address_user_id",referencedColumnName = "user_id")
+    //宛先が難しいです
     List<DirectMessage> directMessages;
 
     @OneToOne
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     private Certification certification;
 }

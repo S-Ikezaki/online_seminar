@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,5 +18,6 @@ public class Enterprise implements Serializable {
     private String enterpriseName;
 
     @OneToMany
-    private Employee employee;
+    @JoinColumn(name = "user_id",referencedColumnName = "enterprise_id")
+    List<Employee> employee;
 }

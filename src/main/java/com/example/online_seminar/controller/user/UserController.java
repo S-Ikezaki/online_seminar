@@ -73,7 +73,7 @@ public class UserController {
             Model model
     ){
         User user = new User();
-        user.setUserId(12);
+        user.setUserId("12");
         user.setUserName(userName);
         user.setUserRole(userRole);
         userRepository.save(user);
@@ -101,7 +101,7 @@ public class UserController {
     // パスワード更新
     @PostMapping("updatepass")
     public String updatePassword(
-            @ModelAttribute() long userId,
+            @ModelAttribute() String userId,
             @ModelAttribute() String password,
             Model model
     ) {

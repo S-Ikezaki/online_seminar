@@ -15,9 +15,10 @@ public class SecurityController {
 
 
     @GetMapping("/")
-    public String showList(Authentication loginUser, Model model){
+    public String showMenu(Authentication loginUser, Model model){
         model.addAttribute("username",loginUser.getName());
         model.addAttribute("role",loginUser.getAuthorities());
         return "user";
     }
+
 }

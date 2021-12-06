@@ -2,10 +2,7 @@ package com.example.online_seminar.entity.user;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -37,6 +34,10 @@ public class DirectMessage implements Serializable {
     @Column(name = "create_datetime" ,nullable = false)
     private Date createDatetime;
 
-    /*@ManyToOne
-    private User user;*/
+    @ManyToOne
+    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id")
+    //@JoinColumn(name = "address_user_id",referencedColumnName = "user_id")
+    //宛先が難しいです
+    private User user;
+
 }

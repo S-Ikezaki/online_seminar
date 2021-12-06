@@ -1,31 +1,28 @@
 package com.example.online_seminar.entity.group;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Currency;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Data
+@Table(name = "meeting_mst")
 public class Meeting{
     @Id
-    @NotBlank
-    private String meeting_id;
+    @Column(name = "group_id",nullable = false)
+    private String groupId;
 
-    private String group_id;
-    private String user_name;
-    private int status;
+    @Column(name = "user_name")
+    private String userName;
 
-    /*@ManyToOne
+    @ManyToOne
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     private Group group;
 
-    @OneToMany
-    List<MeetingMember> meetingMember;
-
-    @OneToMany
-    List<MeetingChat> meetingChats;*/
 }
