@@ -14,7 +14,7 @@ public class Employee implements Serializable {
     private String userId;
 
     @Column(name = "enterprise_id" ,nullable = false)
-    private long enterpriseId;
+    private String enterpriseId;
 
 //    @Column(name = "introduction" ,nullable = false)
 //    private String introduction;  // 紹介文（いる？）

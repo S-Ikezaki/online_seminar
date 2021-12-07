@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+<form action="" method="get">
+    <table>
+        <tr>
+            <td><h6>ゼミ名</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.getGroup_name}">seminar_name</td>
+            <td><button type="button" onclick="location.href='seminar_delete.html'">ゼミ削除</button></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td><h6>ゼミ概要</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.getGroup_bio}">seminar_bio</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td><h6>タグ</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.getTag_groups}">tag</td>
+        </tr>
+    </table>
+</form>
+
+<button type="button" onclick="history.back()">戻る</button>
+
+<form action="" method="post">
+    <button type="button" onclick="location.href='../teacher/teacher_seminar_menu.html'">変更完了</button>
+</form>
+
+</body>
+</html>

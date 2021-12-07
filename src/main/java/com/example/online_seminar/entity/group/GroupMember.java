@@ -13,7 +13,7 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "group_member_mst")
-public class GroupMember implements Serializable {
+public class GroupMember implements Serializable{
     @Id
     @Column(name = "group_id")
     private String groupId;

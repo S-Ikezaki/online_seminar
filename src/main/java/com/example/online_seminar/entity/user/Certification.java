@@ -19,10 +19,11 @@ public class Certification implements Serializable{
     @Column(name = "password", nullable = false)
     private String password;
 
+    private String role;   //仮
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
-
-    private String role;
+    
 }
 

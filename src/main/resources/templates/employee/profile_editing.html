@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>プロフィール編集画面</title>
+    <script>
+        function alertFunction(){
+            confirm("変更を確定させますか?");
+        }
+    </script>
+</head>
+<body>
+<form method="POST" action="">
+    パスワード
+    <br>
+    <input type="password" name="before_password" placeholder="変更前パスワード" minlength="10" maxlength="20">
+    <br>
+    <input type="password" name="after_password" placeholder="変更後パスワード" minlength="10" maxlength="20">
+    <br><br>
+    <input type ="submit" name="alteration" value="変更" onclick="alertFunction()">
+</form>
+
+<br>
+</body>
+</html>

@@ -1,11 +1,9 @@
 package com.example.online_seminar.repository;
 
-import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Long> {
@@ -17,7 +15,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(name = "User.findByUserRole")
     List<User> findByUserRole(String userRole);
 
-    @Query(name = "User.findStudentByRole")
+    @Query(name = "User.findStudentByRoleNq", nativeQuery = true)
     List<User> findStudentByRole(String userRole);
 
     @Query(name = "User.findStudentByTagNq",nativeQuery = true)
@@ -29,7 +27,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(name = "User.findStudentInGroupByRoleNq",nativeQuery = true)
     List<User> findStudentInGroupByRoleNq(String userRole);
 
-    @Query(name = "User.findTeacherByRole")
+    @Query(name = "User.findTeacherByRoleNQ", nativeQuery = true)
     List<User> findTeacherByRole(String userRole);
 
     @Query(name = "User.findTeacherByTagNq",nativeQuery = true)

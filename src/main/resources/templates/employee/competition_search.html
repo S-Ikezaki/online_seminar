@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>コンペ検索画面</title>
+</head>
+<body>
+<form method="POST" action="">
+<input type="search" name="search" placeholder="キーワードを入力">
+    <div>
+        <input type="checkbox" id="presentation" name="Presentation" checked>
+        <label for = "presentation">発表型コンペ</label>
+
+        <input type="checkbox" id="submission" name="Submission" checked>
+        <label for = "submission">提出型コンペ</label>
+    </div>
+<input type ="submit" name="submit" value="検索">
+</form>
+</body>
+</html>

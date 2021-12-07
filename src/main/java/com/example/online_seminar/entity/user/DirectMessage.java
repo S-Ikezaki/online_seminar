@@ -16,14 +16,14 @@ public class DirectMessage implements Serializable {
 
     @Id
     @Column(name = "create_user_id" ,nullable = false)
-    private long createUserId;
+    private String createUserId;
 
     @Column(name = "create_user_name" ,nullable = false)
     private String createUserName;
 
     @Id
     @Column(name ="address_user_id" ,nullable = false)
-    private long addressUserId;
+    private String addressUserId;
 
     @Column(name = "address_user_name" ,nullable = false)
     private String addressUserName;
