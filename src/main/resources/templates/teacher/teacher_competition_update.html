@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>competition update</title>
+</head>
+<body>
+<form action="" method="get">
+    <table>
+        <tr>
+            <td><h6>コンペ名</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.groupName}">competition_update</td>
+            <td><button type="button" onclick="location.href='teacher_competition_delete.html'">コンペ削除</button></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td><h6>コンペ概要</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.groupBio}">seminar_bio</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td><h6>タグ</h6></td>
+        </tr>
+        <tr>
+            <td th:text="${Group.tagGroups}">tag</td>
+        </tr>
+    </table>
+</form>
+
+<button type="button" onclick="history.back()">戻る</button>
+
+<form action="" method="post">
+    <button type="button" onclick="location.href='teacher_competition_present.html'">変更完了</button>
+</form>
+</body>
+</html>
