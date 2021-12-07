@@ -1,10 +1,82 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>DM画面</title>
+    <style>
+        input[name="tab_item"] {
+            display: none;
+        }
+        .tab_content {
+            display: none;
+            padding: 40px 40px 0;
+            clear: both;
+            overflow: hidden;
+        }
+        #all:checked ~ #all_content,
+        #programming:checked ~ #programming_content,
+        #design:checked ~ #design_content {
+            display: block;
+        }
+        .tabs input:checked + .tab_item {
+            background-color: #5ab4bd;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-$END$
+DM
+    <form method="POST" action="">
+        <input type="search" name="keyword" maxlength="50">
+        <input type="submit" name="kensaku" value="検索">
+    </form>
+
+    <div class="tabs">
+        <input id="all" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="all">一覧</label>
+        <input id="result" type="radio" name="tab_item">
+        <label class="tab_item" for="result">検索結果</label>
+        <div class="tab_content" id="all_content">
+            一覧
+        </div>
+        <div class="tab_content" id="result_content">
+            検索結果
+        </div>
+    </div>
+    <thead>
+    <tr>
+        <th>ユーザー名</th>
+        <th>所属</th>
+    </tr>
+    </thead>
+    <tbody>
+    <br>
+    一覧
+    <tr th:if="${!#lists.isEmpty(dm)}" th:each="dm : ${dm}">
+        <form method="POST" action="">
+            <td><a href="">ユーザー名</a></td>
+            <td th:text="${}"></td>
+        </form>
+    </tr>
+    </tbody>
+    <br>
+
+    <tbody>
+    <tr th:if="${!#lists.isEmpty(dm)}" th:each="dm : ${dm}">
+        <form method="POST" action="">
+            <input type="hidden" name="" value="">
+            <td th:text="${}"></td>
+        </form>
+    </tr>
+    </tbody>
+
+    <br>
+    <form method="POST" action="">
+        <input type="text" name="message" maxlength="500">
+        <input type="submit" name="send" value="送信">
+    </form>
 </body>
 </html>
