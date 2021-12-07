@@ -5,14 +5,14 @@
     <title>seminar menu</title>
 </head>
 <body>
-    <h4>投稿一覧</h4>
+<h4>投稿一覧</h4>
 
 <form>
     <button type="submit">投稿</button>
     <input type="text">
 </form>
 
-    <h4>会議</h4>
+<h4>会議</h4>
 
 <form>
     参加者:<input type="text" th:each="${MeetingMember}"><br>
@@ -29,7 +29,15 @@
 </form>
 
 <form>
-    <button type="button" onclick="location.href='seminar_member_list.html'">メンバー一覧</button>
+    <button type="button" onclick="location.href='teacher_seminar_application_list.html'">参加申請一覧</button>
+</form>
+
+<form>
+    <button type="button" onclick="location.href='teacher_seminar_member_list.html'">メンバー一覧</button>
+</form>
+
+<form>
+    <button type="button" onclick="location.href='../seminar/seminar_update.html'">ゼミ更新</button>
 </form>
 
 <form>
