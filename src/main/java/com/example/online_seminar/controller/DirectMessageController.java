@@ -15,14 +15,19 @@ public class DirectMessageController {
     public final DirectMessageRepository directMessageRepository;
 
     public DirectMessageController(
-            DirectMessageRepository directMessageRepository;
+            DirectMessageRepository directMessageRepository
     ) {
         this.directMessageRepository = directMessageRepository;
     }
 
     // メッセージの履歴があるユーザ一覧取得
-    public String getMessageUser(@ModelAttribute User id, Model model, BindingResult result) {
-        directMessageRepository.findAllById(id);
+    public String getMessageUser(@ModelAttribute String id, Model model, BindingResult result) {
+        directMessageRepository.findMessageUserById(id);
+
+        if (result.hasErrors()) {
+            return "";
+        }
+        return "";
     }
 
     // 送信先、送信先とのメッセージを取得
