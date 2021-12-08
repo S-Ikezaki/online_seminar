@@ -14,14 +14,12 @@ public class DirectMessage implements Serializable {
     @Column(name = "direct_message_id" ,nullable = false)
     private long directMessageId;
 
-    @Id
     @Column(name = "create_user_id" ,nullable = false)
     private String createUserId;
 
     @Column(name = "create_user_name" ,nullable = false)
     private String createUserName;
 
-    @Id
     @Column(name ="address_user_id" ,nullable = false)
     private String addressUserId;
 
@@ -35,7 +33,7 @@ public class DirectMessage implements Serializable {
     private Date createDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id")
+    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
     //@JoinColumn(name = "address_user_id",referencedColumnName = "user_id")
     //宛先が難しいです
     private User user;

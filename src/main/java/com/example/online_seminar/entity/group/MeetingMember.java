@@ -22,7 +22,7 @@ public class MeetingMember{
     private Date userName;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable=false, updatable=false)
     private Group group;
 
 }

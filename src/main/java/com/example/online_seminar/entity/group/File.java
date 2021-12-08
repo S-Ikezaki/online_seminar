@@ -33,7 +33,7 @@ public class File {
     private String groupId;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable=false, updatable=false)
     private Group group;
 
 }
