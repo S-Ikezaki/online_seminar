@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("groupMembers")
 public class GroupMemberController {
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private GroupMemberRepository groupMemberRepository;
+    private final GroupMemberRepository groupMemberRepository;
+
+    public GroupMemberController(GroupRepository groupRepository,
+                                 GroupMemberRepository groupMemberRepository) {
+        this.groupRepository = groupRepository;
+        this.groupMemberRepository = groupMemberRepository;
+    }
 }
