@@ -18,8 +18,8 @@
 <h4>部長</h4>
 <form>
     <table border="1">
-        <tr th:each="User">
-            <td th:text="list.getUser_name">部長名</td>
+        <tr th:each="${Group.groupRole}"> <!-- 指定したロールの情報をとってくる-->
+            <td th:text="${groupName}">部長名</td>
             <td><button type="button">選択</button></td>
             <td><button type="button">削除</button></td>
         </tr>
@@ -29,8 +29,8 @@
 <h4>学生</h4>
 <form>
     <table border="1">
-        <tr th:each="User">
-            <td th:text="list.getUser_name">学生名</td>
+        <tr th:each="${Group.groupRole}"> <!-- 指定したロールの情報をとってくる-->
+            <td th:text="${groupName}">学生名</td>
             <td><button type="button">選択</button></td>
             <td><button type="button">削除</button></td>
         </tr>
