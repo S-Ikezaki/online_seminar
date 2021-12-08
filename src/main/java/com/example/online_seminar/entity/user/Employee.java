@@ -21,10 +21,10 @@ public class Employee implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable=false, updatable=false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "enterprise_id",referencedColumnName = "enterprise_id")
+    @JoinColumn(name = "enterprise_id",referencedColumnName = "enterprise_id",insertable=false, updatable=false)
     private Enterprise enterprise;
 }

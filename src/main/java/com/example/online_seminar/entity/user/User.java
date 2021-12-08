@@ -48,6 +48,6 @@ public class User implements Serializable {
     List<DirectMessage> directMessages;
 
     @OneToOne
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
     private Certification certification;
 }
