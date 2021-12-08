@@ -22,32 +22,32 @@ public class User implements Serializable {
     private int userRole;
 
     @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Student> students;
 
     @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Teacher> teachers;
 
     @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Employee> employees;
 
     @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
     @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Request> requests;
 
     @OneToMany
-    @JoinColumn(name="create_user_id",referencedColumnName = "user_id")
+    @JoinColumn(name="create_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     //@JoinColumn(name="address_user_id",referencedColumnName = "user_id")
     //宛先が難しいです
     List<DirectMessage> directMessages;
 
     @OneToOne
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
+    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     private Certification certification;
 }

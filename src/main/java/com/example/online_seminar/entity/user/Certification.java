@@ -1,8 +1,6 @@
 package com.example.online_seminar.entity.user;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,10 +17,10 @@ public class Certification implements Serializable{
     @Column(name = "password", nullable = false)
     private String password;
 
-    private String role;   //仮
+//    private String role;   //仮
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false, updatable=false)
     private User user;
 
 }

@@ -1,12 +1,8 @@
 package com.example.online_seminar.entity.group;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
@@ -33,7 +29,7 @@ public class File {
     private String groupId;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable=false, updatable=false)
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;
 
 }

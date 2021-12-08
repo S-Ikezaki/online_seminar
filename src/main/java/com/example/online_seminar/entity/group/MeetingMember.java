@@ -1,13 +1,8 @@
 package com.example.online_seminar.entity.group;
 
-import com.example.online_seminar.entity.user.User;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
@@ -22,7 +17,7 @@ public class MeetingMember{
     private Date userName;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable=false, updatable=false)
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;
 
 }

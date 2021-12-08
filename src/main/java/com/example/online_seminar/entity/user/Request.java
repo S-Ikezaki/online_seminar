@@ -1,12 +1,10 @@
 package com.example.online_seminar.entity.user;
 
-import com.example.online_seminar.entity.tag.TagRequest;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -29,7 +27,7 @@ public class Request implements Serializable {
     private Date requestDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     private User user;
 
 }

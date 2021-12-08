@@ -21,7 +21,7 @@ public class Employee implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable=false, updatable=false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false, updatable=false)
     private User user;
 
     @ManyToOne

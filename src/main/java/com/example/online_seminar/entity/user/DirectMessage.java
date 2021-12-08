@@ -33,8 +33,8 @@ public class DirectMessage implements Serializable {
     private Date createDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
-    //@JoinColumn(name = "address_user_id",referencedColumnName = "user_id")
+    @JoinColumn(name = "address_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
+//    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
     //宛先が難しいです
     private User user;
 

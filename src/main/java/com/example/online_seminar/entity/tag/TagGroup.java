@@ -2,11 +2,8 @@ package com.example.online_seminar.entity.tag;
 
 import com.example.online_seminar.entity.group.Group;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -22,10 +19,10 @@ public class TagGroup implements Serializable{
     private String groupId;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id")
+    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id",insertable = false, updatable=false)
     private Tag tag;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
+    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;
 }

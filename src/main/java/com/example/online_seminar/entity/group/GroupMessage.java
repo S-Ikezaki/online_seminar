@@ -1,14 +1,9 @@
 package com.example.online_seminar.entity.group;
 
 import com.example.online_seminar.entity.user.User;
-import lombok.CustomLog;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.validator.constraints.Currency;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -40,11 +35,11 @@ public class GroupMessage implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name="group_id",referencedColumnName = "group_id")
+    @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     private User user;
 
 }

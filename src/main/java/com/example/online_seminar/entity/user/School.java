@@ -18,10 +18,10 @@ public class School implements Serializable {
     private String schoolName;
 
     @OneToMany
-    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
     List<Teacher> teacher;
 
     @OneToMany
-    @JoinColumn(name = "school_id",referencedColumnName = "school_id")
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
     List<Student> student;
 }

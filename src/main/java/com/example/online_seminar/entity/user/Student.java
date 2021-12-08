@@ -24,7 +24,7 @@ public class Student implements Serializable {
     private Date graduationDate;
 
     @ManyToOne
-    @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable=false, updatable=false)
+    @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
     private School school;
 
     @ManyToOne
