@@ -25,23 +25,23 @@ public class Group implements Serializable {
     @Column(name = "group_bio")
     private String groupBio;
 
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     List<TagGroup> tagGroups;
 
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     List<File> files;
 
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     List<GroupMember> groupMembers;
 
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     List<GroupMessage> groupMessages;
 
-    @OneToMany
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name="group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     List<Meeting> meetings;
 

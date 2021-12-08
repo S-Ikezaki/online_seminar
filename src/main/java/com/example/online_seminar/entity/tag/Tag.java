@@ -18,15 +18,15 @@ public class Tag{
     @Column(name ="tag_name",nullable = false)
     private String tagName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tag")
     @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tag")
     @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagRequest> tagRequestList;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tag")
     @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagGroup> tagGroups;
 }

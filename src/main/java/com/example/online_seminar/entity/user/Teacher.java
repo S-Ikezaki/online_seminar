@@ -26,6 +26,5 @@ public class Teacher implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-
     private User user;
 }

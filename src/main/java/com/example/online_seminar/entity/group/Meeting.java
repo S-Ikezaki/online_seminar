@@ -3,6 +3,7 @@ package com.example.online_seminar.entity.group;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,8 +16,12 @@ public class Meeting{
     @Column(name = "user_name")
     private String userName;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;
+
+    @OneToMany(mappedBy = "meeting")
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
+    List<MeetingChat> meetingChats;
 
 }

@@ -17,11 +17,11 @@ public class School implements Serializable {
     @Column(name = "school_name")
     private String schoolName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "school")
     @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
     List<Teacher> teacher;
 
-    @OneToMany
+    @OneToMany(mappedBy = "school")
     @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
     List<Student> student;
 }

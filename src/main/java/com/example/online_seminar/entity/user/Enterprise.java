@@ -17,7 +17,7 @@ public class Enterprise implements Serializable {
     @Column(name = "enterprise_name" ,nullable = false)
     private String enterpriseName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "enterprise")
     @JoinColumn(name = "user_id",referencedColumnName = "enterprise_id",insertable = false, updatable=false)
     List<Employee> employee;
 }

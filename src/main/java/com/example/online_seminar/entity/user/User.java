@@ -21,27 +21,27 @@ public class User implements Serializable {
     @Column(name = "user_role", nullable = false)
     private int userRole;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Student> students;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Teacher> teachers;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Employee> employees;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Request> requests;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn(name="create_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     //@JoinColumn(name="address_user_id",referencedColumnName = "user_id")
     //宛先が難しいです
