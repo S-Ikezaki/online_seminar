@@ -11,7 +11,7 @@
     th:object="${Group}">
     <p>ゼミ名: <input type="text" th:field="${groupId}"/></p>
     <p>ゼミ概要:<input type="text" th:field="${groupBio}"/></p>
-    <p>タグ: <input type="text"th:field="${Tag.tagName}"/></p>
+    <p>タグ: <input type="text"th:field="${tagGroups}"/></p>
 </form>
 
 <button type="button" onclick="location.href='teacher_seminar_create_completion.html'">作成</button>
