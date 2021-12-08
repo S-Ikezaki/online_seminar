@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>リクエスト作成画面</title>
+    <!--タグ入力欄用のCSS-->
+    <style>
+        input {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    var i = 1 ;
+    function addForm() {
+        var input_data = document.createElement('input');
+        input_data.type = 'text';
+        input_data.id = 'inputform_' + i;
+        input_data.placeholder = 'タグを入力してください';
+        var parent = document.getElementById('form_area');
+        parent.appendChild(input_data);
+
+        var button_data = document.createElement('button');
+        button_data.id = i;
+        button_data.onclick = function(){deleteBtn(this);}
+        button_data.innerHTML = '削除';
+        var input_area = document.getElementById(input_data.id);
+        parent.appendChild(button_data);
+
+        i++ ;
+    }
+
+    function deleteBtn(target) {
+        var target_id = target.id;
+        var parent = document.getElementById('form_area');
+        var ipt_id = document.getElementById('inputform_' + target_id);
+        var tgt_id = document.getElementById(target_id);
+        parent.removeChild(ipt_id);
+        parent.removeChild(tgt_id);
+    }
+</script>
+    ゼミ作成リクエスト
+    <br>
+    <br>
+    <form method="post" action="">
+        <input type="text" name="request_content" maxlength="500" placeholder="申請内容を入力してください">
+        <br>
+        タグ:
+        <div id="form_area">
+            <input type="text" name="request_content" maxlength="100" id="inputform_0" placeholder="タグを入力してください">
+            <button id="0" onclick="deleteBtn(this)">削除</button>
+        </div>
+        <input type="button" value="フォーム追加" onclick="addForm()">
+
+        <br>
+        <input type="submit" value="リクエスト掲示">
+    </form>
+    <a href="student_main_menu.html">前画面に戻る</a>
+</body>
+</html>

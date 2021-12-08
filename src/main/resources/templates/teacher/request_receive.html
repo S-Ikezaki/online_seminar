@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>リクエスト検索画面</title>
+
+    <!--タブ用仮置きCSS-->
+    <style>
+        .tabs {
+            margin-top: 50px;
+            padding-bottom: 40px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 700px;
+            margin: 0 auto;}
+
+
+        .tab_item:hover {
+            opacity: 0.75;
+        }
+
+        input[name="tab_item"] {
+            display: none;
+        }
+
+        /*タブ切り替えの中身のスタイル*/
+        .tab_content {
+            display: none;
+            padding: 40px 40px 0;
+            clear: both;
+            overflow: hidden;
+        }
+        #all:checked ~ #all_content,
+        #result:checked ~ #result_content,
+        #design:checked ~ #design_content {
+            display: block;
+        }
+        .tabs input:checked + .tab_item {
+            background-color: #5ab4bd;
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+
+DM
+<form method="POST" action="">
+    <input type="search" name="keyword" maxlength="50">
+    <input type="submit" name="kensaku" value="検索">
+</form>
+
+<div class="tabs">
+    <input id="all" type="radio" name="tab_item" checked>
+    <label class="tab_item" for="all">一覧</label>
+    <input id="result" type="radio" name="tab_item">
+    <label class="tab_item" for="result">検索結果</label>
+    <div class="tab_content" id="all_content">
+        一覧表示
+    </div>
+    <div class="tab_content" id="result_content">
+        検索結果
+    </div>
+    <br><br>
+    <thead>
+    <tr>
+        <th>ユーザー名</th>
+        <th>所属</th>
+        <th>申請日時</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${!#lists.isEmpty(request)}" th:each="request : ${request}">
+        <form method="POST" action="">
+            <td><a href="">ユーザー名</a></td>
+            <td th:text="${}">所属</td>
+            <td>申請日時</td>
+        </form>
+    </tr>
+    </tbody>
+    <br>
+
+    <tbody>
+    <tr th:if="${!#lists.isEmpty(request)}" th:each="request : ${request}">
+        <form method="POST" action="">
+            <input type="hidden" name="" value="">
+            <td th:text="${}">申請内容</td>
+        </form>
+    </tr>
+    </tbody>
+
+    <br>
+    <a href="teacher_main_menu.html">トップページへ戻る</a>
+    <form method="POST" action="">
+        <input type="submit" name="send" value="ゼミ作成画面へ">
+    </form>
+</body>
+</html>

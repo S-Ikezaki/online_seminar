@@ -4,7 +4,6 @@ import com.example.online_seminar.entity.user.Certification;
 import com.example.online_seminar.repository.CertificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public User createUserDetails(Certification certification){
          Set<GrantedAuthority>grantedAuthorities = new HashSet<>();
-         grantedAuthorities.add(new SimpleGrantedAuthority(certification.getRole()));
+//         grantedAuthorities.add(new SimpleGrantedAuthority(certification.getRole()));
         return new User(certification.getUserId(),certification.getPassword(),grantedAuthorities);
     }
 
