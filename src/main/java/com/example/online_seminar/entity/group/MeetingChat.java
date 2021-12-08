@@ -26,6 +26,10 @@ public class MeetingChat{
     private String meetingChatDatetime;
 
     @OneToMany
+<<<<<<< HEAD
     @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
+=======
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable=false, updatable=false)
+>>>>>>> 8af5cf9e324216bd399fd821adcfb762e7ee0d4a
     List<Group> groups;
 }

@@ -22,6 +22,6 @@ public class Certification implements Serializable{
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false, updatable=false)
     private User user;
-    
+
 }
 
