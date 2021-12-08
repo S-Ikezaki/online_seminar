@@ -1,12 +1,8 @@
 package com.example.online_seminar.entity.tag;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -23,14 +19,14 @@ public class Tag{
     private String tagName;
 
     @OneToMany
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
     @OneToMany
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagRequest> tagRequestList;
 
     @OneToMany
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id")
+    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagGroup> tagGroups;
 }

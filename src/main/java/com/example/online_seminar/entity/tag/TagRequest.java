@@ -2,11 +2,8 @@ package com.example.online_seminar.entity.tag;
 
 import com.example.online_seminar.entity.user.Request;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -22,10 +19,10 @@ public class TagRequest implements Serializable{
     private long requestId;
 
     @ManyToOne
-    @JoinColumn(name = "request_id", referencedColumnName = "request_id")
+    @JoinColumn(name = "request_id", referencedColumnName = "request_id",insertable = false, updatable=false)
     private Request request;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id", referencedColumnName = "tag_id")
+    @JoinColumn(name = "tag_id", referencedColumnName = "tag_id",insertable = false, updatable=false)
     private Tag tag;
 }

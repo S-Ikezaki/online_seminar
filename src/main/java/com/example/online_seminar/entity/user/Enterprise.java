@@ -18,6 +18,6 @@ public class Enterprise implements Serializable {
     private String enterpriseName;
 
     @OneToMany
-    @JoinColumn(name = "user_id",referencedColumnName = "enterprise_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "enterprise_id",insertable = false, updatable=false)
     List<Employee> employee;
 }
