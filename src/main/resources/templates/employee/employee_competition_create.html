@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>competition create</title>
+</head>
+<body>
+<h2>コンペ作成</h2>
+
+<form method="post" th:action="@{../../../java/com/example/online_seminar/entity/group/Group.java}"
+      th:object="${Group}">
+    <p>コンペ名: <input type="text" th:field="${groupId}"/></p>
+    <p>コンペ概要: <input type="text" th:field="${groupBio}"/></p>
+    <p>タグ: <input type="text" th:field="${tagGroups}"/></p>
+
+</form>
+
+<button type="button" onclick="location.href='employee_competition_create_completion.html'">作成</button>
+<button type="button" onclick="location.href='employee_main_menu.html'">メニューに戻る</button>
+
+</body>
+</html>
