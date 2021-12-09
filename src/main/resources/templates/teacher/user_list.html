@@ -68,7 +68,7 @@
     </tbody>
 </table>
 </div>
-    <div th:if="${users.role() == 0}">
+    <div th:if="${users.role() == 1}">
 
         <table>
             <thead>
@@ -102,7 +102,7 @@
                 </tbody>
         </table>
     </div>
-    <div th:if="${users.role() == 0}">
+    <div th:if="${users.role() == 2}">
 
         <table>
             <thead>
