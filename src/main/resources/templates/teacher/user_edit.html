@@ -22,11 +22,40 @@
         </div>
     </div>
 </main>
-
-<form th:action="@{user/account}">
-
-
-</form>
+学生
+<br><br>
+<div th:if="${users.role() == 0}">
+    <form method="post" action="">
+        <input type="hidden" name="user_id">
+        <label>ユーザー名:<input type="text" name="user_name"></label><br>
+        <label>学校名:<input type="text" name="user_school_name"></label><br>
+        <label>学年:<input type="text" name="user_grade"></label><br>
+        <label>卒業年月日:<input type="text" name="user_graduationDate"></label><br>
+        <input type="submit" th:value="update" value="更新"><br>
+    </form>
+</div>
+<br>
+教師
+<br><br>
+<div th:if="${users.role() == 1}">
+    <form method="post" action="">
+        <input type="hidden" name="user_id">
+        <label>ユーザー名:<input type="text" name="user_name"></label><br>
+        <label>学校名:<input type="text" name="user_school_name"></label><br>
+        <label>管理権限<input type="text" name="permission_cd"></label><br>
+        <input type="submit" th:value="update" value="更新"><br>
+    </form>
+</div>
+<br>
+企業担当者
+<div th:if="${users.role() == 2}">
+    <form method="post" action="">
+        <input type="hidden" name="user_id"><br>
+        <label>ユーザー名:<input type="text" name="user_name"></label><br>
+        <label>企業名:<input type="text" name="enterprise_name"></label><br>
+        <input type="submit" th:value="update" value="更新"><br>
+    </form>
+</div>
 
 </body>
 </html>
