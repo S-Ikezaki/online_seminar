@@ -1,6 +1,7 @@
 package com.example.online_seminar.entity.tag;
 
 import com.example.online_seminar.entity.group.Group;
+import com.example.online_seminar.key.TagGroupKeys;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "tag_group_mst")
+@IdClass(value= TagGroupKeys.class)
 public class TagGroup implements Serializable{
     @Id
     @Column(name = "tag_id", nullable = false)
