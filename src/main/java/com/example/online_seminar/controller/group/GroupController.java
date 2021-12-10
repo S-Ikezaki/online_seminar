@@ -2,10 +2,8 @@ package com.example.online_seminar.controller.group;
 
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMessage;
-import com.example.online_seminar.entity.tag.Tag;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("groups")
@@ -90,8 +87,8 @@ public class GroupController {
 
     //一件削除
     @PostMapping("/deleteOne/{id:.+")
-    public String deleteGroupOne(@PathVariable Long groupId){
-        groupRepository.deleteById(groupId);
+    public String deleteGroupOne(@PathVariable String groupId){
+        groupRepository.deleteById(Long.valueOf(groupId));
         return "一件削除";
     }
 
@@ -116,8 +113,8 @@ public class GroupController {
     //投稿一覧取得
     @GetMapping("/showGroupMessage")
     @ResponseBody
-    public String showGroupMessage(Model model, GroupMessage groupMessage){
-        model.addAttribute("hoge", groupMessageRepository.findAll());
+    public String showGroupMessage(@PathVariable Model model, String groupId){
+        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
         return "hoge";
     }
     //投稿削除
