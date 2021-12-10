@@ -26,7 +26,7 @@ public class MeetingChat{
     private String meetingChatDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
-    private Group group;
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false,updatable = false)
+    private Meeting meeting;
 
 }

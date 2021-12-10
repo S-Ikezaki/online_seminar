@@ -22,28 +22,21 @@ public class User implements Serializable {
     private int userRole;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Student> students;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Teacher> teachers;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Employee> employees;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     List<Request> requests;
 
     @OneToMany(mappedBy = "user")
-    @JoinColumn(name="create_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    //@JoinColumn(name="address_user_id",referencedColumnName = "user_id")
     //宛先が難しいです
     List<DirectMessage> directMessages;
 

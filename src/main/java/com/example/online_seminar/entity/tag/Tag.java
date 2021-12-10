@@ -19,14 +19,11 @@ public class Tag{
     private String tagName;
 
     @OneToMany(mappedBy = "tag")
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagUser> tagUsers;
 
     @OneToMany(mappedBy = "tag")
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagRequest> tagRequestList;
 
     @OneToMany(mappedBy = "tag")
-    @JoinColumn(name = "tag_id",referencedColumnName = "tag_id",insertable = false, updatable=false)
     List<TagGroup> tagGroups;
 }

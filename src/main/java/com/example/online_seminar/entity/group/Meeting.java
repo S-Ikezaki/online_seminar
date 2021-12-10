@@ -21,7 +21,6 @@ public class Meeting{
     private Group group;
 
     @OneToMany(mappedBy = "meeting")
-    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     List<MeetingChat> meetingChats;
 
 }
