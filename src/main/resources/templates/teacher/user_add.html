@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー作成</title>
+
+    <script>
+
+        window.onload = function(){
+            let btnstu = document.getElementById("student");
+            let btntea = document.getElementById("teacher");
+            let btnadm = document.getElementById("admin");
+            let btnemp = document.getElementById("employee");
+
+            let stuform = document.getElementById("student-input");
+            let teaform = document.getElementById("teacher-input");
+            let admform = document.getElementById("admin-input");
+            let empform = document.getElementById("employee-input");
+
+            let studentid = document.getElementById("student_id");
+            let studentname = document.getElementById("student_name");
+            let studentpassword = document.getElementById("student_password");
+            let studentschoolname = document.getElementById("student_school_name");
+            let grade = document.getElementById("student_grade");
+            let graduationdate = document.getElementById("student_graduation_date");
+            let teacherid= document.getElementById("teacher_id");
+            let teachername = document.getElementById("teacher_name");
+            let teacherpassword = document.getElementById("teacher_password");
+            let teacherschoolname = document.getElementById("teacher_school_name");
+            let adminid = document.getElementById("admin_id");
+            let adminname = document.getElementById("admin_name");
+            let adminpassword = document.getElementById("admin_password");
+            let adminschoolname = document.getElementById("admin_school_name");
+            let employeeid = document.getElementById("employee_id");
+            let employeename = document.getElementById("employee_name");
+            let employeepassword = document.getElementById("employee_password");
+            let enterprisename = document.getElementById("enterprise_name");
+
+            stuform.style.display = "";
+            teaform.style.display = "none";
+            admform.style.display = "none";
+            empform.style.display = "none";
+
+            studentid.value = "";
+            studentname.value = "";
+            studentpassword.value = "";
+            studentschoolname.value = "";
+            grade.value = "";
+            graduationdate.value = "";
+
+            teacherid.value = "";
+            teachername.value = "";
+            teacherpassword.value = "";
+            teacherschoolname.value = "";
+
+            adminid.value = "";
+            adminname.value = "";
+            adminpassword.value = "";
+            adminschoolname.value = "";
+
+            employeeid.value = "";
+            employeename.value = "";
+            employeepassword.value = "";
+            enterprisename.value = "";
+        }
+
+        function buttonClick() {
+            let btnstu = document.getElementById("student");
+            let btntea = document.getElementById("teacher");
+            let btnadm = document.getElementById("admin");
+            let btnemp = document.getElementById("employee");
+
+            let stuform = document.getElementById("student-input");
+            let teaform = document.getElementById("teacher-input");
+            let admform = document.getElementById("admin-input");
+            let empform = document.getElementById("employee-input");
+
+            let studentid = document.getElementById("student_id");
+            let studentname = document.getElementById("student_name");
+            let studentpassword = document.getElementById("student_password");
+            let studentschoolname = document.getElementById("student_school_name");
+            let grade = document.getElementById("student_grade");
+            let graduationdate = document.getElementById("student_graduation_date");
+            let teacherid= document.getElementById("teacher_id");
+            let teachername = document.getElementById("teacher_name");
+            let teacherpassword = document.getElementById("teacher_password");
+            let teacherschoolname = document.getElementById("teacher_school_name");
+            let adminid = document.getElementById("admin_id");
+            let adminname = document.getElementById("admin_name");
+            let adminpassword = document.getElementById("admin_password");
+            let adminschoolname = document.getElementById("admin_school_name");
+            let employeeid = document.getElementById("employee_id");
+            let employeename = document.getElementById("employee_name");
+            let employeepassword = document.getElementById("employee_password");
+            let enterprisename = document.getElementById("enterprise_name");
+
+            if (btnstu.checked) {
+                stuform.style.display = "";
+                teaform.style.display = "none";
+                admform.style.display = "none";
+                empform.style.display = "none";
+
+                studentid.value = "";
+                studentname.value = "";
+                studentpassword.value = "";
+                studentschoolname.value = "";
+                grade.value = "";
+                graduationdate.value = "";
+
+                teacherid.value = "";
+                teachername.value = "";
+                teacherpassword.value = "";
+                teacherschoolname.value = "";
+
+                adminid.value = "";
+                adminname.value = "";
+                adminpassword.value = "";
+                adminschoolname.value = "";
+
+                employeeid.value = "";
+                employeename.value = "";
+                employeepassword.value = "";
+                enterprisename.value = "";
+            } else if (btntea.checked){
+                teaform.style.display = "";
+                stuform.style.display = "none";
+                admform.style.display = "none";
+                empform.style.display = "none";
+
+                studentid.value = "";
+                studentname.value = "";
+                studentpassword.value = "";
+                studentschoolname.value = "";
+                grade.value = "";
+                graduationdate.value = "";
+
+                teacherid.value = "";
+                teachername.value = "";
+                teacherpassword.value = "";
+                teacherschoolname.value = "";
+
+                adminid.value = "";
+                adminname.value = "";
+                adminpassword.value = "";
+                adminschoolname.value = "";
+
+                employeeid.value = "";
+                employeename.value = "";
+                employeepassword.value = "";
+                enterprisename.value = "";
+            } else if (btnadm.checked){
+                admform.style.display = "";
+                stuform.style.display = "none";
+                teaform.style.display = "none";
+                empform.style.display = "none";
+
+                studentid.value = "";
+                studentname.value = "";
+                studentpassword.value = "";
+                studentschoolname.value = "";
+                grade.value = "";
+                graduationdate.value = "";
+
+                teacherid.value = "";
+                teachername.value = "";
+                teacherpassword.value = "";
+                teacherschoolname.value = "";
+
+                adminid.value = "";
+                adminname.value = "";
+                adminpassword.value = "";
+                adminschoolname.value = "";
+
+                employeeid.value = "";
+                employeename.value = "";
+                employeepassword.value = "";
+                enterprisename.value = "";
+            } else if (btnemp.checked){
+                empform.style.display = "";
+                stuform.style.display = "none";
+                teaform.style.display = "none";
+                admform.style.display = "none";
+
+                studentid.value = "";
+                studentname.value = "";
+                studentpassword.value = "";
+                studentschoolname.value = "";
+                grade.value = "";
+                graduationdate.value = "";
+
+                teacherid.value = "";
+                teachername.value = "";
+                teacherpassword.value = "";
+                teacherschoolname.value = "";
+
+                adminid.value = "";
+                adminname.value = "";
+                adminpassword.value = "";
+                adminschoolname.value = "";
+
+                employeeid.value = "";
+                employeename.value = "";
+                employeepassword.value = "";
+                enterprisename.value = "";
+            }else {
+                teaform.style.display = "none";
+                admform.style.display = "none";
+                empform.style.display = "none";
+
+                studentid.value = "";
+                studentname.value = "";
+                studentpassword.value = "";
+                studentschoolname.value = "";
+                grade.value = "";
+                graduationdate.value = "";
+
+                teacherid.value = "";
+                teachername.value = "";
+                teacherpassword.value = "";
+                teacherschoolname.value = "";
+
+                adminid.value = "";
+                adminname.value = "";
+                adminpassword.value = "";
+                adminschoolname.value = "";
+
+                employeeid.value = "";
+                employeename.value = "";
+                employeepassword.value = "";
+                enterprisename.value = "";
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+<form>
+    <p>アカウント作成画面</p>
+    <input type="radio" name="role" id="student" checked value="0" checked onclick="buttonClick()">学生
+    <input type="radio" name="role" id="teacher" value="1"  onclick="buttonClick()">教師(一般)
+    <input type="radio" name="role" id="admin" value="1" onclick="buttonClick()">教師(管理者)
+    <input type="radio" name="role" id="employee" value="2" onclick="buttonClick()">企業担当者
+
+    <!---学生-->
+    <div id="student-input">
+        <p>id</p>
+        <input type="text" id="student_id">
+        <p>名前:</p>
+        <input type="text" id="student_name">
+        <p>パスワード</p>
+        <input type="text" id="student_password">
+        <p>学校名:</p>
+        <input type="text" id="student_school_name">
+        <p>学年:</p>
+        <input type="text" id="student_grade">
+        <p>卒業年月日:</p>
+        <input type="text" id="student_graduation_date">
+    </div>
+
+    <!--教師(一般)-->
+    <div id="teacher-input">
+        <p>id</p>
+        <input type="text" id="teacher_id">
+        <p>名前:</p>
+        <input type="text" id="teacher_name">
+        <p>パスワード</p>
+        <input type="text" id="teacher_password">
+        <p>学校名:</p>
+        <input type="text" id="teacher_school_name">
+    </div>
+
+    <!---教師(管理者)-->
+    <div id="admin-input">
+        <p>id</p>
+        <input type="text" id="admin_id">
+        <p>名前:</p>
+        <input type="text" id="admin_name">
+        <p>パスワード</p>
+        <input type="text" id="admin_password">
+        <p>学校名:</p>
+        <input type="text" id="admin_school_name">
+    </div>
+
+    <!--企業担当者-->
+    <div id="employee-input">
+        <p>id</p>
+        <input type="text" id="employee_id">
+        <p>名前:</p>
+        <input type="text" id="employee_name">
+        <p>パスワード</p>
+        <input type="text" id="employee_password">
+        <p>企業名:</p>
+        <input type="text" id="enterprise_name">
+    </div>
+
+    <br>
+    <input type="submit" value="作成">
+</form>
+</body>
+</html>

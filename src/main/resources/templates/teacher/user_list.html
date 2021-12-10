@@ -26,7 +26,7 @@
 <!--ラジオボタンの値でとってくるアカウントのロールを判断-->
 <form th:action="@{/User/userList}" method="get">
     <input type="text" th:field="*{keyword}" 　placeholder="キーワードを入力">
-    <input type="radio" th:field="*{role}" value="0" >学生
+    <input type="radio" th:field="*{role}" checked value="0" >学生
     <input type="radio" th:field="*{role}" value="1" >教師
     <input type="radio" th:field="*{role}" value="2" >企業
     <input type="submit" value="検索"/>
