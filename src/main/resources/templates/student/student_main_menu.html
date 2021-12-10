@@ -61,7 +61,8 @@
                 <input type="hidden" name="groupId" value="group.groupId">
                 <td th:text="${group.groupName}"></td>
                 <td th:text="${group.groupBio}"></td>
-                <td><input type="submit" th:value="メニュー"></td>
+                <!-- 仮置き、後で選択したグループのgroupIdをcontrollerクラスに渡すような内容に変える -->
+                <td><button type="button" onclick="location.href='student_seminar_menu.html'">参加ゼミ</button></td>
 
             </form>
         </tr>
@@ -81,9 +82,10 @@
     <tr th:if="${!#lists.isEmpty(groups)}" th:each="group : ${groups}">
         <form method="POST" action="student_competition_menu">
             <input type="hidden" name="groupId" value="group.groupId">
-        <td th:text="${group.groupName}"></td>
-        <td th:text="${group.groupBio}"></td>
-            <td><input type="submit" th:value="メニュー"></td>
+            <td th:text="${group.groupName}"></td>
+            <td th:text="${group.groupBio}"></td>
+            <!-- 仮置き、後で選択したグループのgroupIdをcontrollerクラスに渡すような内容に変える -->
+            <td><button type="button" onclick="location.href='student_competition_presentation.html'">参加コンペ</button></td>
 
         </form>
     </tr>
