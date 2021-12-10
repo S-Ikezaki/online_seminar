@@ -48,11 +48,15 @@
 </main>
 
 <!-- 参加コンペ一覧表示 -->
+<!-- 仮置き、後でユーザidをcontrollerクラスに渡すような内容に変える -->
+<form action="" th:each="${GroupMember}" method="post">
     <table>
         <thead>
         <tr>
-            <th></th>
-            <th></th>
+            <th><a onclick="location.href='../seminar/seminar_competition_presentation.html'">主催コンペ(発表)</a></th>
+        </tr>
+        <tr>
+            <th><a onclick="location.href='../seminar/seminar_competition_submission.html'">主催コンペ(提出)</a></th>
         </tr>
         </thead>
 
@@ -70,5 +74,6 @@
             </tr>
         </tbody>
     </table>
+</form>
 </body>
 </html>

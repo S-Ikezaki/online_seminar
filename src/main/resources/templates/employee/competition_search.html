@@ -17,7 +17,12 @@
         <input type="checkbox" id="submission" name="Submission" checked>
         <label for = "submission">提出型コンペ</label>
     </div>
-<input type ="submit" name="submit" value="検索">
+</form>
+<!-- 後でpost includeを使って画面内に検索結果を表示するように変更する -->
+<form action="" method="post" class="js-post_include">
+    <input type="hidden" name="Presentation" value="em">
+    <input type="hidden" name="Submission" value="em">
+    <input type ="submit" name="submit" value="検索">
 </form>
 </body>
 </html>
