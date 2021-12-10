@@ -1,6 +1,7 @@
 package com.example.online_seminar.entity.group;
 
 import com.example.online_seminar.entity.user.User;
+import com.example.online_seminar.key.GroupMemberKeys;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "group_member_mst")
+@IdClass(value = GroupMemberKeys.class)
 public class GroupMember implements Serializable{
     @Id
     @Column(name = "group_id")
