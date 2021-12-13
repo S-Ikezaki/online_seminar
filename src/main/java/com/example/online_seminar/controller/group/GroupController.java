@@ -107,7 +107,7 @@ public class GroupController {
     //グループのタグを表示
     @GetMapping("/showGroupTag")
     public String showGroupTag(Model model,Group group) {
-        model.addAttribute("hoge", tagRepository.findByGroup(group));
+//        model.addAttribute("hoge", tagRepository.findByGroup(group));
         return "hoge";
     }
 
