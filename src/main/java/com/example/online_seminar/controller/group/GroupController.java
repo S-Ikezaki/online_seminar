@@ -67,7 +67,7 @@ public class GroupController {
         return "hoge";
     }
 
-    //参加しているグループの一覧表示
+    //参加しているグループの一覧表示(未完成)
     @GetMapping("/group/showUserGroupList")
     @ResponseBody
     public String showUserGroupList(Model model,HttpSession session){
@@ -105,8 +105,8 @@ public class GroupController {
 
     //グループのタグを表示
     @GetMapping("/showGroupTag")
-    public String showGroupTag(Model model,Group group) {
-        model.addAttribute("hoge", tagRepository.findByGroup(group));
+    public String showGroupTag(Model model,String groupId) {
+        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
         return "hoge";
     }
 
@@ -117,6 +117,7 @@ public class GroupController {
         model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
         return "hoge";
     }
+
     //投稿削除
     @PostMapping("/deleteGroupMessage")
     public String deleteGroupMessage(@PathVariable Long groupMessageId) {
