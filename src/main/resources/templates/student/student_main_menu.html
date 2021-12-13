@@ -45,6 +45,8 @@
         </div>
     </div>
 </main>
+
+<form th:action="@{/group/showUserGroupList}" th:object="${Group}">
 <!--参加ゼミ一覧表示-->
     <table>
         <thead>
@@ -68,6 +70,9 @@
         </tr>
         </tbody>
     </table>
+</form>
+
+<form th:action="@{/group/showUserGroupList}" th:object="${Group}">
 <!--参加コンペ一覧表示-->
 <table>
     <thead>
@@ -91,7 +96,7 @@
     </tr>
     </tbody>
 </table>
-
+</form>
 
 </body>
 </html>
