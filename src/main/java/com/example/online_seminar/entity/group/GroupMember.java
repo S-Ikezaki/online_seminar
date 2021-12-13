@@ -25,7 +25,7 @@ public class GroupMember implements Serializable{
     private Date userName;
 
     @Column(name = "group_role",nullable = false)
-    private int groupRole = 0;
+    private int groupRole;
 
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "group_id",insertable = false, updatable=false)

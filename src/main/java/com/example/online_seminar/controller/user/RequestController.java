@@ -32,11 +32,11 @@ public class RequestController {
     }
 
     // リクエストをタグ検索
-    @GetMapping("showRequest/{tag}")
+    /*@GetMapping("showRequest/{tag}")
     public String showRequestByTag(Model model, @PathVariable("tag") String tag) {
         model.addAttribute("requests", tagRepository.findByName(tag));
         return "";
-    }
+    }*/
 
     // リクエストを受けゼミ作成画面へ
     @GetMapping("/addGroupByRequest")
