@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>group search</title>
+</head>
+<body>
+
+<form>
+    <input type="text">
+    <button type="submit">検索</button><br>
+
+    <input type="radio" name="" value="ゼミ">ゼミ
+    <input type="radio" name="" value="コンペ">コンペ
+
+    <table>
+        <tr th:each="" th:object="${Group}" class="align-middle">
+            <td th:text="*{groupName}"></td>
+            <td><button>概要</button></td>
+            <td><button>参加申請</button></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
