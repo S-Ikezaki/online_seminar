@@ -64,7 +64,8 @@ public class GroupController {
     @ResponseBody
     public String showGroupList(Model model){
         model.addAttribute("hoge",groupRepository.findAll());
-        return "hoge";
+        //後でreturnは変わるかも
+        return "search/search_student";
     }
 
     //参加しているグループの一覧表示(未完成)

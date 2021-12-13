@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>group search</title>
+</head>
+<body>
+
+<form th:action="@{/group/showGroupList}" th:object="${Group}">
+    <input type="text">
+    <button type="submit">検索</button><br>
+
+    <input type="radio" name="" value="ゼミ">ゼミ
+    <input type="radio" name="" value="コンペ">コンペ
+
+    <table>
+        <tr th:each="" th:object="${Group}" class="align-middle">
+            <td th:text="*{groupName}"></td>
+            <td><button type="button" onclick="location.href='../seminar/seminar_overview.html'">概要</button></td>
+            <td><button type="button" onclick="location.href='../seminar/seminar_apply.html'">参加申請</button></td>
+        </tr>
+    </table>
+</form>
+
+<button type="button" onclick="location.href='../student/student_main_menu.html'">メニューに戻る</button><br>
+<button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
+
+</body>
+</html>
