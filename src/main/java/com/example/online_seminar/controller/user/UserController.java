@@ -56,14 +56,16 @@ public class UserController {
         model.addAttribute("", userRepository.findStudentByRole(role));
         return "";
     }
-
+/*
     // 教師一覧表示
     @GetMapping("/showUserList/{role}")
-    @ResponseBody
+//    @ResponseBody
+    //BeanCreationExceptionの原因になっている
     public String showTeacherList(Model model, @PathVariable("role") String role) {
         model.addAttribute("", userRepository.findTeacherByRole(role));
         return "";
     }
+*/
 
     // ユーザ一件追加
     @PostMapping("/add")

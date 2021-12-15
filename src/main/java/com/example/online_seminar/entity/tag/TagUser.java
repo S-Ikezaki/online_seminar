@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "tag_user_mst")
+@IdClass(TagUserKey.class)
 public class TagUser implements Serializable{
     @Id
     @Column(name = "tag_id",nullable = false)

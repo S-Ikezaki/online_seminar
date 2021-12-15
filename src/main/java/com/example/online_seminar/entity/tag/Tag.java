@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "tag_mst")
+@IdClass(TagUserKey.class)
 public class Tag{
     @Id
     @Column(name = "tag_id",nullable = false)
