@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(name = "User.findByTagNq",nativeQuery = true)
     List<User> findByTagNq(String tagId);
 
-//    UnsatisfiedDependenciesException の原因になっている
+//    UnsatisfiedDependenciesException の原因になっている クエリが空のため
 //    @Query(name = "User.findByUserRole")
 //    List<User> findByUserRole(String userRole);
 
@@ -40,7 +40,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(name = "User.findTeacherInGroupByRoleNq",nativeQuery = true)
     List<User> findTeacherInGroupByRoleNq(String userRole);
 
-    @Query(name = "User.findEmployeeByRole", nativeQuery = true)
+    @Query(name = "User.findEmployeeByRoleNq", nativeQuery = true)
     List<User> findEmployeeByRole(String userRole);
 
 }
