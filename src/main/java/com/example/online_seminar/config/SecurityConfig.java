@@ -1,5 +1,7 @@
 package com.example.online_seminar.config;
 
+import com.example.online_seminar.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +16,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public SecurityConfig(
+            @Autowired
+            UserDetailsServiceImpl userDetailsService
+    ){
+        this.userDetailsService = userDetailsService;
+    }
 
     private UserDetailsService userDetailsService;
 

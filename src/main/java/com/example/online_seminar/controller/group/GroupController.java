@@ -4,6 +4,7 @@ import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMessage;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,7 @@ public class GroupController {
 
     private final UserRepository userRepository;
 
+    @Autowired
     public GroupController(GroupRepository groupRepository,
                            TagGroupRepository tagGroupRepository,
                            GroupMessageRepository groupMessageRepository,
@@ -66,7 +68,7 @@ public class GroupController {
 
     //グループの一覧表示
     @GetMapping("/group/showGroupList")
-    @ResponseBody
+//    @ResponseBody
     public String showGroupList(Model model){
         model.addAttribute("hoge",groupRepository.findAll());
         //後でreturnは変わるかも
@@ -75,7 +77,7 @@ public class GroupController {
 
     //参加しているグループの一覧表示
     @GetMapping("/group/showUserGroupList")
-    @ResponseBody
+//    @ResponseBody
     public String showUserGroupList(Model model,HttpSession session){
         session.setAttribute("groupMembers",groupMemberRepository.findAll());
         model.addAttribute("groups",groupRepository.findAll());
@@ -100,7 +102,7 @@ public class GroupController {
 
     //グループのメンバー一覧表示（？）
     @GetMapping("/group/showGroupMemberList")
-    @ResponseBody
+//    @ResponseBody
     public String showGroupMemberList(Model model, HttpSession session){
         //グループリポジトリからすべてを取得、セッションスコープに保存
         session.setAttribute("hoge",groupRepository.findAll());
@@ -118,7 +120,7 @@ public class GroupController {
 
     //投稿一覧取得
     @GetMapping("/showGroupMessage")
-    @ResponseBody
+//    @ResponseBody
     public String showGroupMessage(@PathVariable Model model, String groupId){
         model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
         return "hoge";
@@ -136,5 +138,8 @@ public class GroupController {
         userRepository.save(user);
         return "hoge";
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e43b291991cbfcdf627d920b2686fd24fc21e08d
 }
