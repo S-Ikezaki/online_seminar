@@ -100,7 +100,7 @@ public class GroupController {
         return "一件削除";
     }
 
-<<<<<<< HEAD
+
 //    //グループのメンバー一覧表示（？）
 //    @GetMapping("/group/showGroupMemberList")
 ////    @ResponseBody
@@ -111,14 +111,14 @@ public class GroupController {
 //        model.addAttribute("hoge",groupMemberRepository.findAll());
 //        return "hoge";
 //    }
-
+//
 //    //グループのタグを表示
 //    @GetMapping("/showGroupTag")
-//    public String showGroupTag(Model model,Group group) {
-////        model.addAttribute("hoge", tagRepository.findByGroup(group));
+//    public String showGroupTag(Model model,String groupId) {
+//        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
 //        return "hoge";
 //    }
-
+//
 //    //投稿一覧取得
 //    @GetMapping("/showGroupMessage")
 ////    @ResponseBody
@@ -126,33 +126,6 @@ public class GroupController {
 //        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
 //        return "hoge";
 //    }
-=======
-    //グループのメンバー一覧表示（？）
-    @GetMapping("/group/showGroupMemberList")
-//    @ResponseBody
-    public String showGroupMemberList(Model model, HttpSession session){
-        //グループリポジトリからすべてを取得、セッションスコープに保存
-        session.setAttribute("hoge",groupRepository.findAll());
-        //内部結合したグループメンバーの全レコード取得、リクエストスコープに保存
-        model.addAttribute("hoge",groupMemberRepository.findAll());
-        return "hoge";
-    }
-
-    //グループのタグを表示
-    @GetMapping("/showGroupTag")
-    public String showGroupTag(Model model,String groupId) {
-        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
-        return "hoge";
-    }
-
-    //投稿一覧取得
-    @GetMapping("/showGroupMessage")
-//    @ResponseBody
-    public String showGroupMessage(@PathVariable Model model, String groupId){
-        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
-        return "hoge";
-    }
->>>>>>> 938d70fe0b685d22de9a8f1f245ff847526caedb
     //投稿削除
     @PostMapping("/deleteGroupMessage")
     public String deleteGroupMessage(@PathVariable Long groupMessageId) {
@@ -166,8 +139,5 @@ public class GroupController {
         userRepository.save(user);
         return "hoge";
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> e43b291991cbfcdf627d920b2686fd24fc21e08d
 }
