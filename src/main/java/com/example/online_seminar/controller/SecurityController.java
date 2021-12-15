@@ -19,6 +19,7 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String login() {
+        System.out.println("$2a$10$laZW8OVOnoTcZmR3OIbCKu6ZYSrZ2AWR34yTLV.Dw8AIYqo9.95F6");
         return "login";
     }
 
@@ -44,9 +45,12 @@ public class SecurityController {
         System.out.println(loginUser.getAuthorities());
         model.addAttribute("groups", groupRepository.findAll());
 
+        System.out.println();
         model.addAttribute("seminars", seminar);
         model.addAttribute("competitions", competition);
 
         return "main_menu";
+
+
     }
 }
