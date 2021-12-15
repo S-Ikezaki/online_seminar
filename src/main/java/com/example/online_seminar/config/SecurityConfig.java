@@ -1,12 +1,8 @@
 package com.example.online_seminar.config;
 
-<<<<<<< HEAD
-import com.example.demo.util.Role;
+import com.example.online_seminar.entity.util.Role;
 import lombok.RequiredArgsConstructor;
-=======
 import com.example.online_seminar.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> e43b291991cbfcdf627d920b2686fd24fc21e08d
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,25 +14,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static com.example.demo.util.Role.*;
+import static com.example.online_seminar.entity.util.Role.*;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-<<<<<<< HEAD
-    private final UserDetailsService userDetailsService;
-=======
-    public SecurityConfig(
-            @Autowired
-            UserDetailsServiceImpl userDetailsService
-    ){
-        this.userDetailsService = userDetailsService;
-    }
 
-    private UserDetailsService userDetailsService;
->>>>>>> e43b291991cbfcdf627d920b2686fd24fc21e08d
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

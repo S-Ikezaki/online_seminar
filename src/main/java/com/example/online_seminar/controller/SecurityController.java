@@ -18,7 +18,9 @@ public class SecurityController {
     private final GroupRepository groupRepository;
 
     @GetMapping("/login")
-    public String login() { return "login"; }
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/")
     public String showMenu(Authentication loginUser, Model model) {
@@ -27,8 +29,8 @@ public class SecurityController {
         List<Group> seminar = new ArrayList<Group>();
         List<Group> competition = new ArrayList<Group>();
 
-        for (Group group: groupList){
-            if(group.getGroupRole() == 0) {
+        for (Group group : groupList) {
+            if (group.getGroupRole() == 0) {
                 seminar.add(group);
             } else {
                 competition.add(group);
@@ -40,10 +42,11 @@ public class SecurityController {
 
 
         System.out.println(loginUser.getAuthorities());
-        model.addAttribute("groups",groupRepository.findAll());
+        model.addAttribute("groups", groupRepository.findAll());
 
-        model.addAttribute("seminars",seminar);
-        model.addAttribute("competitions",competition);
+        model.addAttribute("seminars", seminar);
+        model.addAttribute("competitions", competition);
 
         return "main_menu";
     }
+}
