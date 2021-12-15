@@ -30,12 +30,12 @@
         <button th:attr="onClick='location.href=\'' +@{/users/admin/group_create} + '\''">グループ作成画面</button>
     </div>
     <button th:attr="onClick='location.href=\'' +@{/users/group_search} + '\''">パスワード変更</button>
-    <div sec:authorize="hasAnyRole('1')">
+    <div sec:authorize="hasRole('1')">
         <button th:attr="onClick='location.href=\'' +@{/users/teacher/users_list} + '\''">ユーザ一覧画面</button>
     </div>
-<!--    <div sec:authorize="hasRole('3')">-->
-<!--        <button th:attr="onClick='location.href=\'' +@{/users/admin/users_list} + '\''">ユーザ一覧画面</button>-->
-<!--    </div>-->
+    <div sec:authorize="hasRole('3')">
+        <button th:attr="onClick='location.href=\'' +@{/users/admin/users_list} + '\''">ユーザ一覧画面</button>
+    </div>
     <br>
     <!--参加ゼミ一覧表示-->
     <table>
