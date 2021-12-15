@@ -142,8 +142,4 @@ public class GroupController {
         groupMemberRepository.save(groupMember);
         return "hoge";
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 8c13f3949bf944dd1df94158d5c0b1a896d60fdf
 }
