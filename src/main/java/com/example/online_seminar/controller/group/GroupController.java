@@ -1,6 +1,7 @@
 package com.example.online_seminar.controller.group;
 
 import com.example.online_seminar.entity.group.Group;
+import com.example.online_seminar.entity.group.GroupMember;
 import com.example.online_seminar.entity.group.GroupMessage;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
@@ -134,12 +135,10 @@ public class GroupController {
 
     //教師による権限付与（情報更新）
     @PostMapping("/updateStudentRole")
-    public String updateStudentRole(@RequestBody User user){
-        userRepository.save(user);
+    public String updateStudentRole(@RequestBody int groupRole,Model model){
+        GroupMember groupMember = new GroupMember();
+        groupMember.setGroupRole(groupRole);
+        groupMemberRepository.save(groupMember);
         return "hoge";
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> e43b291991cbfcdf627d920b2686fd24fc21e08d
 }
