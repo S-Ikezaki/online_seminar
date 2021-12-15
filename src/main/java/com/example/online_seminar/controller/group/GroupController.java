@@ -106,8 +106,8 @@ public class GroupController {
 
     //グループのタグを表示
     @GetMapping("/showGroupTag")
-    public String showGroupTag(Model model,Group group) {
-//        model.addAttribute("hoge", tagRepository.findByGroup(group));
+    public String showGroupTag(Model model,String groupId) {
+        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
         return "hoge";
     }
 
@@ -131,11 +131,5 @@ public class GroupController {
         userRepository.save(user);
         return "hoge";
     }
-
-
-
-
-
-
 
 }
