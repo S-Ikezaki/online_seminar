@@ -10,11 +10,6 @@
     <input type="search" name="search" placeholder="キーワードを入力">
     <input type="submit" name="submit" value="検索"><br>
 
-    <div>
-    <input type="radio" name="radioButton" value="seminar" checked>ゼミ
-    <input type="radio" name="radioButton" value="competition">コンペ
-    </div>
-
     <table>
         <tr th:each="" th:object="${Group}" class="align-middle">
             <td th:text="*{groupName}"></td>
@@ -24,10 +19,10 @@
             <!-- -->
         </tr>
     </table>
+
 </form>
 
 <button type="button" onclick="location.href='../student/student_main_menu.html'">メニューに戻る</button><br>
-<button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
 
 </body>
 </html>

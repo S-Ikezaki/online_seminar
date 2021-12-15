@@ -11,7 +11,9 @@ import java.util.List;
 public interface TagRequestRepository extends JpaRepository<TagRequest,Long> {
 
     // タグで検索するメソッド
-    @Query( name = "Request.findByTagNQVariable", nativeQuery = true)
-    List<Request> findNyTagNq(Tag tagName);
+
+    //QueryCreationException の原因になっている
+//    @Query( name = "Request.findByTagNQVariable", nativeQuery = true)
+//    List<Request> findNyTagNq(Tag tagName);
 
 }

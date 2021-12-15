@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "tag_request_mst")
+@IdClass(TagRequest.class)
 public class TagRequest implements Serializable{
     @Id
     @Column(name = "tag_id")
