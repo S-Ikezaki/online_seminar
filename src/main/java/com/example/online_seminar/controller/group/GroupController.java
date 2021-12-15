@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,6 +51,27 @@ public class GroupController {
         return " ";
     }*/
 
+//    検索画面に遷移
+    @GetMapping("/group_search")
+    public String SearchGroup(Model model) {
+        System.out.println("グループサーチ");
+
+        List<Group> groupList = groupRepository.findAll();
+        List<Group> seminar = new ArrayList<Group>();
+        List<Group> competition = new ArrayList<Group>();
+
+        for (Group group: groupList){
+            if(group.getGroupRole() == 0) {
+                seminar.add(group);
+            } else {
+                competition.add(group);
+            }
+        }
+        model.addAttribute("seminars",seminar);
+        model.addAttribute("competitions",competition);
+
+        return "search_group";
+    }
     //グループの一件追加用メソッド
     @GetMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,

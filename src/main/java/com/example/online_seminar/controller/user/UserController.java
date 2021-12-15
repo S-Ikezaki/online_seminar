@@ -124,4 +124,9 @@ public class UserController {
         return "";
     }
 
+    @GetMapping("/teacher/group_create")
+    public String createGroup(){
+        return "test1";
+    }
+
 }

@@ -41,13 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 「/register」を追加
                 .antMatchers("/login").permitAll()
-//                 「/admin」は、ADMINユーザだけアクセス可能にします
-                .antMatchers("/student/**").hasRole(STUDENT.name())
-//                .antMatchers("/teacher/**").hasRole(TEACHER.name())
-                .antMatchers("/teacher/**").hasAnyRole(TEACHER.name(), ADMIN.name())
-                .antMatchers("/employee/**").hasRole(EMPLOYEE.name())
-                .antMatchers("/admin/**").hasRole(ADMIN.name())
-//                .antMatchers("/teacher/**").hasRole(ADMIN.name())
+                .antMatchers("*/student/*").hasRole("0")
+                .antMatchers("/users/teacher/**").hasAnyRole("1","3")
+                .antMatchers("*/employee/*").hasRole("2")
+                .antMatchers("*/admin/*").hasRole("3")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
