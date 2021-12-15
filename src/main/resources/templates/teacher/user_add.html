@@ -10,33 +10,18 @@
     <script>
 
         window.onload = function(){
-            let btnstu = document.getElementById("student");
-            let btntea = document.getElementById("teacher");
-            let btnadm = document.getElementById("admin");
-            let btnemp = document.getElementById("employee");
-
             let stuform = document.getElementById("student-input");
             let teaform = document.getElementById("teacher-input");
             let admform = document.getElementById("admin-input");
             let empform = document.getElementById("employee-input");
 
-            let studentid = document.getElementById("student_id");
-            let studentname = document.getElementById("student_name");
-            let studentpassword = document.getElementById("student_password");
+            let id = document.getElementById("id");
+            let name = document.getElementById("name");
+            let password = document.getElementById("password");
+
             let studentschoolname = document.getElementById("student_school_name");
-            let grade = document.getElementById("student_grade");
-            let graduationdate = document.getElementById("student_graduation_date");
-            let teacherid= document.getElementById("teacher_id");
-            let teachername = document.getElementById("teacher_name");
-            let teacherpassword = document.getElementById("teacher_password");
             let teacherschoolname = document.getElementById("teacher_school_name");
-            let adminid = document.getElementById("admin_id");
-            let adminname = document.getElementById("admin_name");
-            let adminpassword = document.getElementById("admin_password");
             let adminschoolname = document.getElementById("admin_school_name");
-            let employeeid = document.getElementById("employee_id");
-            let employeename = document.getElementById("employee_name");
-            let employeepassword = document.getElementById("employee_password");
             let enterprisename = document.getElementById("enterprise_name");
 
             stuform.style.display = "";
@@ -44,26 +29,13 @@
             admform.style.display = "none";
             empform.style.display = "none";
 
-            studentid.value = "";
-            studentname.value = "";
-            studentpassword.value = "";
+            id.value = "";
+            name.value = "";
+            password.value = "";
+
             studentschoolname.value = "";
-            grade.value = "";
-            graduationdate.value = "";
-
-            teacherid.value = "";
-            teachername.value = "";
-            teacherpassword.value = "";
             teacherschoolname.value = "";
-
-            adminid.value = "";
-            adminname.value = "";
-            adminpassword.value = "";
             adminschoolname.value = "";
-
-            employeeid.value = "";
-            employeename.value = "";
-            employeepassword.value = "";
             enterprisename.value = "";
         }
 
@@ -78,23 +50,9 @@
             let admform = document.getElementById("admin-input");
             let empform = document.getElementById("employee-input");
 
-            let studentid = document.getElementById("student_id");
-            let studentname = document.getElementById("student_name");
-            let studentpassword = document.getElementById("student_password");
             let studentschoolname = document.getElementById("student_school_name");
-            let grade = document.getElementById("student_grade");
-            let graduationdate = document.getElementById("student_graduation_date");
-            let teacherid= document.getElementById("teacher_id");
-            let teachername = document.getElementById("teacher_name");
-            let teacherpassword = document.getElementById("teacher_password");
             let teacherschoolname = document.getElementById("teacher_school_name");
-            let adminid = document.getElementById("admin_id");
-            let adminname = document.getElementById("admin_name");
-            let adminpassword = document.getElementById("admin_password");
             let adminschoolname = document.getElementById("admin_school_name");
-            let employeeid = document.getElementById("employee_id");
-            let employeename = document.getElementById("employee_name");
-            let employeepassword = document.getElementById("employee_password");
             let enterprisename = document.getElementById("enterprise_name");
 
             if (btnstu.checked) {
@@ -103,26 +61,12 @@
                 admform.style.display = "none";
                 empform.style.display = "none";
 
-                studentid.value = "";
-                studentname.value = "";
-                studentpassword.value = "";
                 studentschoolname.value = "";
-                grade.value = "";
+                graduationyear.value="";
+                graduationmonth.value="";
                 graduationdate.value = "";
-
-                teacherid.value = "";
-                teachername.value = "";
-                teacherpassword.value = "";
                 teacherschoolname.value = "";
-
-                adminid.value = "";
-                adminname.value = "";
-                adminpassword.value = "";
                 adminschoolname.value = "";
-
-                employeeid.value = "";
-                employeename.value = "";
-                employeepassword.value = "";
                 enterprisename.value = "";
             } else if (btntea.checked){
                 teaform.style.display = "";
@@ -130,26 +74,9 @@
                 admform.style.display = "none";
                 empform.style.display = "none";
 
-                studentid.value = "";
-                studentname.value = "";
-                studentpassword.value = "";
                 studentschoolname.value = "";
-                grade.value = "";
-                graduationdate.value = "";
-
-                teacherid.value = "";
-                teachername.value = "";
-                teacherpassword.value = "";
                 teacherschoolname.value = "";
-
-                adminid.value = "";
-                adminname.value = "";
-                adminpassword.value = "";
                 adminschoolname.value = "";
-
-                employeeid.value = "";
-                employeename.value = "";
-                employeepassword.value = "";
                 enterprisename.value = "";
             } else if (btnadm.checked){
                 admform.style.display = "";
@@ -157,26 +84,9 @@
                 teaform.style.display = "none";
                 empform.style.display = "none";
 
-                studentid.value = "";
-                studentname.value = "";
-                studentpassword.value = "";
                 studentschoolname.value = "";
-                grade.value = "";
-                graduationdate.value = "";
-
-                teacherid.value = "";
-                teachername.value = "";
-                teacherpassword.value = "";
                 teacherschoolname.value = "";
-
-                adminid.value = "";
-                adminname.value = "";
-                adminpassword.value = "";
                 adminschoolname.value = "";
-
-                employeeid.value = "";
-                employeename.value = "";
-                employeepassword.value = "";
                 enterprisename.value = "";
             } else if (btnemp.checked){
                 empform.style.display = "";
@@ -184,52 +94,18 @@
                 teaform.style.display = "none";
                 admform.style.display = "none";
 
-                studentid.value = "";
-                studentname.value = "";
-                studentpassword.value = "";
                 studentschoolname.value = "";
-                grade.value = "";
-                graduationdate.value = "";
-
-                teacherid.value = "";
-                teachername.value = "";
-                teacherpassword.value = "";
                 teacherschoolname.value = "";
-
-                adminid.value = "";
-                adminname.value = "";
-                adminpassword.value = "";
                 adminschoolname.value = "";
-
-                employeeid.value = "";
-                employeename.value = "";
-                employeepassword.value = "";
                 enterprisename.value = "";
             }else {
                 teaform.style.display = "none";
                 admform.style.display = "none";
                 empform.style.display = "none";
 
-                studentid.value = "";
-                studentname.value = "";
-                studentpassword.value = "";
                 studentschoolname.value = "";
-                grade.value = "";
-                graduationdate.value = "";
-
-                teacherid.value = "";
-                teachername.value = "";
-                teacherpassword.value = "";
                 teacherschoolname.value = "";
-
-                adminid.value = "";
-                adminname.value = "";
-                adminpassword.value = "";
                 adminschoolname.value = "";
-
-                employeeid.value = "";
-                employeename.value = "";
-                employeepassword.value = "";
                 enterprisename.value = "";
             }
         }
@@ -239,62 +115,52 @@
     </script>
 </head>
 <body>
-<form>
+
+<form method="post" action="">
     <p>アカウント作成画面</p>
     <input type="radio" name="role" id="student" checked value="0" checked onclick="buttonClick()">学生
     <input type="radio" name="role" id="teacher" value="1"  onclick="buttonClick()">教師(一般)
-    <input type="radio" name="role" id="admin" value="1" onclick="buttonClick()">教師(管理者)
+    <input type="radio" name="role" id="admin" value="3" onclick="buttonClick()">教師(管理者)
     <input type="radio" name="role" id="employee" value="2" onclick="buttonClick()">企業担当者
 
-    <!---学生-->
+
+    <p>id</p>
+    <input type="text" id="id">
+    <p>名前</p>
+    <input type="text" id="name">
+    <p>パスワード</p>
+    <input type="text" id="password">
+
+    <!---学生用の情報-->
     <div id="student-input">
-        <p>id</p>
-        <input type="text" id="student_id">
-        <p>名前:</p>
-        <input type="text" id="student_name">
-        <p>パスワード</p>
-        <input type="text" id="student_password">
-        <p>学校名:</p>
+        <p>学校名</p>
         <input type="text" id="student_school_name">
-        <p>学年:</p>
-        <input type="text" id="student_grade">
-        <p>卒業年月日:</p>
-        <input type="text" id="student_graduation_date">
+        <p>在籍予定年数</p>
+        <input type="radio" name="course" id="course2" value="2" checked>2
+        <input type="radio" name="course" id="course3" value="2">3
+        <input type="radio" name="course" id="course4" value="2">4
+        <p>学年</p>
+        <input type="radio" name="grade" id="grade1" value="1" checked>1
+        <input type="radio" name="grade" id="grade2" value="2">2
+        <input type="radio" name="grade" id="grade3" value="2">3
+        <input type="radio" name="grade" id="grade4" value="2">4
     </div>
 
-    <!--教師(一般)-->
+    <!--教師(一般)用の情報-->
     <div id="teacher-input">
-        <p>id</p>
-        <input type="text" id="teacher_id">
-        <p>名前:</p>
-        <input type="text" id="teacher_name">
-        <p>パスワード</p>
-        <input type="text" id="teacher_password">
-        <p>学校名:</p>
+        <p>学校名</p>
         <input type="text" id="teacher_school_name">
     </div>
 
-    <!---教師(管理者)-->
+    <!---教師(管理者)用の情報-->
     <div id="admin-input">
-        <p>id</p>
-        <input type="text" id="admin_id">
-        <p>名前:</p>
-        <input type="text" id="admin_name">
-        <p>パスワード</p>
-        <input type="text" id="admin_password">
-        <p>学校名:</p>
+        <p>学校名</p>
         <input type="text" id="admin_school_name">
     </div>
 
-    <!--企業担当者-->
+    <!--企業担当者用の情報-->
     <div id="employee-input">
-        <p>id</p>
-        <input type="text" id="employee_id">
-        <p>名前:</p>
-        <input type="text" id="employee_name">
-        <p>パスワード</p>
-        <input type="text" id="employee_password">
-        <p>企業名:</p>
+        <p>企業名</p>
         <input type="text" id="enterprise_name">
     </div>
 
