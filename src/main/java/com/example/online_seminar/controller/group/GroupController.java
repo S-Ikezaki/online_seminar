@@ -51,9 +51,14 @@ public class GroupController {
     @GetMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
                            Model model, BindingResult result){
-        model.addAttribute("groups",groupRepository.findAll());
+        group.setGroupId(group.getGroupId());
+        group.setGroupName(group.getGroupName());
+        group.setGroupRole(group.getGroupRole());
+        group.setGroupMembers(group.getGroupMembers());
+
+        model.addAttribute("groups",group);
         if(result.hasErrors()){
-            return "hoge";
+            return "list";
         }
         groupRepository.save(group);
         return "hoge";
