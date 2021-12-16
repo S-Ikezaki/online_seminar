@@ -22,7 +22,12 @@
         </div>
     </div>
 
-    <button th:attr="onClick='location.href=\'' +@{/groups/group_search} + '\''">検索画面</button>
+    <p>[[${username}]]</p>
+    <p>[[${role}]]</p>
+
+    <form th:action="@{/group_search}" method="post">
+        <button>検索画面</button>
+    </form>
     <div sec:authorize="hasAnyRole('1','3')">
         <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>
     </div>
