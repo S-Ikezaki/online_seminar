@@ -2,7 +2,6 @@ package com.example.online_seminar.controller;
 
 import com.example.online_seminar.controller.group.GroupController;
 import com.example.online_seminar.entity.group.Group;
-import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +44,6 @@ public class SecurityController {
         model.addAttribute("role", loginUser.getAuthorities());
 
         System.out.println(loginUser.getAuthorities());
-        model.addAttribute("groups", groupRepository.findAll());
-
-        System.out.println();
         model.addAttribute("seminars", seminar);
         model.addAttribute("competitions", competition);
 
