@@ -70,7 +70,7 @@ public class GroupController {
         model.addAttribute("seminars",seminar);
         model.addAttribute("competitions",competition);
 
-        return "search_group";
+        return "search";
     }
 
     //グループの一件追加用メソッド
