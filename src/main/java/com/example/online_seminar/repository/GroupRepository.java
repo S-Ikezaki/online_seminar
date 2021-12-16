@@ -25,7 +25,7 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
 
     //グループごとのメッセージを表示するためのメソッド
     @Query(name = "Message.findByGroupNq",nativeQuery = true)
-    List<Group> findMessageByGroup(String groupId);
+    List<Group> findByGroup(String groupId);
 
     //削除用のグループ選択メソッド
     @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)

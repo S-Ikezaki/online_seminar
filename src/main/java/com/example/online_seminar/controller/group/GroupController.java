@@ -133,8 +133,8 @@ public class GroupController {
     @GetMapping("/showGroupMessage")
     @ResponseBody
     public String showGroupMessage(@PathVariable Model model, String groupId){
-        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
-        return "hoge";
+        model.addAttribute("hoge", groupRepository.findByGroup(groupId));
+        return "/showGroupMessage";
     }
 
     //投稿削除
