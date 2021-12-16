@@ -72,6 +72,7 @@ public class GroupController {
 
         return "search_group";
     }
+
     //グループの一件追加用メソッド
     @GetMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
