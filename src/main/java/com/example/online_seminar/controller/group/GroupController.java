@@ -67,28 +67,17 @@ public class GroupController {
         return "hoge";
     }
 
-    //グループの一覧表示 (データはとってこれる)
+    //グループの一覧表示 　データはとってこれる　
     @GetMapping("/group/showGroupList")
 //    @ResponseBody
-    public String showGroupList(Model model){
-        model.addAttribute("groups",groupRepository.findAll());
+    public String showGroupList(Model model,String id){
+        model.addAttribute("groups",groupRepository.findByUser(id));
         return "group/showGroupList";
     }
-
-    //参加しているグループの一覧表示
-    @GetMapping("/group/showUserGroupList")
-//    @ResponseBody
-    public String showUserGroupList(Model model,HttpSession session){
-        session.setAttribute("groupMembers",groupMemberRepository.findAll());
-        model.addAttribute("groups",groupRepository.findAll());
-        return "student_main_menu";
-    }
-
 
     //一件取得用メソッド
     @GetMapping("/group/{id:[0-9]+")
     public String showGroup(Model model,@PathVariable("id") Long groupId,HttpSession session){
-        //findById実行
         model.addAttribute("",groupRepository.findById(groupId));
         return "";
     }
@@ -99,7 +88,6 @@ public class GroupController {
         groupRepository.deleteById(Long.valueOf(groupId));
         return "一件削除";
     }
-
 
     //グループのメンバー一覧表示（？）
     @GetMapping("/group/showGroupMemberList")

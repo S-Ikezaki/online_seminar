@@ -1,6 +1,8 @@
 package com.example.online_seminar.controller;
 
+import com.example.online_seminar.controller.group.GroupController;
 import com.example.online_seminar.entity.group.Group;
+import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +22,15 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String login() {
-        System.out.println("$2a$10$laZW8OVOnoTcZmR3OIbCKu6ZYSrZ2AWR34yTLV.Dw8AIYqo9.95F6");
         return "login";
     }
 
     @GetMapping("/")
-    public String showMenu(Authentication loginUser, Model model) {
-
-        List<Group> groupList = groupRepository.findAll();
+    public String showMenu(Authentication loginUser, Model model,GroupController groupController) {
+//        String userId = (String) model.getAttribute("username");
+        String userId = loginUser.getName();
+        System.out.println("{"+userId+"}");
+        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
         List<Group> seminar = new ArrayList<Group>();
         List<Group> competition = new ArrayList<Group>();
 
@@ -51,6 +55,8 @@ public class SecurityController {
 
         return "main_menu";
 
-
     }
+
+
+
 }

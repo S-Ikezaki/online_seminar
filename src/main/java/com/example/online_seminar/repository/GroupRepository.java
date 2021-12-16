@@ -31,4 +31,8 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)
     List<Group> findByIdDeleteNq(String groupId);
 
+    //所属しているグループの表示
+    @Query(name = "Group.findByUserNq",nativeQuery = true)
+    List<Group> findByUser(String userId);
+
 }
