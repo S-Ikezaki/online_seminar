@@ -17,18 +17,18 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     List<Group> findByName(String name);*/
 
     //タグで検索するメソッド
-//    @Query(name = "Group.findByTagNq",nativeQuery = true)
-//    List<Group> findByTagNq(Tag tagName);
-//
-//    @Query(name = "Group.findCompetitionNameByTagNq",nativeQuery = true)
-//    List<Group> findCompetitionByTag(Tag tagName);
-//
-//    //グループごとのメッセージを表示するためのメソッド
-//    @Query(name = "Message.findByGroupNq",nativeQuery = true)
-//    List<Group> findMessageByGroup(String groupId);
-//
-//    //削除用のグループ選択メソッド
-//    @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)
-//    List<Group> findByIdDeleteNq(String groupId);
-//
+    @Query(name = "Group.findByTagNq",nativeQuery = true)
+    List<Group> findByTagNq(Tag tagName);
+
+    @Query(name = "Group.findCompetitionNameByTagNq",nativeQuery = true)
+    List<Group> findCompetitionByTag(Tag tagName);
+
+    //グループごとのメッセージを表示するためのメソッド
+    @Query(name = "Message.findByGroupNq",nativeQuery = true)
+    List<Group> findMessageByGroup(String groupId);
+
+    //削除用のグループ選択メソッド
+    @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)
+    List<Group> findByIdDeleteNq(String groupId);
+
 }

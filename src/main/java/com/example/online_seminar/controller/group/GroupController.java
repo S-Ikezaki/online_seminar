@@ -67,13 +67,12 @@ public class GroupController {
         return "hoge";
     }
 
-    //グループの一覧表示
+    //グループの一覧表示 (データはとってこれる)
     @GetMapping("/group/showGroupList")
 //    @ResponseBody
     public String showGroupList(Model model){
-        model.addAttribute("hoge",groupRepository.findAll());
-        //後でreturnは変わるかも
-        return "search/search_student";
+        model.addAttribute("groups",groupRepository.findAll());
+        return "group/showGroupList";
     }
 
     //参加しているグループの一覧表示
@@ -102,31 +101,32 @@ public class GroupController {
     }
 
 
-//    //グループのメンバー一覧表示（？）
-//    @GetMapping("/group/showGroupMemberList")
-////    @ResponseBody
-//    public String showGroupMemberList(Model model, HttpSession session){
-//        //グループリポジトリからすべてを取得、セッションスコープに保存
-//        session.setAttribute("hoge",groupRepository.findAll());
-//        //内部結合したグループメンバーの全レコード取得、リクエストスコープに保存
-//        model.addAttribute("hoge",groupMemberRepository.findAll());
-//        return "hoge";
-//    }
-//
-//    //グループのタグを表示
-//    @GetMapping("/showGroupTag")
-//    public String showGroupTag(Model model,String groupId) {
-//        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
-//        return "hoge";
-//    }
-//
-//    //投稿一覧取得
-//    @GetMapping("/showGroupMessage")
-////    @ResponseBody
-//    public String showGroupMessage(@PathVariable Model model, String groupId){
-//        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
-//        return "hoge";
-//    }
+    //グループのメンバー一覧表示（？）
+    @GetMapping("/group/showGroupMemberList")
+    @ResponseBody
+    public String showGroupMemberList(Model model, HttpSession session){
+        //グループリポジトリからすべてを取得、セッションスコープに保存
+        session.setAttribute("hoge",groupRepository.findAll());
+        //内部結合したグループメンバーの全レコード取得、リクエストスコープに保存
+        model.addAttribute("hoge",groupMemberRepository.findAll());
+        return "hoge";
+    }
+
+    //グループのタグを表示
+    @GetMapping("/showGroupTag")
+    public String showGroupTag(Model model,String groupId) {
+        model.addAttribute("hoge", tagRepository.findByGroup(groupId));
+        return "hoge";
+    }
+
+    //投稿一覧取得
+    @GetMapping("/showGroupMessage")
+    @ResponseBody
+    public String showGroupMessage(@PathVariable Model model, String groupId){
+        model.addAttribute("hoge", groupRepository.findMessageByGroup(groupId));
+        return "hoge";
+    }
+
     //投稿削除
     @PostMapping("/deleteGroupMessage")
     public String deleteGroupMessage(@PathVariable Long groupMessageId) {
