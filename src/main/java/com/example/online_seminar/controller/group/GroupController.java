@@ -6,6 +6,7 @@ import com.example.online_seminar.entity.group.GroupMessage;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("groups")
 public class GroupController {
 
@@ -51,28 +52,35 @@ public class GroupController {
         return " ";
     }*/
 
-//    検索画面に遷移
-    @GetMapping("/group_search")
-    public String SearchGroup(Model model) {
+    //    検索画面に遷移
+    @GetMapping("/search_group")
+    public String SearchGroup(@RequestParam("username") String username,
+                              @RequestParam("role") String role,
+                              Model model) {
+
         System.out.println("グループサーチ");
+        System.out.println(username);
+        System.out.println(role);
 
-        List<Group> groupList = groupRepository.findAll();
-        List<Group> seminar = new ArrayList<Group>();
-        List<Group> competition = new ArrayList<Group>();
+        List<Group> groupList = new ArrayList<Group>();
+        model.addAttribute("groups", groupList);
 
-        for (Group group: groupList){
-            if(group.getGroupRole() == 0) {
-                seminar.add(group);
-            } else {
-                competition.add(group);
-            }
-        }
-        model.addAttribute("seminars",seminar);
-        model.addAttribute("competitions",competition);
+//        List<Group> groupList = groupRepository.findAll();
+//        List<Group> seminar = new ArrayList<Group>();
+//        List<Group> competition = new ArrayList<Group>();
+//
+//        for (Group group: groupList){
+//            if(group.getGroupRole() == 0) {
+//                seminar.add(group);
+//            } else {
+//                competition.add(group);
+//            }
+//        }
+//        model.addAttribute("seminars",seminar);
+//        model.addAttribute("competitions",competition);
 
-        return "search";
+        return "search/search";
     }
-
     //グループの一件追加用メソッド
     @GetMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
