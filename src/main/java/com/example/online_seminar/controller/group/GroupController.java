@@ -151,7 +151,26 @@ public class GroupController {
 
     @PostMapping("/insertGroupMessage")
     @ResponseBody
-    public String insertGroupMessage(@PathVariable Model model,String groupId){
+    public String insertGroupMessage(@PathVariable Model model,
+                                     String groupId,
+                                     GroupMessage groupMessage,
+                                     Authentication loginUser,
+                                     BindingResult result){
+
+        User loginUserName = userRepository.findByUserId(loginUser.getName());
+        model.addAttribute("groupMessages", groupRepository.insertGroupMessage(
+                groupMessage.getGroupMessageId(),
+                loginUser.getName(),
+                loginUserName.getUserName(),
+                groupMessage.getMessageContents(),
+                groupMessage.getGroupId()
+                ));
+
+        if(result.hasErrors()){
+            return  "list";
+        }
+
+        /*groupMessageRepository.save(groupMessage);*/ //必ず必要になると思います
 
         return "seminar_menu";
     }
