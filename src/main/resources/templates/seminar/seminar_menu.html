@@ -1,43 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>seminar menu</title>
 </head>
 <body>
+<!-- サイドバーの表示-->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
+
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside bg-light">
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+    </div>
+
     <h4>投稿一覧</h4>
-
-<form>
-    <button type="submit">投稿</button>
-    <input type="text">
-</form>
-
-    <!--投稿の一覧表示はまだ作成されていません-->
+    <table>
+        <thead>
+        <tr>
+            <th>ユーザ名</th>
+            <th>投稿内容</th>
+            <th>日付</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- messageが空でない場合、messageの要素をmessageに格納する -->
+        <!-- 要素の数ループする -->
+        <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
+            <td th:text="${groupMessage.userName}"></td>
+            <td th:text="${groupMessage.messageContents}"></td>
+            <td th:text="${groupMessage.createDatatime}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/groups/投稿をinsertするやつ}" 　method="post">
+        <input type="text" name="messageContents" placeholder="投稿内容">
+        <button type="submit">投稿</button>
+    </form>
 
 
     <h4>会議</h4>
+    <form>
+        参加者:<input type="text" th:each="${MeetingMember}"><br>
+        主催者:<input type="text" th:each="${Meeting}"><br>
+        <button type="submit">参加</button>
+    </form>
 
-<form>
-    参加者:<input type="text" th:each="${MeetingMember}"><br>
-    主催者:<input type="text" th:each="${Meeting}"><br>
-    <button type="submit">参加</button>
-</form>
+    <form>
+        <button type="submit">新しく会議を始める</button>
+    </form>
 
-<form>
-    <button type="submit">新しく会議を始める</button>
-</form>
+    <form>
+        <button type="submit">ファイル共有</button>
+    </form>
 
-<form>
-    <button type="submit">ファイル共有</button>
-</form>
-
-<form>
-    <button type="button" onclick="location.href='seminar_member_list.html'">メンバー一覧</button>
-</form>
-
-<form>
-    <button type="submit">メニューに戻る</button>
-</form>
+    <form>
+        <button type="button" onclick="location.href='seminar_member_list.html'">メンバー一覧</button>
+    </form>
 
 </body>
 </html>

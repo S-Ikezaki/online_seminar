@@ -47,7 +47,7 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(seminars)}" th:each="seminar : ${seminars}">
-            <form method="POST" th:action="@{/seminar_menu}">
+            <form method="POST" th:action="@{/groups/seminar_menu}">
                 <input type="hidden" name="groupId" value="group.groupId">
                 <td th:text="${seminar.groupName}"></td>
                 <td th:text="${seminar.groupBio}"></td>
