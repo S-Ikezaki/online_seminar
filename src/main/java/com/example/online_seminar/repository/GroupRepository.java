@@ -35,4 +35,8 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     @Query(name = "Group.findByUserNq",nativeQuery = true)
     List<Group> findByUser(String userId);
 
+    //メッセージ投稿
+    @Query(name = "Message.insert",nativeQuery = true)
+    List<Group> insertGroupMessage();
+
 }

@@ -18,7 +18,7 @@
         <!-- messageが空でない場合、messageの要素をmessageに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
-            <form method="POST" th:action="@{/showGroupMessage}">
+            <form method="POST" th:action="@{/groups/showGroupMessage}">
                 <input type="hidden" name="groupId" value="group.groupId">
                 <td th:text="${groupMessage.userName}"></td>
                 <td th:text="${groupMessage.messageContents}"></td>

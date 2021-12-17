@@ -16,6 +16,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
 //    @Query(name = "User.findByUserRole")
 //    List<User> findByUserRole(String userRole);
 
+    @Query
+    User findByUserId(String userId);
+
     @Query(name = "User.findStudentByRoleNq", nativeQuery = true)
     List<User> findStudentByRole(String userRole);
 

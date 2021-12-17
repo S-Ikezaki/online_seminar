@@ -6,6 +6,7 @@ import com.example.online_seminar.entity.group.GroupMessage;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -99,7 +100,7 @@ public class GroupController {
     }
 
     //グループの一覧表示 　データはとってこれる　
-    @GetMapping("/group/showGroupList")
+    @GetMapping("/showGroupList")
 //    @ResponseBody
     public String showGroupList(Model model,String id){
         model.addAttribute("groups",groupRepository.findByUser(id));
@@ -107,7 +108,7 @@ public class GroupController {
     }
 
     //一件取得用メソッド
-    @GetMapping("/group/{id:[0-9]+")
+    @GetMapping("/{id:[0-9]+")
     public String showGroup(Model model,@PathVariable("id") Long groupId,HttpSession session){
         model.addAttribute("",groupRepository.findById(groupId));
         return "";
@@ -121,7 +122,7 @@ public class GroupController {
     }
 
     //グループのメンバー一覧表示（？）
-    @GetMapping("/group/showGroupMemberList")
+    @GetMapping("/showGroupMemberList")
     @ResponseBody
     public String showGroupMemberList(Model model, HttpSession session){
         //グループリポジトリからすべてを取得、セッションスコープに保存
@@ -141,10 +142,21 @@ public class GroupController {
     //投稿一覧取得
     @GetMapping("/showGroupMessage")
     @ResponseBody
-    public String showGroupMessage(@PathVariable Model model, String groupId){
-        model.addAttribute("hoge", groupRepository.findByGroup(groupId));
-        return "/showGroupMessage";
+    public String showGroupMessage(@PathVariable Model model, String groupId, Authentication loginUser){
+        model.addAttribute("groupMessages",userRepository.findByUserId(loginUser.getName()));
+        model.addAttribute("groupMessages", groupRepository.findByGroup(groupId));
+        /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
+        return "seminar_menu";
     }
+
+    @PostMapping("/insertGroupMessage")
+    @ResponseBody
+    public String insertGroupMessage(@PathVariable Model model,String groupId){
+
+        return "seminar_menu";
+    }
+
+    //
 
     //投稿削除
     @PostMapping("/deleteGroupMessage")
