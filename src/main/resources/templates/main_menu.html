@@ -52,7 +52,7 @@
                 <input type="hidden" name="groupId" value="group.groupId">
                 <td th:text="${seminar.groupName}"></td>
                 <td th:text="${seminar.groupBio}"></td>
-                <td><a th:href="@{/seminar_menu}" class="css名">
+                <td><a th:href="seminar_menu.html" class="css名">
                     <i class="クラス名">メニュー</i>
                 </a></td>
 
@@ -78,10 +78,9 @@
                 <td th:text="${competition.groupName}"></td>
                 <td th:text="${competition.groupBio}"></td>
                 <td>
-                    <a th:href="@{/seminar_menu}" class="css名">
+                    <a th:href="seminar_menu.html" class="css名">
                         <i class="クラス名">メニュー</i></a>
                 </td>
-
             </form>
         </tr>
         </tbody>
