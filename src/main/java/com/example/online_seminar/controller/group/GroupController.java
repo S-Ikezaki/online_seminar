@@ -140,12 +140,9 @@ public class GroupController {
     }
 
     //投稿一覧取得
-    @PostMapping("/showGroupMessage")
-    public String showGroupMessage(Model model, String groupId, Authentication loginUser){
-        System.out.println(groupId);
-//        model.addAttribute("groupMessages",userRepository.findByUserId(loginUser.getName()));
-
-        model.addAttribute("groupMessages", groupMessageRepository.findByGroup(groupId));
+    @GetMapping("/showGroupMessage/{groupId}")
+    public String showGroupMessage(Model model,@PathVariable("groupId") String groupId, Authentication loginUser){
+        model.addAttribute("groupMessages", groupRepository.findByGroup(groupId));
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         return "seminar/seminar_menu";

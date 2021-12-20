@@ -52,9 +52,8 @@
                 <td th:text="${seminar.groupName}"></td>
                 <td th:text="${seminar.groupBio}"></td>
                 <td>
-<!--                    <a th:href="@{/groups/showGroupMessage}" class="css名">-->
-<!--                    <i class="クラス名">メニュー</i></a>-->
-                    <button type="submit">ゼミメニューへ</button>
+                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${seminar.groupId})}" class="css名">
+                    <i class="クラス名">メニュー</i></a>
                 </td>
             </form>
         </tr>
