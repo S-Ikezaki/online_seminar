@@ -53,6 +53,7 @@
                 <td th:text="${seminar.groupBio}"></td>
                 <td>
                     <a th:href="@{/groups/showGroupMessage}" class="css名">
+                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${seminar.groupId})}" class="css名">
                     <i class="クラス名">メニュー</i></a>
                 </td>
 

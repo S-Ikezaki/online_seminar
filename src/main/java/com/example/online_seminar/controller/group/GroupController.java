@@ -144,6 +144,8 @@ public class GroupController {
     @ResponseBody
     public String showGroupMessage(@PathVariable Model model, String groupId, Authentication loginUser){
         model.addAttribute("groupMessages",userRepository.findByUserId(loginUser.getName()));
+    @GetMapping("/showGroupMessage/{groupId}")
+    public String showGroupMessage(Model model,@PathVariable("groupId") String groupId, Authentication loginUser){
         model.addAttribute("groupMessages", groupRepository.findByGroup(groupId));
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         return "seminar_menu";
