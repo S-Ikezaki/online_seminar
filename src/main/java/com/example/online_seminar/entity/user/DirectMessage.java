@@ -12,7 +12,8 @@ import java.sql.Date;
 public class DirectMessage implements Serializable {
     @Id
     @Column(name = "direct_message_id" ,nullable = false)
-    private long directMessageId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String directMessageId;
 
     @Column(name = "create_user_id" ,nullable = false)
     private String createUserId;
@@ -33,9 +34,13 @@ public class DirectMessage implements Serializable {
     private Date createDatetime;
 
     @ManyToOne
+    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable = false, updatable = false)
+    private User createUser;
+
+    @ManyToOne
     @JoinColumn(name = "address_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
 //    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
     //宛先が難しいです
-    private User user;
+    private User addressUser;
 
 }

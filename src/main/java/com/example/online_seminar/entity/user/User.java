@@ -58,17 +58,17 @@ public class User implements Serializable {
 //    @Column(name = "user_role", nullable = false)
 //    private int userRole;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    List<Student> students;
+    Student students;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    List<Teacher> teachers;
+    Teacher teachers;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    List<Employee> employees;
+    Employee employees;
 
     @OneToMany
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
