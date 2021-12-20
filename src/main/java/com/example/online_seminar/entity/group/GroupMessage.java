@@ -16,14 +16,12 @@ public class GroupMessage implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String groupMessageId;
 
-    @Id
     @Column(name = "user_id",nullable = false)
     private String userId;
 
     @Column(name = "user_name")
     private String userName;
 
-    @Id
     @Column(name="group_id",nullable = false)
     private String groupId;
 
