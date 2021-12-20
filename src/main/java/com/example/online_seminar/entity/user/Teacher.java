@@ -16,9 +16,6 @@ public class Teacher implements Serializable {
     @Column(name = "school_id" ,nullable = false)
     private String schoolId;
 
-    @Column(name = "permission_cd" ,nullable = false)
-    private boolean teacherRole;
-
 
     @ManyToOne
     @JoinColumn(name = "school_id",referencedColumnName = "school_id",insertable = false, updatable=false)
