@@ -22,6 +22,7 @@
         </div>
     </div>
 
+<!--    <div th:text="${groupMessages.groupName}">-->
     <h4>投稿一覧</h4>
     <table>
         <thead>
@@ -37,22 +38,22 @@
         <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
             <td th:text="${groupMessage.userName}"></td>
             <td th:text="${groupMessage.messageContents}"></td>
-            <td th:text="${groupMessage.createDatatime}"></td>
+<!--            <td th:text="${groupMessage.createDatatime}"></td>-->
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/groups/投稿をinsertするやつ}" 　method="post">
-        <input type="text" name="messageContents" placeholder="投稿内容">
-        <button type="submit">投稿</button>
-    </form>
+<!--    <form th:action="@{/groups/投稿をinsertするやつ}" 　method="post">-->
+<!--        <input type="text" name="messageContents" placeholder="投稿内容">-->
+<!--        <button type="submit">投稿</button>-->
+<!--    </form>-->
 
 
     <h4>会議</h4>
-    <form>
-        参加者:<input type="text" th:each="${MeetingMember}"><br>
-        主催者:<input type="text" th:each="${Meeting}"><br>
-        <button type="submit">参加</button>
-    </form>
+<!--    <form>-->
+<!--        参加者:<input type="text" th:each="${MeetingMember}"><br>-->
+<!--        主催者:<input type="text" th:each="${Meeting}"><br>-->
+<!--        <button type="submit">参加</button>-->
+<!--    </form>-->
 
     <form>
         <button type="submit">新しく会議を始める</button>
@@ -65,6 +66,6 @@
     <form>
         <button type="button" onclick="location.href='seminar_member_list.html'">メンバー一覧</button>
     </form>
-
+</main>
 </body>
 </html>

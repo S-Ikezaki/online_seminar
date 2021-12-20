@@ -37,6 +37,8 @@ public class Group implements Serializable {
     @OneToMany(mappedBy = "group")
     List<GroupMessage> groupMessages;
 
+
+
     @OneToOne
     @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     private Meeting meetings;

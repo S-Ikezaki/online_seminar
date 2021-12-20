@@ -47,15 +47,15 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(seminars)}" th:each="seminar : ${seminars}">
-            <form method="POST" th:action="@{/groups/seminar_menu}">
-                <input type="hidden" name="groupId" value="group.groupId">
+            <form method="POST" th:action="@{/groups/showGroupMessage}">
+                <input type="hidden" name="groupId" th:value="${seminar.groupId}">
                 <td th:text="${seminar.groupName}"></td>
                 <td th:text="${seminar.groupBio}"></td>
                 <td>
-                    <a th:href="@{/groups/showGroupMessage}" class="css名">
-                    <i class="クラス名">メニュー</i></a>
+<!--                    <a th:href="@{/groups/showGroupMessage}" class="css名">-->
+<!--                    <i class="クラス名">メニュー</i></a>-->
+                    <button type="submit">ゼミメニューへ</button>
                 </td>
-
             </form>
         </tr>
         </tbody>
@@ -73,15 +73,15 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(competitions)}" th:each="competition : ${competitions}">
-            <form method="POST" th:action="@{/competition_menu}">
-                <input type="hidden" name="groupId" value="group.groupId">
+            <form method="post" th:action="@{/groups/showGruopMessage}">
+                <input type="hidden" name="groupId" value=seminar.groupId>
                 <td th:text="${competition.groupName}"></td>
                 <td th:text="${competition.groupBio}"></td>
                 <td>
-                    <a th:href="seminar_menu.html" class="css名">
-                        <i class="クラス名">メニュー</i></a>
+<!--                    <a th:href="seminar_menu.html" class="css名">-->
+<!--                        <i class="クラス名">メニュー</i></a>-->
+                    <button type="submit">コンペメニューへ</button>
                 </td>
-
             </form>
         </tr>
         </tbody>
