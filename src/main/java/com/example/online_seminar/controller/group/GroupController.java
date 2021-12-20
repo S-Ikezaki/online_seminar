@@ -153,9 +153,7 @@ public class GroupController {
     }
 
     @PostMapping("/insertGroupMessage")
-    @ResponseBody
-    public String insertGroupMessage(@PathVariable Model model,
-                                     String groupId,
+    public String insertGroupMessage(Model model,
                                      GroupMessage groupMessage,
                                      Authentication loginUser,
                                      BindingResult result){
@@ -173,9 +171,9 @@ public class GroupController {
             return  "list";
         }
 
-        /*groupMessageRepository.save(groupMessage);*/ //必ず必要になると思います
+        groupMessageRepository.save(groupMessage); //必ず必要になると思います
 
-        return "seminar_menu";
+        return "seminar/seminar_menu";
     }
 
     //
