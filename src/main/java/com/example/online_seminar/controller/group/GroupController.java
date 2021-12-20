@@ -142,7 +142,11 @@ public class GroupController {
     //投稿一覧取得
     @GetMapping("/showGroupMessage/{groupId}")
     public String showGroupMessage(Model model,@PathVariable("groupId") String groupId, Authentication loginUser){
-        model.addAttribute("groupMessages", groupRepository.findByGroup(groupId));
+        List<GroupMessage> groupMessagesList = groupMessageRepository.findByGroup(groupId);
+//        for (GroupMessage groupMessage : groupMessagesList) {
+//            groupMessage.getCreateDatetime();
+//        }
+        model.addAttribute("groupMessages",groupMessagesList);
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         return "seminar/seminar_menu";
