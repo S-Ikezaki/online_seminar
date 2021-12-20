@@ -38,7 +38,7 @@
         <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
             <td th:text="${groupMessage.userName}"></td>
             <td th:text="${groupMessage.messageContents}"></td>
-<!--            <td th:text="${groupMessage.createDatatime}"></td>-->
+            <td th:text="${groupMessage.createDatetime}"></td>
         </tr>
         </tbody>
     </table>
