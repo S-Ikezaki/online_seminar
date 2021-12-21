@@ -16,6 +16,7 @@ public interface GroupMessageRepository extends JpaRepository<GroupMessage,Long>
 
     //メッセージ投稿
     @Query(name = "Message.insert",nativeQuery = true)
-    List<GroupMessage> insertGroupMessage(String gMessageId, String userId, String userName, String content, String groupId);
+    List<GroupMessage> insertGroupMessage(String userId, String userName, String content, String groupId);
+
 
 }

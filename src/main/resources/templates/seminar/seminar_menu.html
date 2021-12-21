@@ -43,8 +43,9 @@
         </tbody>
     </table>
 
-    <form th:action="@{/groups/showGroupMessage}" 　method="post">
-        <input type="text" name="messageContents" placeholder="投稿内容">
+    <form th:action="@{/groups/insertGroupMessage}" 　method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
     </form>
 
