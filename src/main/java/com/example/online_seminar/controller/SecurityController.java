@@ -24,7 +24,7 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String showMenu(Authentication loginUser, Model model,GroupController groupController) {
+    public String showMenu(Authentication loginUser, Model model) {
 //        String userId = (String) model.getAttribute("username");
         String userId = loginUser.getName();
         System.out.println("{"+userId+"}");

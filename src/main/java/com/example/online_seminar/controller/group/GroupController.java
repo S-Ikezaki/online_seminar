@@ -147,25 +147,33 @@ public class GroupController {
 //            groupMessage.getCreateDatetime();
 //        }
         model.addAttribute("groupMessages",groupMessagesList);
+        model.addAttribute("groupId",groupId);
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         return "seminar/seminar_menu";
     }
 
-    @GetMapping("/insertGroupMessage")
+    @GetMapping("/insertGroupMessage/{groupId}")
     public String insertGroupMessage(Model model,
+                                     @PathVariable("groupId")
+                                     String groupId,
                                      GroupMessage groupMessage,
                                      Authentication loginUser,
                                      BindingResult result){
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
         System.out.println(groupMessage.getMessageContents());
+        System.out.println(groupMessage.getGroupMessageId());
+        System.out.println(groupMessage.getGroupId());
+        System.out.println(loginUser.getName());
+        System.out.println(loginUserName.getUserName());
+
         model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
                 groupMessage.getGroupMessageId(),
                 loginUser.getName(),
                 loginUserName.getUserName(),
                 groupMessage.getMessageContents(),
-                groupMessage.getGroupId()
+                groupId
                 ));
 
         if(result.hasErrors()){
