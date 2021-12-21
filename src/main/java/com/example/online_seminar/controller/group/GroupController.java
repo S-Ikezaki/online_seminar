@@ -152,14 +152,15 @@ public class GroupController {
         return "seminar/seminar_menu";
     }
 
-    @PostMapping("/insertGroupMessage")
+    @GetMapping("/insertGroupMessage")
     public String insertGroupMessage(Model model,
                                      GroupMessage groupMessage,
                                      Authentication loginUser,
                                      BindingResult result){
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
-        model.addAttribute("groupMessages", groupRepository.insertGroupMessage(
+        System.out.println(groupMessage.getMessageContents());
+        model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
                 groupMessage.getGroupMessageId(),
                 loginUser.getName(),
                 loginUserName.getUserName(),
@@ -168,7 +169,7 @@ public class GroupController {
                 ));
 
         if(result.hasErrors()){
-            return  "list";
+            return  "error";
         }
 
         groupMessageRepository.save(groupMessage); //必ず必要になると思います

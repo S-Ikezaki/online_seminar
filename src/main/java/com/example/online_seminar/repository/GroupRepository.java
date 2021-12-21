@@ -24,10 +24,6 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     @Query(name = "Group.findCompetitionNameByTagNq",nativeQuery = true)
     List<Group> findCompetitionByTag(Tag tagName);
 
-    //グループごとのメッセージを表示するためのメソッド
-    @Query(name = "Message.findByGroupNq",nativeQuery = true)
-    List<GroupMessage> findByGroup(String groupId);
-
     //削除用のグループ選択メソッド
     @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)
     List<Group> findByIdDeleteNq(String groupId);
@@ -35,9 +31,5 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     //所属しているグループの表示
     @Query(name = "Group.findByUserNq",nativeQuery = true)
     List<Group> findByUser(String userId);
-
-    //メッセージ投稿
-    @Query(name = "Message.insert",nativeQuery = true)
-    List<Group> insertGroupMessage(String gMessageId,String userId,String userName,String content,String groupId);
 
 }

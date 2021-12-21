@@ -1,5 +1,6 @@
 package com.example.online_seminar.repository;
 
+import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMember;
 import com.example.online_seminar.entity.group.GroupMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,9 @@ public interface GroupMessageRepository extends JpaRepository<GroupMessage,Long>
     //グループごとのメッセージを表示するためのメソッド
     @Query(name = "Message.findByGroupNq",nativeQuery = true)
     List<GroupMessage> findByGroup(String groupId);
+
+    //メッセージ投稿
+    @Query(name = "Message.insert",nativeQuery = true)
+    List<GroupMessage> insertGroupMessage(String gMessageId, String userId, String userName, String content, String groupId);
 
 }
