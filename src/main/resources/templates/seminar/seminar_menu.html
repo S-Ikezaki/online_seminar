@@ -24,6 +24,13 @@
 
 <!--    <div th:text="${groupMessages.groupName}">-->
     <h4>投稿一覧</h4>
+    <p>
+    <form th:action="@{/groups/addGroupMessage}" 　method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
+        <button type="submit">投稿</button>
+    </form>
+    <p>
     <table>
         <thead>
         <tr>
@@ -43,12 +50,10 @@
         </tbody>
     </table>
 
-    <form th:action="@{/groups/insertGroupMessage}" 　method="post">
-        <input type="hidden" name="groupId" th:value="${groupId}">
-        <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
-        <button type="submit">投稿</button>
-    </form>
 
+
+    <br>
+    <br>
 
     <h4>会議</h4>
 <!--    <form>-->

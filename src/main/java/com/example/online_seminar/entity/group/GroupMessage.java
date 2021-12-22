@@ -2,6 +2,8 @@ package com.example.online_seminar.entity.group;
 
 import com.example.online_seminar.entity.user.User;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,10 +13,11 @@ import java.sql.Date;
 @Entity
 @Table(name = "group_message_mst")
 public class GroupMessage implements Serializable {
+
     @Id
     @Column(name="group_message_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String groupMessageId;
+    private int groupMessageId;
 
     @Column(name = "user_id",nullable = false)
     private String userId;
@@ -30,6 +33,7 @@ public class GroupMessage implements Serializable {
 
     @Column(name="message_contents",nullable = false)
     private String messageContents;
+
 
 
     @ManyToOne
