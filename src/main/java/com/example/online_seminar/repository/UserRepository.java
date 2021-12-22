@@ -45,5 +45,4 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(name = "User.findEmployeeByRoleNq", nativeQuery = true)
     List<User> findEmployeeByRole(String userRole);
-
 }

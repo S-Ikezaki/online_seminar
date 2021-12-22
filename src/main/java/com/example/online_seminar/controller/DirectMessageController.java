@@ -7,8 +7,7 @@ import com.example.online_seminar.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,14 +28,11 @@ public class DirectMessageController {
         this.userRepository = userRepository;
     }
 
-    // メッセージの履歴があるユーザ一覧取得
-    @GetMapping("/")
-    public String getMessageUser(Authentication id, Model model) {
-        String userId = id.getName();
-        System.out.println(userId);
+    // DMのやりとりのあるユーザを取得するメソッド
+    @ResponseBody
+    public List<User> getUserList(String userId) {
 
-        List<DirectMessage> directMessages = directMessageRepository.findAll();
-        List<DirectMessage> directMessageList = directMessages;
+        List<DirectMessage> directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(userId,userId);
         Collections.reverse(directMessageList);
 
         List<User> userList = new ArrayList<User>();
@@ -51,14 +47,56 @@ public class DirectMessageController {
                 }
             }
         }
+        return userList;
+    }
 
-        model.addAttribute("dms",directMessages);
+    // メッセージの履歴があるユーザ一覧取得
+    @GetMapping("/")
+    public String getMessageUser(Authentication id, Model model) {
+        String userId = id.getName();
+        System.out.println(userId);
+
+        List<User> userList = getUserList(userId);
+
         model.addAttribute("users",userList);
 
         return "dm/direct_message";
     }
 
+    // 指定された相手とのDMを取得
+    @PostMapping("dmToPerson/{addressUserId}")
+    public String showDirectMessagePerson(@PathVariable("addressUserId") String addressUserId,Authentication user, Model model) {
+        System.out.println("私とのDM楽しい？");
+        System.out.println(addressUserId);
+
+        String userId = user.getName();
+
+        List<DirectMessage> directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
+        List<User> userList = getUserList(userId);
+
+        model.addAttribute("users", userList);
+        model.addAttribute("dms",directMessages);
+
+        return "dm/direct_message";
+    }
+
+    // ユーザをキーワードで検索（名前）
+//    @GetMapping("/search")
+//    public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result, Model model) {
+//
+//        System.out.println(keyword);
+//
+//        List<User> userList = userRepository.findAllByUserNameLike(keyword);
+//
+//
+//        System.out.println(userList.get(0).getUserName());
+//        model.addAttribute("users", userList);
+//
+//        return "dm/direct_message";
+//    }
+
     // ダイレクトメッセージの送信
+//    @PostMapping("/send")
 //    public String sendMessage(@ModelAttribute("message") String message, BindingResult result) {
 //
 //        if (result.hasErrors()){
@@ -66,19 +104,16 @@ public class DirectMessageController {
 //        }
 //
 //        DirectMessage directMessage = new DirectMessage();
+//        directMessage.setDirectMessageId();
+//        directMessage.setCreateUserId();
+//        directMessage.setCreateUserName();
+//        directMessage.setAddressUserId();
+//        directMessage.setAddressUserName();
+//        directMessage.setDirectMessageContent(message);
+//        directMessage.setCreateDatetime();
 //
 //        directMessageRepository.save(message);
 //        return "dm/direct_message";
 //    }
-
-    // 送信先、送信先とのメッセージを取得
-//    public String getAddress(@ModelAttribute User id, Model model, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "";
-//        }
-//
-//        return "";
-//    }
-
 
 }
