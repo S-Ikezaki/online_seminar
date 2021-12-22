@@ -149,14 +149,23 @@ public class GroupController {
 //        for (GroupMessage groupMessage : groupMessagesList) {
 //            groupMessage.getCreateDatetime();
 //        }
+        Group group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
-        return "seminar/seminar_menu";
+        if (group.getGroupRole() == 0) {
+            return "seminar/seminar_menu";
+        }else if(group.getGroupRole() == 1){
+            model.addAttribute("group",group);
+            return "seminar/seminar_competition_presentation";
+        }else {
+            return "seminar/seminar_competition_submission";
+        }
     }
 
+    //グループのメッセージ追加
     @GetMapping("/addGroupMessage")
     public String addGroupMessage(Model model,
                                   String groupId,
