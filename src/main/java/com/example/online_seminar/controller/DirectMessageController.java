@@ -7,6 +7,7 @@ import com.example.online_seminar.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -81,19 +82,19 @@ public class DirectMessageController {
     }
 
     // ユーザをキーワードで検索（名前）
-//    @GetMapping("/search")
-//    public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result, Model model) {
-//
-//        System.out.println(keyword);
-//
-//        List<User> userList = userRepository.findAllByUserNameLike(keyword);
-//
-//
-//        System.out.println(userList.get(0).getUserName());
-//        model.addAttribute("users", userList);
-//
-//        return "dm/direct_message";
-//    }
+    @GetMapping("/search")
+    public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result,Model model) {
+
+        System.out.println(keyword);
+        List<User> userList = userRepository.findAll();
+        List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
+
+        System.out.println(userList.get(0).getUserName());
+        model.addAttribute("users", userList);
+//        model.addAttribute("dms", directMessages);
+
+        return "dm/direct_message";
+    }
 
     // ダイレクトメッセージの送信
 //    @PostMapping("/send")
