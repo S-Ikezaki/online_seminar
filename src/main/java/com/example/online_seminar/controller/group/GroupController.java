@@ -149,18 +149,22 @@ public class GroupController {
 //        for (GroupMessage groupMessage : groupMessagesList) {
 //            groupMessage.getCreateDatetime();
 //        }
-        Group group = groupRepository.findById(groupId);
+        List<Group> group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
-        model.addAttribute("group",group);
+
+
+//        System.out.println(group.get(0).getGroupName());
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
-        if (group.getGroupRole() == 0) {
+        if (group.get(0).getGroupRole() == 0) {
             return "seminar/seminar_menu";
-        }else if(group.getGroupRole() == 1){
+        }else if(group.get(0).getGroupRole() == 1){
+            model.addAttribute("groups",group);
             return "seminar/seminar_competition_presentation";
         }else {
+            model.addAttribute("groups",group);
             return "seminar/seminar_competition_submission";
         }
     }
