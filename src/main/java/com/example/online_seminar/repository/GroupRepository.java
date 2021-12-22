@@ -33,5 +33,5 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
     List<Group> findByUser(String userId);
 
     @Query(name= "Group.findByIdNq",nativeQuery = true)
-    Group findById(String groupId);
+    List<Group> findById(String groupId);
 }
