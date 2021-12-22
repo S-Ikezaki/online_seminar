@@ -153,12 +153,12 @@ public class GroupController {
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
+        model.addAttribute("group",group);
 
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         if (group.getGroupRole() == 0) {
             return "seminar/seminar_menu";
         }else if(group.getGroupRole() == 1){
-            model.addAttribute("group",group);
             return "seminar/seminar_competition_presentation";
         }else {
             return "seminar/seminar_competition_submission";
