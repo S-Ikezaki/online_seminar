@@ -143,6 +143,7 @@ public class GroupController {
     }
 
     //投稿一覧取得
+    //グループ、ゼミのメインメニューを表示するためのメソッド
     @GetMapping("/showGroupMessage/{groupId}")
     public String showGroupMessage(Model model,@PathVariable("groupId") String groupId, Authentication loginUser){
         List<GroupMessage> groupMessagesList = groupMessageRepository.findByGroup(groupId);
