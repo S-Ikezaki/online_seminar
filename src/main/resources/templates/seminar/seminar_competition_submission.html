@@ -22,27 +22,35 @@
         </div>
     </div>
 
-<!--<table>-->
-<!--    <tr th:object="${groups}" th:each="group : ${groups}">-->
-<!--        <form method="get" th:action="@{/groups/showGroupMessage/{groupId}}">-->
-<!--            <td th:text="${group.groupName}"></td>-->
-<!--            <td th:text="${group.groupBio}"></td>-->
-<!--        </form>-->
-<!--    </tr>-->
-<!--</table>-->
-
     <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
     <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
-    
-<!--    <p><output type="text" th:each="group : ${group}">コンペ</output></p>-->
 
-<!--    <p><output type="text" th:value="${Group.groupBio}">概要</output></p>-->
-
+    <h4>投稿一覧</h4>
+    <p>
     <form th:action="@{/groups/addGroupMessage}" 　method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
     </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ユーザ名</th>
+            <th>投稿内容</th>
+            <th>日付</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- messageが空でない場合、messageの要素をmessageに格納する -->
+        <!-- 要素の数ループする -->
+        <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
+            <td th:text="${groupMessage.userName}"></td>
+            <td th:text="${groupMessage.messageContents}"></td>
+            <td th:text="${groupMessage.createDatetime}"></td>
+        </tr>
+        </tbody>
+    </table>
 
     <p><button type="button" onclick="">ファイル提供</button>
        <button type="button" onclick="">資料ダウンロード</button></p>
