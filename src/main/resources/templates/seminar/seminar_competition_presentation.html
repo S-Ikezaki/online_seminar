@@ -5,13 +5,9 @@
     <title>competition present</title>
 </head>
 <body>
-    <p><output type="text" th:value="${Group.groupName}">コンペ</output></p>
-
-    <p><output type="text" th:value="${Group.groupBio}">概要</output></p>
-
     <form>
         <p><button type="submit">投稿</button>
-           <input type="text" th:field="${MeetingChat.meetingChatContents}" placeholder="投稿内容">
+           <input th:object="${MeetingChat}" th:text="${MeetingChat.meetingChatContents}" placeholder="投稿内容">
         </p>
     </form>
 
