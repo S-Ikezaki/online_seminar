@@ -86,10 +86,9 @@ public class DirectMessageController {
     public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result,Model model) {
 
         System.out.println(keyword);
-        List<User> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAllByUserNameLike("%" + keyword + "%");
         List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
 
-        System.out.println(userList.get(0).getUserName());
         model.addAttribute("users", userList);
 //        model.addAttribute("dms", directMessages);
 
