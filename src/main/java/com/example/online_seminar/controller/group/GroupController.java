@@ -179,24 +179,6 @@ public class GroupController {
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
-<<<<<<< HEAD
-//        model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
-//                loginUser.getName(),
-//                loginUserName.getUserName(),
-//                groupMessage.getMessageContents(),
-//                groupId
-//                ));
-
-
-
-
-        groupMessageRepository.insertGroupMessage(
-                loginUser.getName(),
-                loginUserName.getUserName(),
-                groupMessage.getMessageContents(),
-                groupId
-                );
-=======
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sdfCalender = sdf.format((calendar.getTime()));
@@ -208,7 +190,6 @@ public class GroupController {
         groupMessage.setCreateDatetime(Date.valueOf(sdfCalender));
         groupMessage.setMessageContents(groupMessage.getMessageContents());
         groupMessage.setGroupId(groupId);
->>>>>>> b147b351f6d1dde1f4cb8d2de22db0f2d0542427
 
         if(result.hasErrors()){
             return  "error";

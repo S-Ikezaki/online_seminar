@@ -9,17 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface GroupMessageRepository extends JpaRepository<GroupMessage,Long> {
+public interface GroupMessageRepository extends JpaRepository<GroupMessage, Long> {
 
     //グループごとのメッセージを表示するためのメソッド
-    @Query(name = "Message.findByGroupNq",nativeQuery = true)
+    @Query(name = "Message.findByGroupNq", nativeQuery = true)
     List<GroupMessage> findByGroup(String groupId);
 
     //メッセージ投稿
-    @(name = "Message.insert",nativeQuery = true)
+    @Query(name = "Message.insert", nativeQuery = true)
     List<GroupMessage> insertGroupMessage(String userId, String userName, String content, String groupId);
-<<<<<<< HEAD
-=======
-
->>>>>>> b147b351f6d1dde1f4cb8d2de22db0f2d0542427
 }
