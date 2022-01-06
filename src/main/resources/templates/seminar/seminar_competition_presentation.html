@@ -31,6 +31,7 @@
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
+</form>
     <!--<form>
         <p><button type="submit">投稿</button>
            <input th:object="${MeetingChat}" th:text="${MeetingChat.meetingChatContents}" placeholder="投稿内容">
@@ -79,11 +80,6 @@
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_update.html'">コンペ内情報更新</button><br>
     </div>
-    <form action="" method="post">
-        <!-- メニュー画面で受け取ったuserIdに合わせて教師、企業のいずれかのmain_menuに遷移するcontrollerに情報を渡す -->
-    <button type="button" onclick="history.back()">メニューに戻る</button><br><!-- 仮 -->
-    </form>
-
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
     </div>
