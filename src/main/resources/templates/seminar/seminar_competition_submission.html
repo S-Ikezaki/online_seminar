@@ -22,14 +22,18 @@
         </div>
     </div>
 
-<table>
-    <tr th:object="${groups}" th:each="group : ${groups}">
-        <form method="get" th:action="@{/groups/showGroupMessage/{groupId}}">
-            <td th:text="${group.groupName}"></td>
-            <td th:text="${group.groupBio}"></td>
-        </form>
-    </tr>
-</table>
+<!--<table>-->
+<!--    <tr th:object="${groups}" th:each="group : ${groups}">-->
+<!--        <form method="get" th:action="@{/groups/showGroupMessage/{groupId}}">-->
+<!--            <td th:text="${group.groupName}"></td>-->
+<!--            <td th:text="${group.groupBio}"></td>-->
+<!--        </form>-->
+<!--    </tr>-->
+<!--</table>-->
+
+    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
+    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
+    
 <!--    <p><output type="text" th:each="group : ${group}">コンペ</output></p>-->
 
 <!--    <p><output type="text" th:value="${Group.groupBio}">概要</output></p>-->
