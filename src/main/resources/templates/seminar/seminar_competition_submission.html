@@ -47,11 +47,6 @@
     <button type="button" onclick="location.href='seminar_competition_update.html'">コンペ内情報更新</button><br>
     </div>
 
-<!--    <form action="" method="post">-->
-<!--        &lt;!&ndash; メニュー画面で受け取ったuserIdに合わせて教師、企業のいずれかのmain_menuに遷移するcontrollerに情報を渡す &ndash;&gt;-->
-<!--        <button type="button" onclick="history.back()">メニューに戻る</button><br>&lt;!&ndash; 仮 &ndash;&gt;-->
-<!--    </form>-->
-
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
     </div>
