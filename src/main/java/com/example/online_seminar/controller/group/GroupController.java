@@ -169,12 +169,22 @@ public class GroupController {
         System.out.println(loginUser.getName());
         System.out.println(loginUserName.getUserName());
 
-        model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
+//        model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
+//                loginUser.getName(),
+//                loginUserName.getUserName(),
+//                groupMessage.getMessageContents(),
+//                groupId
+//                ));
+
+
+
+
+        groupMessageRepository.insertGroupMessage(
                 loginUser.getName(),
                 loginUserName.getUserName(),
                 groupMessage.getMessageContents(),
                 groupId
-                ));
+                );
 
         if(result.hasErrors()){
             return  "error";
