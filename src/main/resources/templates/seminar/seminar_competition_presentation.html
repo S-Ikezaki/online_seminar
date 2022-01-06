@@ -31,7 +31,11 @@
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
-    </form>
+    <!--<form>
+        <p><button type="submit">投稿</button>
+           <input th:object="${MeetingChat}" th:text="${MeetingChat.meetingChatContents}" placeholder="投稿内容">
+        </p>
+    </form>-->
     <p>
     <table>
         <thead>
