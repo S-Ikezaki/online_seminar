@@ -58,11 +58,11 @@
     </div>
 
 DM
-        <form method="POST" action="">
+        <form method="get" th:action="@{/dm/search}">
             <label>
                 <input type="search" name="keyword" maxlength="50">
             </label>
-            <input type="submit" name="kensaku" value="検索">
+            <input type="submit" value="検索">
         </form>
 
     <div class="tabs">
@@ -70,32 +70,35 @@ DM
     <label class="tab_item" for="all">一覧</label>
     <input id="result" type="radio" name="tab_item">
     <label class="tab_item" for="result">検索結果</label>
-    <div class="tab_content" id="all_content">
-        一覧表示
-    </div>
-    <div class="tab_content" id="result_content">
-        検索結果
-    </div>
+<!--    <div class="tab_content" id="all_content">-->
+<!--        一覧表示-->
+<!--    </div>-->
+<!--    <div class="tab_content" id="result_content">-->
+<!--        検索結果-->
+<!--    </div>-->
 <br><br>
     <thead>
     <tr>
         <th>ユーザー名</th>
         <th>所属</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${!#lists.isEmpty(users)}" th:each="user : ${users}">
-        <form method="POST" action="">
+        <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}">
             <td th:text="${user.getUserName()}">ユーザー名</td>
-            <td th:if="${user.getCertification().getRole() == '0' }" th:text="${user.getStudents().getSchool().getSchoolName()}">所属</td>
+            <td th:if="${user.getCertification().getRole() == '0' }" th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">所属</td>
             <td th:if="${user.getCertification().getRole() == '1' }" th:text="${user.getTeachers().getSchool().getSchoolName()}">所属</td>
             <td th:if="${user.getCertification().getRole() == '2' }" th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属</td>
             <td th:if="${user.getCertification().getRole() == '3' }" th:text="${user.getTeachers().getSchool().getSchoolName()}">所属</td>
+            <td><input type="submit" th:value="DM"></td>
         </form>
     </tr>
     </tbody>
     <br>
 
+        <div class="dm" th:if="${!#lists.isEmpty(dms)}">
     <tbody>
     <tr th:if="${!#lists.isEmpty(dms)}" th:each="dm : ${dms}">
         <form method="POST" action="">
@@ -113,7 +116,9 @@ DM
         </label>
         <input type="submit" name="send" value="送信">
     </form>
+        </div>
 </div>
 </main>
+
 </body>
 </html>

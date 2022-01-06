@@ -77,9 +77,8 @@
                 <td th:text="${competition.groupName}"></td>
                 <td th:text="${competition.groupBio}"></td>
                 <td>
-<!--                    <a th:href="seminar_menu.html" class="css名">-->
-<!--                        <i class="クラス名">メニュー</i></a>-->
-                    <button type="submit">コンペメニューへ</button>
+                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${competition.groupId})}" class="css名">
+                    <i class="クラス名">メニュー</i></a>
                 </td>
             </form>
         </tr>

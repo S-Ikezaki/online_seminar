@@ -14,7 +14,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -146,29 +149,37 @@ public class GroupController {
 //        for (GroupMessage groupMessage : groupMessagesList) {
 //            groupMessage.getCreateDatetime();
 //        }
+        List<Group> group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
 
+
+//        System.out.println(group.get(0).getGroupName());
+
         /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
-        return "seminar/seminar_menu";
+        if (group.get(0).getGroupRole() == 0) {
+            return "seminar/seminar_menu";
+        }else if(group.get(0).getGroupRole() == 1){
+            model.addAttribute("groups",group);
+            return "seminar/seminar_competition_presentation";
+        }else {
+            model.addAttribute("groups",group);
+            return "seminar/seminar_competition_submission";
+        }
     }
 
-    @GetMapping("/insertGroupMessage")
-    public String insertGroupMessage(Model model,
-//                                     @PathVariable("groupId")
-                                     String groupId,
-                                     GroupMessage groupMessage,
-                                     Authentication loginUser,
-                                     BindingResult result){
+    //グループのメッセージ追加
+    @GetMapping("/addGroupMessage")
+    public String addGroupMessage(Model model,
+                                  String groupId,
+                                  GroupMessage groupMessage,
+                                  Authentication loginUser,
+                                  BindingResult result){
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
-        System.out.println(groupMessage.getMessageContents());
-        System.out.println(groupMessage.getGroupMessageId());
-        System.out.println(groupId);
-        System.out.println(loginUser.getName());
-        System.out.println(loginUserName.getUserName());
 
+<<<<<<< HEAD
 //        model.addAttribute("groupMessages", groupMessageRepository.insertGroupMessage(
 //                loginUser.getName(),
 //                loginUserName.getUserName(),
@@ -185,17 +196,30 @@ public class GroupController {
                 groupMessage.getMessageContents(),
                 groupId
                 );
+=======
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sdfCalender = sdf.format((calendar.getTime()));
+        int groupMessageId = 0;
+
+        groupMessage.setGroupMessageId(groupMessageId);
+        groupMessage.setUserId(loginUser.getName());
+        groupMessage.setUserName(loginUserName.getUserName());
+        groupMessage.setCreateDatetime(Date.valueOf(sdfCalender));
+        groupMessage.setMessageContents(groupMessage.getMessageContents());
+        groupMessage.setGroupId(groupId);
+>>>>>>> b147b351f6d1dde1f4cb8d2de22db0f2d0542427
 
         if(result.hasErrors()){
             return  "error";
         }
 
-        groupMessageRepository.save(groupMessage); //必ず必要になると思います
+        groupMessageRepository.save(groupMessage);
+        groupId = groupMessage.getGroupId();
 
-        return "seminar/seminar_menu";
+        return "redirect:showGroupMessage/"+groupId;
     }
 
-    //
 
     //投稿削除
     @PostMapping("/deleteGroupMessage")

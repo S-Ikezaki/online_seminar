@@ -18,4 +18,8 @@ public interface GroupMessageRepository extends JpaRepository<GroupMessage,Long>
     //メッセージ投稿
     @(name = "Message.insert",nativeQuery = true)
     List<GroupMessage> insertGroupMessage(String userId, String userName, String content, String groupId);
+<<<<<<< HEAD
+=======
+
+>>>>>>> b147b351f6d1dde1f4cb8d2de22db0f2d0542427
 }

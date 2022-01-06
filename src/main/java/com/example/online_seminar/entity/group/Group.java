@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "group_mst")
 public class Group implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id",nullable = false)
     private String groupId;
 
@@ -36,7 +35,6 @@ public class Group implements Serializable {
 
     @OneToMany(mappedBy = "group")
     List<GroupMessage> groupMessages;
-
 
 
     @OneToOne
