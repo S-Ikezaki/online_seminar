@@ -1,46 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{/layout/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/layout}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>DM画面</title>
-    <!--タブ用仮置きCSS-->
-<!--    <style>-->
-<!--        .tabs {-->
-<!--            margin-top: 50px;-->
-<!--            padding-bottom: 40px;-->
-<!--            background-color: #fff;-->
-<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);-->
-<!--            width: 700px;-->
-<!--            margin: 0 auto;}-->
 
 
-<!--        .tab_item:hover {-->
-<!--            opacity: 0.75;-->
-<!--        }-->
+    <style>
+        .tabs {
+            padding-bottom: 40px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 700px;
+            margin: 0 auto;
+        }
 
-<!--        input[name="tab_item"] {-->
-<!--            display: none;-->
-<!--        }-->
 
-<!--        /*タブ切り替えの中身のスタイル*/-->
-<!--        .tab_content {-->
-<!--            display: none;-->
-<!--            padding: 40px 40px 0;-->
-<!--            clear: both;-->
-<!--            overflow: hidden;-->
-<!--        }-->
-<!--        #all:checked ~ #all_content,-->
-<!--        #result:checked ~ #result_content,-->
-<!--        #design:checked ~ #design_content {-->
-<!--            display: block;-->
-<!--        }-->
-<!--        .tabs input:checked + .tab_item {-->
-<!--            background-color: #5ab4bd;-->
-<!--            color: #fff;-->
-<!--        }-->
-<!--    </style>-->
+        .tab_item:hover {
+            opacity: 0.75;
+        }
+
+        input[name="tab_item"] {
+            display: none;
+        }
+
+        /*タブ切り替えの中身のスタイル*/
+        .tab_content {
+            display: none;
+            padding: 40px 40px 0;
+            clear: both;
+            overflow: hidden;
+        }
+
+        #all:checked ~ #all_content,
+        #result:checked ~ #result_content,
+        #design:checked ~ #design_content {
+            display: block;
+        }
+
+        .tabs input:checked + .tab_item {
+            background-color: #5ab4bd;
+            color: #fff;
+        }
+    </style>
+
+
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -49,75 +54,117 @@
 </div>
 
 <!-- コンテンツの表示 -->
-<main layout:fragment="content"
-      class="offcanvas-outside bg-light">
+<main class="offcanvas-outside bg-light"
+      layout:fragment="content">
     <div class="container-fluid">
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
     </div>
 
-DM
-        <form method="get" th:action="@{/dm/search}">
-            <label>
-                <input type="search" name="keyword" maxlength="50">
-            </label>
-            <input type="submit" value="検索">
-        </form>
+    DM
+    <form method="get" th:action="@{/dm/search}">
+        <label>
+            <input maxlength="50" name="keyword" type="search">
+        </label>
+        <input type="submit" value="検索">
+    </form>
 
     <div class="tabs">
-        <input id="all" type="radio" name="tab_item" checked>
-    <label class="tab_item" for="all">一覧</label>
-    <input id="result" type="radio" name="tab_item">
-    <label class="tab_item" for="result">検索結果</label>
-<!--    <div class="tab_content" id="all_content">-->
-<!--        一覧表示-->
-<!--    </div>-->
-<!--    <div class="tab_content" id="result_content">-->
-<!--        検索結果-->
-<!--    </div>-->
-<br><br>
-    <thead>
-    <tr>
-        <th>ユーザー名</th>
-        <th>所属</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${!#lists.isEmpty(users)}" th:each="user : ${users}">
-        <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}">
-            <td th:text="${user.getUserName()}">ユーザー名</td>
-            <td th:if="${user.getCertification().getRole() == '0' }" th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">所属</td>
-            <td th:if="${user.getCertification().getRole() == '1' }" th:text="${user.getTeachers().getSchool().getSchoolName()}">所属</td>
-            <td th:if="${user.getCertification().getRole() == '2' }" th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属</td>
-            <td th:if="${user.getCertification().getRole() == '3' }" th:text="${user.getTeachers().getSchool().getSchoolName()}">所属</td>
-            <td><input type="submit" th:value="DM"></td>
-        </form>
-    </tr>
-    </tbody>
-    <br>
+        <input checked id="all" name="tab_item" type="radio">
+        <label class="tab_item" for="all">一覧</label>
+        <input id="result" name="tab_item" type="radio">
+        <label class="tab_item" for="result">検索結果</label>
 
-        <div class="dm" th:if="${!#lists.isEmpty(dms)}">
-    <tbody>
-    <tr th:if="${!#lists.isEmpty(dms)}" th:each="dm : ${dms}">
-        <form method="POST" action="">
-            <input type="hidden" name="" value="">
-            <td th:text="${dm.getCreateUserName()}"></td>
-            <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
-        </form>
-    </tr>
-    </tbody>
+        <!--一覧-->
+        <div class="tab_content" id="all_content">
+            <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>所属</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" th:if="${!#lists.isEmpty(users)}">
+                <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
+                    <td th:text="${user.getUserName()}">ユーザー名</td>
+                    <td th:if="${user.getCertification().getRole() == '0' }"
+                        th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">
+                        所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == '1' }"
+                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 2 }"
+                        th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == '3' }"
+                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    </td>
+                    <td><input th:value="DM" type="submit"></td>
+                </form>
+            </tr>
+            </tbody>
 
+            <!--検索結果-->
+        </div>
+        <div class="tab_content" id="result_content">
+            <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>所属</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}">
+                <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
+                    <td th:text="${user.getUserName()}">ユーザー名</td>
+                    <td th:if="${user.getCertification().getRole() == '0' }"
+                        th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">
+                        所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == '1' }"
+                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 2 }"
+                        th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == '3' }"
+                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    </td>
+                    <td><input th:value="DM" type="submit"></td>
+                </form>
+            </tr>
+            </tbody>
+
+        </div>
+        <br><br>
+    </div>
+    <!--        DMのやり取り-->
+    <p th:text="${addressUser.getUserName()}"></p>
+    <div class="dm" th:if="${!#lists.isEmpty(dms)}">
+        <tbody>
+        <tr th:each="dm : ${dms}" th:if="${!#lists.isEmpty(dms)}">
+            <form action="" method="POST">
+                <input name="" type="hidden" value="">
+                <td th:text="${dm.getCreateUserName()}"></td>
+                <td th:text="${dm.getDirectMessageContent() + ' ' + dm.getCreateDatetime()}">DM内容</td>
+            </form>
+        </tr>
+        </tbody>
+    </div>
     <br>
     <form method="POST" th:action="@{/dm/send}">
         <label>
-            <input type="text" name="message" maxlength="500">
+            <input maxlength="500" name="message" type="text" required>
+            <input type="hidden" th:object="${addressUser}" name="addressUser">
         </label>
-        <input type="submit" name="send" value="送信">
+        <input name="send" type="submit" value="送信">
     </form>
-        </div>
-</div>
+
+
 </main>
 
 </body>

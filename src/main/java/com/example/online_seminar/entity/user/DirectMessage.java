@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Data
@@ -13,7 +13,7 @@ public class DirectMessage implements Serializable {
     @Id
     @Column(name = "direct_message_id" ,nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String directMessageId;
+    private int directMessageId;
 
     @Column(name = "create_user_id" ,nullable = false)
     private String createUserId;
@@ -42,5 +42,10 @@ public class DirectMessage implements Serializable {
 //    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
     //宛先が難しいです
     private User addressUser;
+
+    @PrePersist
+    public void onPrePersist() {
+        setCreateDatetime(new Date());
+    }
 
 }

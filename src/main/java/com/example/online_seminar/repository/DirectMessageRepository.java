@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface DirectMessageRepository extends JpaRepository<DirectMessage,String> {
+public interface DirectMessageRepository extends JpaRepository<DirectMessage,Long> {
 
     List<DirectMessage> findAllByAddressUserIdOrCreateUserId(String addressId, String createId);
 
