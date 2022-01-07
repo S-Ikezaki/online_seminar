@@ -85,6 +85,37 @@ public class GroupController {
 
         return "search/search";
     }
+
+    //検索ボタンが押された時の処理
+    @GetMapping("/search_group_detail")
+    public String SearchGroupDetail(@RequestParam("keyword") String keyword,
+                                    @RequestParam("radioButton") String radioButton,
+                                    Model model){
+//      値確認用
+        System.out.println(keyword);
+        System.out.println(radioButton);
+
+        int role = 1;
+        int role2 = 1;
+
+        //ロール分け(まだ途中(現状発表型か提出型の片方のコンペしか表示できない))
+        if (radioButton.equals("seminar")) {
+            role = 0;
+            role2 = 0;
+        } else {
+            role = 1;
+            role2 = 2;
+        }
+
+        System.out.println(role);
+        System.out.println(role2);
+
+        List<Group> groupList = groupRepository.findByRoleNq(keyword, role, role2);
+
+        model.addAttribute("groupList", groupList);
+
+        return "search/search";
+    }
     //グループの一件追加用メソッド
     @GetMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
