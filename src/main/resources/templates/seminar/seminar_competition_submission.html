@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>competition submission</title>
 </head>
 <body>
-<table>
-    <tr th:object="${groups}" th:each="group : ${groups}">
-        <form method="get" th:action="@{/groups/showGroupMessage/{groupId}}">
-            <td th:text="${group.groupName}"></td>
-            <td th:text="${group.groupBio}"></td>
-        </form>
-    </tr>
-</table>
-<!--    <p><output type="text" th:each="group : ${group}">コンペ</output></p>-->
+<!-- サイドバーの表示-->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
 
-<!--    <p><output type="text" th:value="${Group.groupBio}">概要</output></p>-->
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside bg-light">
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+    </div>
 
+    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
+    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
+
+    <h4>投稿一覧</h4>
+    <p>
     <form th:action="@{/groups/addGroupMessage}" 　method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
     </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ユーザ名</th>
+            <th>投稿内容</th>
+            <th>日付</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- messageが空でない場合、messageの要素をmessageに格納する -->
+        <!-- 要素の数ループする -->
+        <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
+            <td th:text="${groupMessage.userName}"></td>
+            <td th:text="${groupMessage.messageContents}"></td>
+            <td th:text="${groupMessage.createDatetime}"></td>
+        </tr>
+        </tbody>
+    </table>
 
     <p><button type="button" onclick="">ファイル提供</button>
        <button type="button" onclick="">資料ダウンロード</button></p>
@@ -30,13 +59,9 @@
     <button type="button" onclick="location.href='seminar_competition_update.html'">コンペ内情報更新</button><br>
     </div>
 
-    <form action="" method="post">
-        <!-- メニュー画面で受け取ったuserIdに合わせて教師、企業のいずれかのmain_menuに遷移するcontrollerに情報を渡す -->
-        <button type="button" onclick="history.back()">メニューに戻る</button><br><!-- 仮 -->
-    </form>
-
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
     </div>
+</main>
 </body>
 </html>

@@ -22,6 +22,8 @@
         </div>
     </div>
 
+
+
     <p>[[${username}]]</p>
     <p>[[${role}]]</p>
 
@@ -30,8 +32,8 @@
         <input type="submit" name="submit" value="検索"><br>
 
         <div sec:authorize="hasAnyRole('1','0')">
-            <input type="radio" name="radioButton" value="seminar" checked>ゼミ
-            <input type="radio" name="radioButton" value="competition">コンペ
+            <input type="checkbox" name="checkButton" value="seminar">ゼミ
+            <input type="checkbox" name="checkButton" value="competition">コンペ
         </div>
         <div sec:authorize="hasAnyRole('1')">
             <input type="radio" name="radioButton" value="request">リクエスト
@@ -51,7 +53,6 @@
     <div sec:authorize="hasAnyRole('1')">
         <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
     </div>
-
 </main>
 </body>
 </html>
