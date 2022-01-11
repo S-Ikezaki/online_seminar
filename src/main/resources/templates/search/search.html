@@ -28,28 +28,29 @@
     <p>[[${role}]]</p>
 
     <!-- キーワードとラジオボタンに合わせて開催中のグループを表示する -->
-    <form th:action="@{/groups/search_group_detail}" th:object="${groups}" method="get">
+    <form th:action="@{/groups/search_group_detail}" method="post">
         <input type="search" name="keyword" placeholder="キーワードを入力">
         <input type="submit" value="検索"><br>
 
         <div sec:authorize="hasAnyRole('1','0')">
-            <input type="radio" name="radioButton" value="seminar" checked>ゼミ
-            <input type="radio" name="radioButton" value="competition">コンペ
+            <input id="sem" type="checkbox" name="checkBoxSem"/>ゼミ
+            <input id="compP" type="checkbox" name="checkBoxCompPre"/>コンペ(発表)
+            <input id="compS" type="checkbox" name="checkBoxCompSub"/>コンペ(提出)
         </div>
         <div sec:authorize="hasAnyRole('1')">
             <input type="radio" name="radioButton" value="request">リクエスト
         </div>
     </form>
 
-        <table>
-            <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
-                <td th:text="${group.groupName}"></td>
-                <!-- 後で検索画面で所持しているUserIdを渡すような内容に変える -->
-                <td><button type="button" onclick="location.href='../seminar/seminar_overview.html'">概要</button></td>
-                <td><button type="button" onclick="location.href='../seminar/seminar_apply.html'">参加申請</button></td>
-                <!-- -->
-            </tr>
-        </table>
+    <table>
+        <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
+            <td th:text="${group.groupName}"></td>
+            <!-- 後で検索画面で所持しているUserIdを渡すような内容に変える -->
+            <td th:text="${group.groupBio}"></td>
+            <td><button type="button" onclick="location.href='../seminar/seminar_apply.html'">参加申請</button></td>
+            <!-- -->
+        </tr>
+    </table>
 
     <div sec:authorize="hasAnyRole('1')">
         <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
