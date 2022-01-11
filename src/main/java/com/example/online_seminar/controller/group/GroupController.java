@@ -148,7 +148,7 @@ public class GroupController {
         return "";
     }
 
-    //一件削除
+    //グループを一件削除
     @PostMapping("/deleteOne/{id:.+")
     public String deleteGroupOne(@PathVariable String groupId){
         groupRepository.deleteById(Long.valueOf(groupId));
