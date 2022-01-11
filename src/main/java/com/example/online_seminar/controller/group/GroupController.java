@@ -56,7 +56,7 @@ public class GroupController {
         return " ";
     }*/
 
-    //    検索画面に遷移
+    // 検索画面に遷移
     @GetMapping("/search_group")
     public String SearchGroup(@RequestParam("username") String username,
                               @RequestParam("role") String role,
@@ -98,7 +98,7 @@ public class GroupController {
         int role = 1;
         int role2 = 1;
 
-        //ロール分け(まだ途中(現状発表型か提出型の片方のコンペしか表示できない))
+        //ロール分け
         if (radioButton.equals("seminar")) {
             role = 0;
             role2 = 0;
@@ -155,14 +155,12 @@ public class GroupController {
         return "一件削除";
     }
 
-    //グループのメンバー一覧表示（？）
-    @GetMapping("/showGroupMemberList")
+    //グループのメンバー一覧表示
+    @GetMapping("/showGroupMemberList/{groupId}")
     @ResponseBody
-    public String showGroupMemberList(Model model, HttpSession session){
-        //グループリポジトリからすべてを取得、セッションスコープに保存
-        session.setAttribute("hoge",groupRepository.findAll());
-        //内部結合したグループメンバーの全レコード取得、リクエストスコープに保存
-        model.addAttribute("hoge",groupMemberRepository.findAll());
+    public String showGroupMemberList(Model model,@PathVariable("groupId") String groupId){
+        
+
         return "hoge";
     }
 
