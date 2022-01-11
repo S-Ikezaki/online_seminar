@@ -34,4 +34,8 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
 
     @Query(name= "Group.findByIdNq",nativeQuery = true)
     List<Group> findById(String groupId);
+
+    //タグとロールでグループを検索(途中)
+    @Query(name = "Group.findByTagRoleNq", nativeQuery = true)
+    List<Group> findByRoleNq(String keyword, int role, int role2);
 }
