@@ -27,20 +27,22 @@
     <p>[[${username}]]</p>
     <p>[[${role}]]</p>
 
-    <form th:action="@{/group/showGroupList}" th:object="${groups}" method="get">
-        <input type="search" name="search" placeholder="キーワードを入力">
-        <input type="submit" name="submit" value="検索"><br>
+    <!-- キーワードとラジオボタンに合わせて開催中のグループを表示する -->
+    <form th:action="@{/groups/search_group_detail}" th:object="${groups}" method="get">
+        <input type="search" name="keyword" placeholder="キーワードを入力">
+        <input type="submit" value="検索"><br>
 
         <div sec:authorize="hasAnyRole('1','0')">
-            <input type="checkbox" name="checkButton" value="seminar">ゼミ
-            <input type="checkbox" name="checkButton" value="competition">コンペ
+            <input type="radio" name="radioButton" value="seminar" checked>ゼミ
+            <input type="radio" name="radioButton" value="competition">コンペ
         </div>
         <div sec:authorize="hasAnyRole('1')">
             <input type="radio" name="radioButton" value="request">リクエスト
         </div>
+    </form>
 
         <table>
-            <tr th:each="group: ${groups}" th:object="${groups}" class="align-middle">
+            <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
                 <td th:text="${group.groupName}"></td>
                 <!-- 後で検索画面で所持しているUserIdを渡すような内容に変える -->
                 <td><button type="button" onclick="location.href='../seminar/seminar_overview.html'">概要</button></td>
@@ -48,7 +50,6 @@
                 <!-- -->
             </tr>
         </table>
-    </form>
 
     <div sec:authorize="hasAnyRole('1')">
         <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>

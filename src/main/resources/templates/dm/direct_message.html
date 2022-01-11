@@ -8,18 +8,18 @@
 
 
     <style>
-        .tabs {
-            padding-bottom: 40px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 700px;
-            margin: 0 auto;
-        }
+        /*.tabs {*/
+        /*    padding-bottom: 40px;*/
+        /*    background-color: #fff;*/
+        /*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+        /*    width: 700px;*/
+        /*    margin: 0 auto;*/
+        /*}*/
 
 
-        .tab_item:hover {
-            opacity: 0.75;
-        }
+        /*.tab_item:hover {*/
+        /*    opacity: 0.75;*/
+        /*}*/
 
         input[name="tab_item"] {
             display: none;
@@ -28,9 +28,9 @@
         /*タブ切り替えの中身のスタイル*/
         .tab_content {
             display: none;
-            padding: 40px 40px 0;
-            clear: both;
-            overflow: hidden;
+            /*padding: 40px 40px 0;*/
+            /*clear: both;*/
+            /*overflow: hidden;*/
         }
 
         #all:checked ~ #all_content,
@@ -42,6 +42,11 @@
         .tabs input:checked + .tab_item {
             background-color: #5ab4bd;
             color: #fff;
+        }
+
+        .tabs {
+            float: left;
+            padding-right: 50px;
         }
     </style>
 
@@ -142,28 +147,33 @@
         </div>
         <br><br>
     </div>
-    <!--        DMのやり取り-->
-    <p th:text="${addressUser.getUserName()}"></p>
-    <div class="dm" th:if="${!#lists.isEmpty(dms)}">
-        <tbody>
-        <tr th:each="dm : ${dms}" th:if="${!#lists.isEmpty(dms)}">
-            <form action="" method="POST">
-                <input name="" type="hidden" value="">
-                <td th:text="${dm.getCreateUserName()}"></td>
-                <td th:text="${dm.getDirectMessageContent() + ' ' + dm.getCreateDatetime()}">DM内容</td>
-            </form>
-        </tr>
-        </tbody>
-    </div>
-    <br>
-    <form method="POST" th:action="@{/dm/send}">
-        <label>
-            <input maxlength="500" name="message" type="text" required>
-            <input type="hidden" th:object="${addressUser}" name="addressUser">
-        </label>
-        <input name="send" type="submit" value="送信">
-    </form>
 
+    <!--        DMのやり取り-->
+    <div class="dm_content" id="dm_content">
+        <h5 th:text="${addressUser.getUserName()}"></h5>
+        <div class="dm" th:if="${!#lists.isEmpty(dms)}">
+            <table>
+                <tbody>
+                <tr th:each="dm : ${dms}">
+                    <form action="" method="POST">
+                        <input name="" type="hidden" value="">
+                        <td th:text="${dm.getCreateUserName()}"></td>
+                        <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
+                        <td th:text="${dm.getCreateDatetime()}"></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <form method="POST" th:action="@{/dm/send}">
+                <label>
+                    <input maxlength="500" name="message" required type="text">
+                    <input name="addressUser" th:object="${addressUser}" type="hidden">
+                </label>
+                <input name="send" type="submit" value="送信">
+            </form>
+        </div>
+    </div>
 
 </main>
 
