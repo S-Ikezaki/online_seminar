@@ -154,6 +154,7 @@ public class GroupController {
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
+        model.addAttribute("username",loginUser.getName());
 
 
 //        System.out.println(group.get(0).getGroupName());

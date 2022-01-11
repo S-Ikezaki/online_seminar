@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{/layout/layout}">
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>seminar menu</title>
@@ -18,7 +18,8 @@
       class="offcanvas-outside bg-light">
     <div class="container-fluid">
         <!-- トグルボタン -->
-        <div th:replace="~{fragments/sidebar :: toggler}">
+        <div
+                th:replace="~{fragments/sidebar :: toggler}">
         </div>
     </div>
 

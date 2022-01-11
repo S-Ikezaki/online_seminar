@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultra.net.nz/web/thymelefe/layout">
-
+      xmlns:layout="http://www.ultra.net.nz/web/thymeleaf/layout">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport content="width="device-width,initial-scale=1">
 
@@ -9,6 +9,8 @@
     <link th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">
     <link th:href="@{/css/app.css}" rel="stylesheet">
     <title>オンラインゼミシステム</title>
+</head>
+    <body>
 
 <!--サイドバーの配置-->
     <div layout:fragment="sidebar">
@@ -18,7 +20,6 @@
     </div>
 
     <script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<body>
 
 </body>
 </html>
