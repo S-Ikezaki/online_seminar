@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("groups")
@@ -59,13 +60,21 @@ public class GroupController {
     //参加申請画面に遷移
     @GetMapping("/apply")
     //searchの参加申請ボタンを押された時groupRoleを受け取りゼミかコンペで遷移先を分ける?
-    public String Transition(@RequestParam("groupRole") int role){
+    public String Transition(@RequestParam("groupRole") int role,
+                             @RequestParam("groupId") String id,
+                             Model model
+                            ){
 
+        //確認用
         System.out.println(role);
+        System.out.println(id);
 
+        //ロールによって遷移先を分ける
         if (role == 0) {
+            model.addAttribute("id",id);
             return "seminar/seminar_apply";
         } else {
+            model.addAttribute("id",id);
             return "competition/apply";
         }
 
@@ -77,6 +86,7 @@ public class GroupController {
                               @RequestParam("role") String role,
                               Model model) {
 
+        //確認用
         System.out.println("グループサーチ");
         System.out.println(username);
         System.out.println(role);
@@ -84,41 +94,34 @@ public class GroupController {
         List<Group> groupList = new ArrayList<Group>();
         model.addAttribute("groups", groupList);
 
-//        List<Group> groupList = groupRepository.findAll();
-//        List<Group> seminar = new ArrayList<Group>();
-//        List<Group> competition = new ArrayList<Group>();
-//
-//        for (Group group: groupList){
-//            if(group.getGroupRole() == 0) {
-//                seminar.add(group);
-//            } else {
-//                competition.add(group);
-//            }
-//        }
-//        model.addAttribute("seminars",seminar);
-//        model.addAttribute("competitions",competition);
-
         return "search/search";
     }
 
     //検索ボタンが押された時の処理
     @PostMapping("/search_group_detail")
     public String SearchGroupDetail(@RequestParam(value = "keyword", required = false) String keyword,
-                                    @RequestParam(value = "checkBoxSem", required = false) String checkBoxSem,
-                                    @RequestParam(value = "checkBoxCompPre", required = false) String checkBoxCompP,
-                                    @RequestParam(value = "checkBoxCompSub", required = false) String checkBoxCompS,
+                                    @RequestParam(value = "seminar1", required = false) String checkBoxSem,
+                                    @RequestParam(value = "seminar2", required = false) String checkBoxCompP,
+                                    @RequestParam(value = "seminar3", required = false) String checkBoxCompS,
+                                    @RequestParam(value = "checkBoxReq", required = false) String checkBoxReq,
                                     Model model){
 //      値確認用
         System.out.println(keyword);
         System.out.println(checkBoxSem);
         System.out.println(checkBoxCompP);
         System.out.println(checkBoxCompS);
+        System.out.println(checkBoxReq);
+
+        if (Objects.equals(checkBoxReq, "request")) {
+            System.out.println("仮成功");
+            return "search/search";
+        }
 
         int roleA =  0;
         int roleB = 1;
         int roleC = 2;
 
-        //ロール分け(まだ途中(現状発表型か提出型の片方のコンペしか表示できない))
+        //ロール分け
         if (checkBoxCompP == null && checkBoxCompS == null) {
             roleA = 0;
             roleB = 0;
@@ -201,12 +204,14 @@ public class GroupController {
     //グループのメンバー一覧表示
     @GetMapping("/showGroupMemberList/{groupId}")
     public String showGroupMemberList(Model model,
-                                      @ModelAttribute GroupMember groupMember,
                                       @PathVariable("groupId") String groupId){
 
+
         System.out.println(groupId + "グループID");
-        model.addAttribute("memberRole",groupMember.getGroupRole());
-        groupMemberRepository.findByGroupId(groupId);
+
+        List<GroupMember> groupMembers= groupMemberRepository.findByGroupId(groupId);
+        System.out.println(groupMembers);
+        model.addAttribute("groupMembers",groupMembers);
 
         return "seminar/group_member_list";
     }
