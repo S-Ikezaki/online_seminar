@@ -50,11 +50,7 @@
     </tbody>
 </table>
 
-
-
-<form>
-    <button type="button" onclick="location.href='seminar_menu.html'">ゼミメニューに戻る</button>
-</form>
+    <button th:attr="onClick='location.href=\'' +@{/groups/showGroupMessage/{groupId}} + '\''">ゼミメニューに戻る</button>
 
 </main>
 </body>
