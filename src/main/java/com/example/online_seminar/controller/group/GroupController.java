@@ -56,6 +56,21 @@ public class GroupController {
         return " ";
     }*/
 
+    //参加申請画面に遷移
+    @GetMapping("/apply")
+    //searchの参加申請ボタンを押された時groupRoleを受け取りゼミかコンペで遷移先を分ける?
+    public String Transition(@RequestParam("groupRole") int role){
+
+        System.out.println(role);
+
+        if (role == 0) {
+            return "seminar/seminar_apply";
+        } else {
+            return "competition/apply";
+        }
+
+    }
+
     // 検索画面に遷移
     @GetMapping("/search_group")
     public String SearchGroup(@RequestParam("username") String username,
