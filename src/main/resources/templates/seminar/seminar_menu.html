@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{/layout/layout}">
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>seminar menu</title>
@@ -18,7 +18,8 @@
       class="offcanvas-outside bg-light">
     <div class="container-fluid">
         <!-- トグルボタン -->
-        <div th:replace="~{fragments/sidebar :: toggler}">
+        <div
+                th:replace="~{fragments/sidebar :: toggler}">
         </div>
     </div>
 
@@ -46,6 +47,13 @@
             <td th:text="${groupMessage.userName}"></td>
             <td th:text="${groupMessage.messageContents}"></td>
             <td th:text="${groupMessage.createDatetime}"></td>
+            <div sec:authorize="hasAnyRole('1','3')">
+                <form th:action="@{groups/deleteGroupMessage}" method="post">
+                    <input type="hidden" name="messageId" th:value="${groupMessage.groupMessageId}">
+                <td><button type="submit">削除</button></td>
+<!--                <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>-->
+                </form>
+            </div>
         </tr>
         </tbody>
     </table>
@@ -70,8 +78,9 @@
         <button type="submit">ファイル共有</button>
     </form>
 
-    <form>
-        <button type="button" onclick="location.href='seminar_member_list.html'">メンバー一覧</button>
+    <form th:action="@{/groups/showGroupMemberList/{groupId}}" 　method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <button type="submit">メンバー一覧</button>
     </form>
 </main>
 </body>

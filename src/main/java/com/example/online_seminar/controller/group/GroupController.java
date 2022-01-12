@@ -56,6 +56,21 @@ public class GroupController {
         return " ";
     }*/
 
+    //参加申請画面に遷移
+    @GetMapping("/apply")
+    //searchの参加申請ボタンを押された時groupRoleを受け取りゼミかコンペで遷移先を分ける?
+    public String Transition(@RequestParam("groupRole") int role){
+
+        System.out.println(role);
+
+        if (role == 0) {
+            return "seminar/seminar_apply";
+        } else {
+            return "competition/apply";
+        }
+
+    }
+
     // 検索画面に遷移
     @GetMapping("/search_group")
     public String SearchGroup(@RequestParam("username") String username,
@@ -87,30 +102,58 @@ public class GroupController {
     }
 
     //検索ボタンが押された時の処理
-    @GetMapping("/search_group_detail")
-    public String SearchGroupDetail(@RequestParam("keyword") String keyword,
-                                    @RequestParam("radioButton") String radioButton,
+    @PostMapping("/search_group_detail")
+    public String SearchGroupDetail(@RequestParam(value = "keyword", required = false) String keyword,
+                                    @RequestParam(value = "checkBoxSem", required = false) String checkBoxSem,
+                                    @RequestParam(value = "checkBoxCompPre", required = false) String checkBoxCompP,
+                                    @RequestParam(value = "checkBoxCompSub", required = false) String checkBoxCompS,
                                     Model model){
 //      値確認用
         System.out.println(keyword);
-        System.out.println(radioButton);
+        System.out.println(checkBoxSem);
+        System.out.println(checkBoxCompP);
+        System.out.println(checkBoxCompS);
 
-        int role = 1;
-        int role2 = 1;
+        int roleA =  0;
+        int roleB = 1;
+        int roleC = 2;
 
-        //ロール分け
-        if (radioButton.equals("seminar")) {
-            role = 0;
-            role2 = 0;
+        //ロール分け(まだ途中(現状発表型か提出型の片方のコンペしか表示できない))
+        if (checkBoxCompP == null && checkBoxCompS == null) {
+            roleA = 0;
+            roleB = 0;
+            roleC = 0;
+        }else if (checkBoxSem == null && checkBoxCompS == null) {
+            roleA = 1;
+            roleB = 1;
+            roleC = 1;
+        } else if (checkBoxSem == null && checkBoxCompP == null) {
+            roleA = 2;
+            roleB = 2;
+            roleC = 2;
+        } else if (checkBoxCompS == null){
+            roleA = 0;
+            roleB = 1;
+            roleC = 1;
+        } else if (checkBoxCompP == null) {
+            roleA = 0;
+            roleB = 2;
+            roleC = 2;
+        } else if (checkBoxSem == null) {
+            roleA = 1;
+            roleB = 1;
+            roleC = 2;
         } else {
-            role = 1;
-            role2 = 2;
+            roleA = 0;
+            roleB = 1;
+            roleC = 2;
         }
 
-        System.out.println(role);
-        System.out.println(role2);
+        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword == null) {
+            return "search/search";
+        }
 
-        List<Group> groupList = groupRepository.findByRoleNq(keyword, role, role2);
+        List<Group> groupList = groupRepository.findByRoleNq(keyword, roleA, roleB, roleC);
 
         model.addAttribute("groupList", groupList);
 
@@ -148,7 +191,7 @@ public class GroupController {
         return "";
     }
 
-    //一件削除
+    //グループを一件削除
     @PostMapping("/deleteOne/{id:.+")
     public String deleteGroupOne(@PathVariable String groupId){
         groupRepository.deleteById(Long.valueOf(groupId));
@@ -186,6 +229,7 @@ public class GroupController {
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
+        model.addAttribute("username",loginUser.getName());
 
 
 //        System.out.println(group.get(0).getGroupName());
