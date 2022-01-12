@@ -191,7 +191,7 @@ public class GroupController {
         return "";
     }
 
-    //一件削除
+    //グループを一件削除
     @PostMapping("/deleteOne/{id:.+")
     public String deleteGroupOne(@PathVariable String groupId){
         groupRepository.deleteById(Long.valueOf(groupId));
@@ -226,6 +226,7 @@ public class GroupController {
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
+        model.addAttribute("username",loginUser.getName());
 
 
 //        System.out.println(group.get(0).getGroupName());
