@@ -6,6 +6,18 @@
 <head>
     <meta charset="UTF-8">
     <title>group search</title>
+    <!-- チェックボックスを制御するためのscript -->
+    <script language="JavaScript">
+        function checkCB(){
+            for (i = 1; i <= 3; i++){
+                document.search.elements["seminar"+i].checked = false;
+            }
+        }
+
+        function checkCB2(){
+            document.search.elements["checkBoxReq"].checked = false;
+        }
+    </script>
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -27,36 +39,44 @@
     <p>[[${username}]]</p>
     <p>[[${role}]]</p>
 
-    <!-- キーワードとラジオボタンに合わせて開催中のグループを表示する -->
-    <form th:action="@{/groups/search_group_detail}" method="post">
+    <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
+    <form name="search" th:action="@{/groups/search_group_detail}" method="post">
         <input type="search" name="keyword" placeholder="キーワードを入力">
         <input type="submit" value="検索"><br>
 
         <div sec:authorize="hasAnyRole('1','0')">
-            <input id="sem" type="checkbox" name="checkBoxSem"/>ゼミ
-            <input id="compP" type="checkbox" name="checkBoxCompPre"/>コンペ(発表)
-            <input id="compS" type="checkbox" name="checkBoxCompSub"/>コンペ(提出)
+            <input type="checkbox" name="seminar1" onclick="checkCB2()"/>ゼミ
+            <input type="checkbox" name="seminar2" onclick="checkCB2()"/>コンペ(発表)
+            <input type="checkbox" name="seminar3" onclick="checkCB2()"/>コンペ(提出)
         </div>
         <div sec:authorize="hasAnyRole('1')">
-            <input type="radio" name="radioButton" value="request">リクエスト
+            <input type="checkbox" name="checkBoxReq" value="request" onclick="checkCB()">リクエスト
         </div>
     </form>
 
-    <form th:action="@{/groups/apply}" th:method="get">
+
+    <!-- groupListを使いキーワードとチャックボックスで指定された開催中のグループを表示させる -->
     <table>
         <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
+            <form th:action="@{/groups/apply}" th:method="get">
             <td th:text="${group.groupName}"></td>
-            <!-- 後で検索画面で所持しているUserIdを渡すような内容に変える -->
             <td th:text="${group.groupBio}"></td>
-            <!-- GroupControllerのapplyにgroupNameを渡す -->
+            <!-- GroupControllerのapplyにgroupIdとgroupRoleを渡す -->
             <td>
+                <input type="hidden" name="groupId" th:value="${group.groupId}">
                 <button type="submit" name="groupRole" th:value="${group.groupRole}">参加申請</button>
-<!--                <input type="hidden" th:text="${group.groupRole}">-->
             </td>
             <!-- -->
+            </form>
         </tr>
     </table>
-    </form>
+
+    <table>
+        <tr th:each="request: ${requestList}" th:if="${lists.isEmpty(requestList)}" class="align-middle">
+            <td th:text="${request.requestUserName}"></td>
+            <td th:text="${request.requestContent}"></td>
+        </tr>
+    </table>
 
     <div sec:authorize="hasAnyRole('1')">
         <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>

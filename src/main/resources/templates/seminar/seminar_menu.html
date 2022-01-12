@@ -78,10 +78,19 @@
         <button type="submit">ファイル共有</button>
     </form>
 
-    <form th:action="@{/groups/showGroupMemberList/{groupId}}" 　method="post">
+    <div sec:authorize="hasAnyRole('1','3')">
+        <button value="グループ削除" onclick="func1('/groups/deleteOne/{groupId}')"></button>
+<!--        <form th:action="@{groups/deleteOne/{groupId}}" method="post">-->
+<!--            <input type="hidden" name="groupId" th:value="${groupMember.userId}">-->
+<!--            <td><button type="submit">グループ削除</button></td>-->
+<!--            &lt;!&ndash;                <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>&ndash;&gt;-->
+<!--        </form>-->
+    </div>
+    <form th:action="@{/groups/showGroupMemberList/{groupId}(groupId = ${groupId})}" 　method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
-        <button type="submit">メンバー一覧</button>
+        <button type="submit">メンバー</button>
     </form>
 </main>
+<script th:src="@{/js/delete_check.js}"></script>
 </body>
 </html>

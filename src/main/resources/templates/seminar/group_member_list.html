@@ -38,11 +38,11 @@
     <!-- 要素の数ループする -->
     <tr th:if="${!#lists.isEmpty(groupMembers)}" th:each="groupMember : ${groupMembers}">
         <td th:text="${groupMember.userName}"></td>
-        <td th:text="${}"></td>
+        <td th:text="${groupMember.memberRole}"></td>
         <div sec:authorize="hasAnyRole('1','3')">
             <form th:action="@{groups/deleteGroupMember}" method="post">
                 <input type="hidden" name="userId" th:value="${groupMember.userId}">
-                <td><button type="submit">クビ</button></td>
+                <td><button type="submit">クビ</button></td>Message
                 <!--                <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>-->
             </form>
         </div>
@@ -50,11 +50,10 @@
     </tbody>
 </table>
 
-
-
-<form>
-    <button type="button" onclick="location.href='seminar_menu.html'">ゼミメニューに戻る</button>
-</form>
+    <form th:action="@{/groups/showGroupMessage/{groupId}}" 　method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <button type="submit">ゼミメニューに戻る</button>
+    </form>
 
 </main>
 </body>
