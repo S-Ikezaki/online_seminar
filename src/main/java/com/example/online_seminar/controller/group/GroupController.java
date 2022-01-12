@@ -197,11 +197,14 @@ public class GroupController {
 
     //グループのメンバー一覧表示
     @GetMapping("/showGroupMemberList/{groupId}")
-    @ResponseBody
-    public String showGroupMemberList(Model model,@PathVariable("groupId") String groupId){
-        
+    public String showGroupMemberList(Model model,
+                                      @ModelAttribute GroupMember groupMember,
+                                      @PathVariable("groupId") String groupId){
 
-        return "hoge";
+        model.addAttribute("memberRole",groupMember.getGroupRole());
+        groupMemberRepository.findByGroupId(groupId);
+
+        return "seminar/group_member_list";
     }
 
     //グループのタグを表示
