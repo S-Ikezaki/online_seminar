@@ -119,7 +119,7 @@ public class GroupController {
 
         if (Objects.equals(checkBoxReq, "request")) {
             System.out.println("仮成功");
-            List<Request> requestList = requestRepository.findAll();
+            List<Request> requestList = requestRepository.findAllSelect();
             model.addAttribute("requestList",requestList);
 
             return "search/search";
