@@ -13,7 +13,7 @@ public class GroupMemberKeys implements Serializable {
 
     private String userId;
 
-    private Date userName;
+    private String userName;
 
     private int groupRole;
 }
