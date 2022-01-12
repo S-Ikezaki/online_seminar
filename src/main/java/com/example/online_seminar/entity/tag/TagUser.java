@@ -3,12 +3,14 @@ package com.example.online_seminar.entity.tag;
 
 import com.example.online_seminar.entity.user.User;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
+@ToString(exclude = {"user","tag"})
 @Table(name = "tag_user_mst")
 @IdClass(TagUserKey.class)
 public class TagUser implements Serializable{

@@ -3,12 +3,14 @@ package com.example.online_seminar.entity.tag;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.key.TagGroupKeys;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
+@ToString(exclude = {"tag","group"})
 @Table(name = "tag_group_mst")
 @IdClass(value= TagGroupKeys.class)
 public class TagGroup implements Serializable{
