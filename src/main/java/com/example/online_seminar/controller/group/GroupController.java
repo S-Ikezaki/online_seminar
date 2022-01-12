@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("groups")
@@ -99,9 +100,9 @@ public class GroupController {
     //検索ボタンが押された時の処理
     @PostMapping("/search_group_detail")
     public String SearchGroupDetail(@RequestParam(value = "keyword", required = false) String keyword,
-                                    @RequestParam(value = "checkBoxSem", required = false) String checkBoxSem,
-                                    @RequestParam(value = "checkBoxCompPre", required = false) String checkBoxCompP,
-                                    @RequestParam(value = "checkBoxCompSub", required = false) String checkBoxCompS,
+                                    @RequestParam(value = "seminar1", required = false) String checkBoxSem,
+                                    @RequestParam(value = "seminar2", required = false) String checkBoxCompP,
+                                    @RequestParam(value = "seminar3", required = false) String checkBoxCompS,
                                     @RequestParam(value = "checkBoxReq", required = false) String checkBoxReq,
                                     Model model){
 //      値確認用
@@ -110,6 +111,11 @@ public class GroupController {
         System.out.println(checkBoxCompP);
         System.out.println(checkBoxCompS);
         System.out.println(checkBoxReq);
+
+        if (Objects.equals(checkBoxReq, "request")) {
+            System.out.println("仮成功");
+            return "search/search";
+        }
 
         int roleA =  0;
         int roleB = 1;

@@ -6,11 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>group search</title>
+    <!-- チェックボックスを制御するためのscript -->
     <script language="JavaScript">
         function checkCB(){
-            for (i = 1; i < 3; i++){
-                document.search.elements
+            for (i = 1; i <= 3; i++){
+                document.search.elements["seminar"+i].checked = false;
             }
+        }
+
+        function checkCB2(){
+            document.search.elements["checkBoxReq"].checked = false;
         }
     </script>
 </head>
@@ -40,12 +45,12 @@
         <input type="submit" value="検索"><br>
 
         <div sec:authorize="hasAnyRole('1','0')">
-            <input type="checkbox" name="checkBoxSem"/>ゼミ
-            <input type="checkbox" name="checkBoxCompPre"/>コンペ(発表)
-            <input type="checkbox" name="checkBoxCompSub"/>コンペ(提出)
+            <input type="checkbox" name="seminar1" onclick="checkCB2()"/>ゼミ
+            <input type="checkbox" name="seminar2" onclick="checkCB2()"/>コンペ(発表)
+            <input type="checkbox" name="seminar3" onclick="checkCB2()"/>コンペ(提出)
         </div>
         <div sec:authorize="hasAnyRole('1')">
-            <input type="checkbox" name="checkBoxReq" value="request">リクエスト
+            <input type="checkbox" name="checkBoxReq" value="request" onclick="checkCB()">リクエスト
         </div>
     </form>
 
