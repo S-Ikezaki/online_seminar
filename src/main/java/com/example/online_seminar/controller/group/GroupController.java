@@ -201,11 +201,11 @@ public class GroupController {
     //グループのメンバー一覧表示
     @GetMapping("/showGroupMemberList/{groupId}")
     public String showGroupMemberList(Model model,
-                                      @ModelAttribute GroupMember groupMember,
                                       @PathVariable("groupId") String groupId){
 
-        model.addAttribute("memberRole",groupMember.getGroupRole());
-        groupMemberRepository.findByGroupId(groupId);
+        List<GroupMember> groupMembers= groupMemberRepository.findByGroupId(groupId);
+        System.out.println(groupMembers);
+        model.addAttribute("groupMembers",groupMembers);
 
         return "seminar/group_member_list";
     }
