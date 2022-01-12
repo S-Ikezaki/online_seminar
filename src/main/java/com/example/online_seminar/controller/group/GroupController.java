@@ -308,4 +308,9 @@ public class GroupController {
         groupMemberRepository.save(groupMember);
         return "hoge";
     }
+
+    @PostMapping("/meeting")
+    public String skyway(){
+        return "/meeting_skyway/index.html";
+    }
 }

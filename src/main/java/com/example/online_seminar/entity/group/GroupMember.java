@@ -3,6 +3,7 @@ package com.example.online_seminar.entity.group;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.key.GroupMemberKeys;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.sql.Date;
 
 @Data
 @Entity
+@ToString(exclude = {"group","user"})
 @Table(name = "group_member_mst")
 @IdClass(value = GroupMemberKeys.class)
 public class GroupMember implements Serializable{
@@ -22,7 +24,7 @@ public class GroupMember implements Serializable{
     private String userId;
 
     @Column(name = "user_name",nullable = false)
-    private Date userName;
+    private String userName;
 
     @Column(name = "group_role",nullable = false)
     private int groupRole;

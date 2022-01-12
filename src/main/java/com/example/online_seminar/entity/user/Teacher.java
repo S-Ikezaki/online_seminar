@@ -1,11 +1,13 @@
 package com.example.online_seminar.entity.user;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@ToString(exclude = {"school", "user"})
 @Entity
 @Table(name = "teacher_mst")
 public class Teacher implements Serializable {
