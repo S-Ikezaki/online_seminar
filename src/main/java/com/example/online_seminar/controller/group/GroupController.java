@@ -3,6 +3,7 @@ package com.example.online_seminar.controller.group;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMember;
 import com.example.online_seminar.entity.group.GroupMessage;
+import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +38,23 @@ public class GroupController {
 
     private final UserRepository userRepository;
 
+    private final RequestRepository requestRepository;
+
     @Autowired
     public GroupController(GroupRepository groupRepository,
                            TagGroupRepository tagGroupRepository,
                            GroupMessageRepository groupMessageRepository,
                            GroupMemberRepository groupMemberRepository,
                            TagRepository tagRepository,
-                           UserRepository userRepository) {
+                           UserRepository userRepository,
+                           RequestRepository requestRepository) {
         this.groupRepository = groupRepository;
         this.tagGroupRepository = tagGroupRepository;
         this.groupMessageRepository = groupMessageRepository;
         this.groupMemberRepository = groupMemberRepository;
         this.tagRepository = tagRepository;
         this.userRepository = userRepository;
+        this.requestRepository = requestRepository;
     }
 
     /*@GetMapping("/add")
@@ -114,6 +119,9 @@ public class GroupController {
 
         if (Objects.equals(checkBoxReq, "request")) {
             System.out.println("仮成功");
+            List<Request> requestList = requestRepository.findAllSelect();
+            model.addAttribute("requestList",requestList);
+
             return "search/search";
         }
 
@@ -299,5 +307,10 @@ public class GroupController {
         groupMember.setGroupRole(groupRole);
         groupMemberRepository.save(groupMember);
         return "hoge";
+    }
+
+    @PostMapping("/meeting")
+    public String skyway(){
+        return "/meeting_skyway/index.html";
     }
 }

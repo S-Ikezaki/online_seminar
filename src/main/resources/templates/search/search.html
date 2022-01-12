@@ -71,6 +71,13 @@
         </tr>
     </table>
 
+    <table>
+        <tr th:each="request: ${requestList}" th:if="${lists.isEmpty(requestList)}" class="align-middle">
+            <td th:text="${request.requestUserName}"></td>
+            <td th:text="${request.requestContent}"></td>
+        </tr>
+    </table>
+
     <div sec:authorize="hasAnyRole('1')">
         <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
     </div>
