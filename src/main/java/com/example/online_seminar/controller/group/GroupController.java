@@ -204,6 +204,7 @@ public class GroupController {
                                       @ModelAttribute GroupMember groupMember,
                                       @PathVariable("groupId") String groupId){
 
+        System.out.println(groupId + "グループID");
         model.addAttribute("memberRole",groupMember.getGroupRole());
         groupMemberRepository.findByGroupId(groupId);
 
