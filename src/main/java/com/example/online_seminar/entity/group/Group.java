@@ -1,6 +1,7 @@
 package com.example.online_seminar.entity.group;
 
 import com.example.online_seminar.entity.tag.TagGroup;
+import com.example.online_seminar.entity.user.Participation;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,9 +37,12 @@ public class Group implements Serializable {
     @OneToMany(mappedBy = "group")
     List<GroupMessage> groupMessages;
 
-
     @OneToOne
     @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     private Meeting meetings;
+
+//    @OneToMany
+//    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+//    List<Participation> participation;
 
 }

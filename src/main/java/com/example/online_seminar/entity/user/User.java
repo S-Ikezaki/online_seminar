@@ -87,4 +87,19 @@ public class User implements Serializable {
     @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
     private Certification certification;
+
+//    @OneToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "create_user_id", referencedColumnName = "user_id", updatable = false),
+//            @JoinColumn(name = "address_user_id", referencedColumnName = "user_id", updatable = false)
+//    })
+//    private Participation participation;
+
+//    @OneToOne
+//    @JoinColumn(name = "create_user_id", referencedColumnName = "user_id", updatable = false)
+//    private Participation parUserS;
+//
+//    @OneToOne
+//    @JoinColumn(name = "address_user_id", referencedColumnName = "user_id", updatable = false)
+//    private Participation parUserT;
 }
