@@ -242,7 +242,7 @@ public class GroupController {
     //投稿一覧取得
     //グループ、ゼミのメインメニューを表示するためのメソッド
     @GetMapping("/showGroupMessage/{groupId}")
-    public String showGroupMessage(Model model,@PathVariable("groupId") String groupId, Authentication loginUser){
+    public String showGroupMessage(Model model,@PathVariable("groupId") int groupId, Authentication loginUser){
         List<GroupMessage> groupMessagesList = groupMessageRepository.findByGroup(groupId);
 //        for (GroupMessage groupMessage : groupMessagesList) {
 //            groupMessage.getCreateDatetime();
@@ -271,7 +271,7 @@ public class GroupController {
     //グループのメッセージ追加
     @GetMapping("/addGroupMessage")
     public String addGroupMessage(Model model,
-                                  String groupId,
+                                  int groupId,
                                   GroupMessage groupMessage,
                                   Authentication loginUser,
                                   BindingResult result){

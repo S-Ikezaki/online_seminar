@@ -13,9 +13,9 @@ public interface GroupMessageRepository extends JpaRepository<GroupMessage, Long
 
     //グループごとのメッセージを表示するためのメソッド
     @Query(name = "Message.findByGroupNq", nativeQuery = true)
-    List<GroupMessage> findByGroup(String groupId);
+    List<GroupMessage> findByGroup(int groupId);
 
     //メッセージ投稿
     @Query(name = "Message.insert", nativeQuery = true)
-    List<GroupMessage> insertGroupMessage(String userId, String userName, String content, String groupId);
+    List<GroupMessage> insertGroupMessage(String userId, String userName, String content, int groupId);
 }

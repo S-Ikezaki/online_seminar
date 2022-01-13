@@ -17,7 +17,7 @@ public class MeetingChat{
     private String meetingChatContents;
 
     @Column(name = "group_id",nullable = false)
-    private String groupId;
+    private int groupId;
 
     @Column(name = "user_name")
     private String userName;

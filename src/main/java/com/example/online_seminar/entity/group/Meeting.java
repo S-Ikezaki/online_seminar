@@ -11,7 +11,7 @@ import java.util.List;
 public class Meeting{
     @Id
     @Column(name = "group_id",nullable = false)
-    private String groupId;
+    private int groupId;
 
     @Column(name = "user_name")
     private String userName;
