@@ -21,9 +21,15 @@
         </div>
     </div>
 
-    ファイルをアップロード
-    <form id="">
-
+    <label>ファイルアップロード</label>
+    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data"  th:object="${uploadForm}">
+        <div>
+            <label>■ファイルパス:</label>
+            <input type="file" th:field="*{multipartFile}">
+        </div>
+        <div>
+            <input type="submit" value="アップロード">
+        </div>
     </form>
 </main>
 </body>

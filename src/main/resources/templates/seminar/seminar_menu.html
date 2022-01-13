@@ -23,7 +23,10 @@
         </div>
     </div>
 
-<!--    <div th:text="${groupMessages.groupName}">-->
+    <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
+    <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
+
+    <!--    <div th:text="${groupMessages.groupName}">-->
     <h4>投稿一覧</h4>
     <p>
     <form th:action="@{/groups/addGroupMessage}" 　method="post">
