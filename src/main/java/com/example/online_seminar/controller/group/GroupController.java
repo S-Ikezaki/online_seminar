@@ -82,7 +82,15 @@ public class GroupController {
             model.addAttribute("id",id);
             return "competition/apply";
         }
+    }
+    //申請ボタンを押された時の処理
+    @GetMapping("/apply/execution")
+    public String Execution(@RequestParam("groupId") String id){
 
+        System.out.println(id);
+        System.out.println("aaa");
+
+        return "main_menu";
     }
 
     // 検索画面に遷移
@@ -119,7 +127,7 @@ public class GroupController {
 
         if (Objects.equals(checkBoxReq, "request")) {
             System.out.println("仮成功");
-            List<Request> requestList = requestRepository.findAll();
+            List<Request> requestList = requestRepository.findAllSelect();
             model.addAttribute("requestList",requestList);
 
             return "search/search";
