@@ -82,7 +82,15 @@ public class GroupController {
             model.addAttribute("id",id);
             return "competition/apply";
         }
+    }
+    //申請ボタンを押された時の処理
+    @GetMapping("/apply/execution")
+    public String Execution(@RequestParam("groupId") String id){
 
+        System.out.println(id);
+        System.out.println("aaa");
+
+        return "main_menu";
     }
 
     // 検索画面に遷移

@@ -79,7 +79,7 @@
 </head>
 <body>
 <div>
-    <h6 th:object="${id}" th:text="${id}">仮表示</h6>
+    <h6 th:object="${id}" th:text="${id}"></h6>
     <h2 class="heading" data-en="Harbbit">ゼミ参加申請画面</h2>
 </div>
 <form th:action="@{/DM}" th:object="${DM}" >
@@ -89,16 +89,16 @@
         <textarea name="comment" id="FlexTextarea" class="FlexTextarea__textarea" placeholder="コメント">
         </textarea><br>
     </div>
+</form>
 
-    <div>
-        <form action="" method="post">
-<!--        後で操作しているアカウントのロールによってstudentかteacherのどちらのメニュー画面に遷移するか決定するcontrollerクラスに情報を渡すようなコードに変える-->
-            <button type="button" onclick="location.href='../student/student_main_menu.html'"> 申請 </button>
-        </form>
+<div>
+    <form th:object="${id}" th:action="@{/groups/apply/execution}" method="get">
+        <!--        後で操作しているアカウントのロールによってstudentかteacherのどちらのメニュー画面に遷移するか決定するcontrollerクラスに情報を渡すようなコードに変える-->
+        <button type="submit" name="groupId" th:value="${id}"> 申請 </button>
 
         <button type="button" onclick="history.back()"> 戻る </button>
-    </div>
-</form>
+    </form>
+</div>
 
 </body>
 </html>
