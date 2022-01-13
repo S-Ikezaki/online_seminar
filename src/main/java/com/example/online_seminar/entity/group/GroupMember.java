@@ -17,7 +17,7 @@ import java.sql.Date;
 public class GroupMember implements Serializable{
     @Id
     @Column(name = "group_id")
-    private String groupId;
+    private int groupId;
 
     @Id
     @Column(name = "user_id")

@@ -24,7 +24,7 @@ public class GroupMessage implements Serializable {
     private String userName;
 
     @Column(name="group_id",nullable = false)
-    private String groupId;
+    private int groupId;
 
     @Column(name="create_datetime")
     private Date createDatetime;
