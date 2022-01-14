@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String showMenu(Authentication loginUser, Model model) {
+    public String showMenu(Authentication loginUser, Model model, HttpSession session) {
 //        String userId = (String) model.getAttribute("username");
         String userId = loginUser.getName();
         System.out.println("{"+userId+"}");
@@ -46,6 +47,7 @@ public class SecurityController {
         System.out.println(loginUser.getAuthorities());
         model.addAttribute("seminars", seminar);
         model.addAttribute("competitions", competition);
+//        session.setAttribute("username",loginUser.getName());
 
         return "main_menu";
 
