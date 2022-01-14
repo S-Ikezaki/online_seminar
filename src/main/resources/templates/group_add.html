@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>グループ追加画面</title>
+
+
+    <script>
+
+        let i = 1 ;
+        function addForm() {
+            let input_data = document.createElement('input');
+            input_data.type = 'text';
+            input_data.id = 'tag_' + i;
+            input_data.placeholder = 'タグを入力してください';
+            let parent = document.getElementById('form_area');
+            parent.appendChild(input_data);
+
+            let button_data = document.createElement('button');
+            button_data.id = i;
+            button_data.onclick = function(){deleteBtn(this); }
+            button_data.innerHTML = '削除';
+            let input_area = document.getElementById(input_data.id);
+            parent.appendChild(button_data);
+
+            i++ ;
+        }
+
+        function deleteBtn(target) {
+            let target_id = target.id;
+            let parent = document.getElementById('form_area');
+            let ipt_id = document.getElementById('tag_' + target_id);
+            let tgt_id = document.getElementById(target_id);
+            parent.removeChild(ipt_id);
+            parent.removeChild(tgt_id);
+        }
+
+
+        window.onload = function(){
+            let id = document.getElementById("id");
+            let name = document.getElementById("name");
+            let bio = document.getElementById("bio");
+
+            let deadline = document.getElementById("deadline");
+
+            deadline.style.display = "none";
+
+            id.value = "";
+            name.value = "";
+            bio.value = "";
+
+            deadline.value = "";
+        }
+
+        function buttonClick() {
+            let seminarform = document.getElementById("seminar");
+            let announcementcompform = document.getElementById("announcement_comp");
+            let submissioncompform = document.getElementById("submission_comp");
+
+            let deadline = document.getElementById("deadline");
+
+            deadline.value = "";
+
+            if (seminarform.checked) {
+                deadline.style.display = "none";
+            } else if (announcementcompform.checked) {
+                deadline.style.display = "";
+            }
+            else if(submissioncompform.checked){
+                deadline.style.display = "";
+            }else {
+                deadline.style.display = "none";
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<form th:action="@{/groups/addGroup}" method="post">
+    <p>グループ作成画面</p>
+    <input type="radio" name="role" id="seminar" checked value="0" checked onclick="buttonClick()">ゼミ
+    <input type="radio" name="role" id="announcement_comp" value="1"  onclick="buttonClick()">発表型コンペ
+    <input type="radio" name="role" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
+
+    <p>グループ名</p>
+    <input type="text" id="name">
+    <p>グループ概要</p>
+    <input type="text" id="bio">
+    <p>タグ</p>
+    <div id="form_area">
+        <input type="text" name="tag_0" maxlength="100" id="tag_0" placeholder="タグを入力してください">
+        <button id="0" onclick="deleteBtn(this)">削除</button>
+    </div>
+    <br>
+    <input type="button" value="フォーム追加" onclick="addForm()">
+    <br>
+    <!---コンペ用の情報-->
+    <div id="deadline">
+        <p>提出期限</p>
+        <input type="datetime-local" name="deadline">
+    </div>
+    <br>
+    <input type="submit" value="作成">
+</form>
+</body>
+</html>
