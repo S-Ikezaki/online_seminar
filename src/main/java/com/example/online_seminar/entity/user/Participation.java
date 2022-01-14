@@ -14,16 +14,16 @@ public class Participation {
     @Column(name = "participation_id", nullable = false)
     private String participationId;
 
-    @JoinColumn(name = "create_user_id", nullable = false, referencedColumnName = "user_id")
+    @Column(name = "create_user_id", nullable = false)
     private String createUserId;
 
-    @JoinColumn(name = "create_user_name", nullable = false, referencedColumnName = "user_name")
+    @Column(name = "create_user_name", nullable = false)
     private String createUserName;
 
     @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
     private String groupId;
 
-    @JoinColumn(name = "address_user_id", nullable = false, referencedColumnName = "user_id")
+    @Column(name = "address_user_id", nullable = false)
     private String addressUserId;
 
     @Column(name = "participation_contents", nullable = false)

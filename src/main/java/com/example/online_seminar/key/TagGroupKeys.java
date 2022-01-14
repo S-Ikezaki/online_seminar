@@ -12,6 +12,6 @@ public class TagGroupKeys implements Serializable {
 
     private int tagId;
 
-    private String groupId;
+    private int groupId;
 
 }

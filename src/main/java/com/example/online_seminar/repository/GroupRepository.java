@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupRepository extends JpaRepository<Group,Long>{
+public interface GroupRepository extends JpaRepository<Group,Integer>{
     //名前で検索するメソッド
    /* @Query(name = "Group.findByName")
     List<Group> findByName(String name);*/

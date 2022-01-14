@@ -9,7 +9,7 @@ import java.sql.Date;
 
 @Data
 public class GroupMemberKeys implements Serializable {
-    private String groupId;
+    private int groupId;
 
     private String userId;
 
