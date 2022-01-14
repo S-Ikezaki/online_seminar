@@ -284,8 +284,7 @@ public class GroupController {
 
     //グループのメッセージ追加
     @GetMapping("/addGroupMessage")
-    public String addGroupMessage(Model model,
-                                  int groupId,
+    public String addGroupMessage(int groupId,
                                   GroupMessage groupMessage,
                                   Authentication loginUser,
                                   BindingResult result){
