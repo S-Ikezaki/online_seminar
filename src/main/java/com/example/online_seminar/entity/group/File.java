@@ -16,8 +16,8 @@ public class File {
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "file_pass",nullable = false)
-    private String filePass;
+    @Column(name = "file_path",nullable = false)
+    private String filePath;
 
     @Column(name = "user_name")
     private String userName;
@@ -26,7 +26,7 @@ public class File {
     private Date createDatetime;
 
     @Column(name = "group_id",nullable = false)
-    private String groupId;
+    private int groupId;
 
     @ManyToOne
     @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
