@@ -9,8 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupMemberRepository extends JpaRepository<GroupMember, Long> {
+public interface GroupMemberRepository extends JpaRepository<GroupMember, Integer> {
 
     List<GroupMember> findByGroupId(String groupId);
+
+    @Query(name = "Member.findByGroupRoleNq", nativeQuery = true)
+    List<GroupMember> findByGroupRoleNq(int id);
+
+//    List<GroupMember> findByGroupRole(int id);
 
 }

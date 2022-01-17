@@ -85,12 +85,24 @@ public class GroupController {
     }
     //申請ボタンを押された時の処理
     @GetMapping("/apply/execution")
-    public String Execution(@RequestParam("groupId") String id){
+    public String Execution(@RequestParam("groupId") int id,
+                            Model model){
 
         System.out.println(id);
         System.out.println("aaa");
 
-//        List<Request> addRequest requestRepository
+//        int groupId = Integer.parseInt(id);
+
+        List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(id);
+
+        System.out.println(groupLeader);
+
+        System.out.println(groupLeader.get(0).getUserId());
+
+//        GroupMember leader = groupLeader.get(1);
+//
+//        System.out.println(leader);
+
 
         return "main_menu";
     }
@@ -212,7 +224,7 @@ public class GroupController {
 
     //一件取得用メソッド
     @GetMapping("/{id:[0-9]+")
-    public String showGroup(Model model,@PathVariable("id") Long groupId,HttpSession session){
+    public String showGroup(Model model,@PathVariable("id") int groupId,HttpSession session){
         model.addAttribute("",groupRepository.findById(groupId));
         return "";
     }
@@ -220,7 +232,7 @@ public class GroupController {
     //グループを一件削除
     @PostMapping("/deleteOne/{id:.+")
     public String deleteGroupOne(@PathVariable String groupId){
-        groupRepository.deleteById(Long.valueOf(groupId));
+        groupRepository.deleteById(Integer.parseInt(groupId));
         return "一件削除";
     }
 
@@ -309,7 +321,7 @@ public class GroupController {
 
     //投稿削除
     @PostMapping("/deleteGroupMessage")
-    public String deleteGroupMessage(@PathVariable Long groupMessageId) {
+    public String deleteGroupMessage(@PathVariable int groupMessageId) {
         groupRepository.deleteById(groupMessageId);
         return "hoge";
     }
