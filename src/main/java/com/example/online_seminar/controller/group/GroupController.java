@@ -206,21 +206,26 @@ public class GroupController {
         return "search/search";
     }
     //グループの一件追加用メソッド
-    @GetMapping("/addGroup")
+    @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
                            Model model, BindingResult result){
         group.setGroupId(group.getGroupId());
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
-        group.setGroupMembers(group.getGroupMembers());
+        group.setGroupBio(group.getGroupBio());
 
         model.addAttribute("groups",group);
         if(result.hasErrors()){
-            return "list";
+            return "error";
         }
         groupRepository.save(group);
-        return "hoge";
+        return "group_add_complete";
     }
+
+    @GetMapping("/teacher/showCreateMenu")
+        public String showCreateMenu(Model model){
+            return "group_add";
+        }
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")

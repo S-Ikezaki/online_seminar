@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class SecurityController {
 
     @GetMapping("/")
     public String showMenu(Authentication loginUser, Model model) {
-//        String userId = (String) model.getAttribute("username");
         String userId = loginUser.getName();
         System.out.println("{"+userId+"}");
         List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示

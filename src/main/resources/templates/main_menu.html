@@ -28,7 +28,7 @@
         <button>検索画面</button>
     </form>
     <div sec:authorize="hasAnyRole('1','3')">
-        <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>
+        <button th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">グループ作成画面</button>
     </div>
     <button th:attr="onClick='location.href=\'' +@{/users/group_search} + '\''">パスワード変更</button>
     <div sec:authorize="hasAnyRole('1','3')">
