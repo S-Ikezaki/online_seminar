@@ -25,8 +25,7 @@ public class SecurityController {
     }
 
     @GetMapping("/")
-    public String showMenu(Authentication loginUser, Model model, HttpSession session) {
-//        String userId = (String) model.getAttribute("username");
+    public String showMenu(Authentication loginUser, Model model) {
         String userId = loginUser.getName();
         System.out.println("{"+userId+"}");
         List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
@@ -47,7 +46,6 @@ public class SecurityController {
         System.out.println(loginUser.getAuthorities());
         model.addAttribute("seminars", seminar);
         model.addAttribute("competitions", competition);
-//        session.setAttribute("username",loginUser.getName());
 
         return "main_menu";
 
