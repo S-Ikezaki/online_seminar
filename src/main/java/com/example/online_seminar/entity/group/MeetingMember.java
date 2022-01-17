@@ -11,7 +11,7 @@ import java.sql.Date;
 public class MeetingMember{
     @Id
     @Column(name = "group_id")
-    private String groupId;
+    private int groupId;
 
     @Column(name = "user_name")
     private Date userName;

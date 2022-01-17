@@ -11,13 +11,13 @@ import java.sql.Date;
 
 @Data
 @Entity
-@ToString(exclude = {"group","user"})
+@ToString(exclude = {"group","user"}) //無限ループ回避するやつ
 @Table(name = "group_member_mst")
 @IdClass(value = GroupMemberKeys.class)
 public class GroupMember implements Serializable{
     @Id
     @Column(name = "group_id")
-    private String groupId;
+    private int groupId;
 
     @Id
     @Column(name = "user_id")

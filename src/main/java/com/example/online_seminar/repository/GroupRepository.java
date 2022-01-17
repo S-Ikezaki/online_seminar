@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupRepository extends JpaRepository<Group,Long>{
+public interface GroupRepository extends JpaRepository<Group,Integer>{
     //名前で検索するメソッド
    /* @Query(name = "Group.findByName")
     List<Group> findByName(String name);*/
@@ -26,14 +26,14 @@ public interface GroupRepository extends JpaRepository<Group,Long>{
 
     //削除用のグループ選択メソッド
     @Query(name = "Group.findByIdDeleteNq",nativeQuery = true)
-    List<Group> findByIdDeleteNq(String groupId);
+    List<Group> findByIdDeleteNq(int groupId);
 
     //所属しているグループの表示
     @Query(name = "Group.findByUserNq",nativeQuery = true)
     List<Group> findByUser(String userId);
 
     @Query(name= "Group.findByIdNq",nativeQuery = true)
-    List<Group> findById(String groupId);
+    List<Group> findById(int groupId);
 
     //タグとロールでグループを検索(途中)
     @Query(name = "Group.findByTagRoleNq", nativeQuery = true)
