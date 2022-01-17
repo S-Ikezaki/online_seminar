@@ -67,16 +67,19 @@ public class GroupController {
     //searchの参加申請ボタンを押された時groupRoleを受け取りゼミかコンペで遷移先を分ける?
     public String Transition(@RequestParam("groupRole") int role,
                              @RequestParam("groupId") String id,
+                             @RequestParam("userId") String userId,
                              Model model
                             ){
 
         //確認用
         System.out.println(role);
         System.out.println(id);
+        System.out.println(userId);
 
         //ロールによって遷移先を分ける
         if (role == 0) {
             model.addAttribute("id",id);
+            model.addAttribute("userId", userId);
             return "seminar/seminar_apply";
         } else {
             model.addAttribute("id",id);
@@ -86,6 +89,7 @@ public class GroupController {
     //申請ボタンを押された時の処理
     @GetMapping("/apply/execution")
     public String Execution(@RequestParam("groupId") int id,
+                            @RequestParam("username") String username,
                             Model model){
 
         System.out.println(id);
@@ -99,6 +103,8 @@ public class GroupController {
 
         System.out.println(groupLeader.get(0).getUserId());
 
+        System.out.println(username);
+
 //        GroupMember leader = groupLeader.get(1);
 //
 //        System.out.println(leader);
@@ -109,17 +115,19 @@ public class GroupController {
 
     // 検索画面に遷移
     @GetMapping("/search_group")
-    public String SearchGroup(@RequestParam("username") String username,
+    public String SearchGroup(@RequestParam("userId") String userId,
                               @RequestParam("role") String role,
                               Model model) {
 
         //確認用
         System.out.println("グループサーチ");
-        System.out.println(username);
+        System.out.println(userId);
         System.out.println(role);
 
         List<Group> groupList = new ArrayList<Group>();
+
         model.addAttribute("groups", groupList);
+        model.addAttribute("userId", userId);
 
         return "search/search";
     }
@@ -131,6 +139,7 @@ public class GroupController {
                                     @RequestParam(value = "seminar2", required = false) String checkBoxCompP,
                                     @RequestParam(value = "seminar3", required = false) String checkBoxCompS,
                                     @RequestParam(value = "checkBoxReq", required = false) String checkBoxReq,
+                                    @RequestParam("userId") String userId,
                                     Model model){
 //      値確認用
         System.out.println(keyword);
@@ -138,12 +147,18 @@ public class GroupController {
         System.out.println(checkBoxCompP);
         System.out.println(checkBoxCompS);
         System.out.println(checkBoxReq);
+        System.out.println(userId);
 
         if (Objects.equals(checkBoxReq, "request")) {
             System.out.println("仮成功");
             List<Request> requestList = requestRepository.findAllSelect();
             model.addAttribute("requestList",requestList);
 
+            return "search/search";
+        }
+
+        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword == null) {
+            model.addAttribute("userId", userId);
             return "search/search";
         }
 
@@ -182,13 +197,11 @@ public class GroupController {
             roleC = 2;
         }
 
-        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword == null) {
-            return "search/search";
-        }
-
         List<Group> groupList = groupRepository.findByRoleNq(keyword, roleA, roleB, roleC);
 
         model.addAttribute("groupList", groupList);
+
+        model.addAttribute("userId", userId);
 
         return "search/search";
     }
