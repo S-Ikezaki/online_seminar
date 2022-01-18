@@ -40,7 +40,7 @@ public class SecurityController {
             }
         }
 
-        model.addAttribute("username", loginUser.getName());
+        model.addAttribute("userId", loginUser.getName());
         model.addAttribute("role", loginUser.getAuthorities());
 
         System.out.println(loginUser.getAuthorities());

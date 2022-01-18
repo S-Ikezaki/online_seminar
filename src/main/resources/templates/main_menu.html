@@ -23,7 +23,7 @@
     </div>
 
     <form th:action="@{/groups/search_group}" method="get">
-        <input type="hidden" name="username" th:value="${username}">
+        <input type="hidden" name="userId" th:value="${userId}">
         <input type="hidden" name="role" th:value="${role}">
         <button>検索画面</button>
     </form>
@@ -47,15 +47,19 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(seminars)}" th:each="seminar : ${seminars}">
-            <form method="get" th:action="@{/groups/showGroupMessage}">
-<!--                <input type="hidden" name="groupId" th:value="${seminar.groupId}">-->
                 <td th:text="${seminar.groupName}"></td>
                 <td th:text="${seminar.groupBio}"></td>
                 <td>
-                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${seminar.groupId})}" class="css名">
-                    <i class="クラス名">メニュー</i></a>
+<!--                    <input type="hidden" name="groupId" th:value="${seminar.groupId}">-->
+<!--                    <a th:href="@{/groups/showGroupMessage}" class="css名">-->
+
+                    <form th:action="@{/groups/showGroupMessage}" method="post">
+                        <input type="hidden" name="groupId" th:value="${seminar.groupId}">
+
+                        <button>メニュー</button>
+<!--                    <i class="クラス名">メニュー</i></a>-->
+                    </form>
                 </td>
-            </form>
         </tr>
         </tbody>
     </table>
@@ -72,15 +76,16 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(competitions)}" th:each="competition : ${competitions}">
-            <form method="post" th:action="@{/groups/showGruopMessage}">
-                <input type="hidden" name="groupId" value=seminar.groupId>
                 <td th:text="${competition.groupName}"></td>
                 <td th:text="${competition.groupBio}"></td>
                 <td>
-                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${competition.groupId})}" class="css名">
-                    <i class="クラス名">メニュー</i></a>
+<!--                    <a th:href="@{/groups/showGroupMessage/{groupId}(groupId = ${competition.groupId})}" class="css名">-->
+<!--                    <i class="クラス名">メニュー</i></a>-->
+                    <form th:action="@{/groups/showGroupMessage}" method="post">
+                        <input type="hidden" name="groupId" th:value="${competition.groupId}">
+                        <button>メニュー</button>
+                    </form>
                 </td>
-            </form>
         </tr>
         </tbody>
     </table>
