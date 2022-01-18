@@ -34,13 +34,11 @@
         </div>
     </div>
 
-
-
-    <p>[[${username}]]</p>
-    <p>[[${role}]]</p>
+    <h6 th:object="${userId}" th:text="${userId}"></h6>
 
     <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
     <form name="search" th:action="@{/groups/search_group_detail}" method="post">
+        <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
         <input type="search" name="keyword" placeholder="キーワードを入力">
         <input type="submit" value="検索"><br>
 
@@ -61,8 +59,9 @@
             <form th:action="@{/groups/apply}" th:method="get">
             <td th:text="${group.groupName}"></td>
             <td th:text="${group.groupBio}"></td>
-            <!-- GroupControllerのapplyにgroupIdとgroupRoleを渡す -->
+            <!-- GroupControllerのapplyにgroupIdとgroupRoleとuserNameを渡す -->
             <td>
+                <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
                 <input type="hidden" name="groupId" th:value="${group.groupId}">
                 <button type="submit" name="groupRole" th:value="${group.groupRole}">参加申請</button>
             </td>
