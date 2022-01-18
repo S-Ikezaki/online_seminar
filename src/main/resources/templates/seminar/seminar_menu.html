@@ -29,7 +29,7 @@
     <!--    <div th:text="${groupMessages.groupName}">-->
     <h4>投稿一覧</h4>
     <p>
-    <form th:action="@{/groups/addGroupMessage}" 　method="post">
+    <form th:action="@{/groups/addGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
@@ -85,10 +85,12 @@
 <!--            &lt;!&ndash;                <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>&ndash;&gt;-->
 <!--        </form>-->
     </div>
-    <form th:action="@{/groups/showGroupMemberList/{groupId}(groupId = ${groupId})}" 　method="post">
+    <form th:action="@{/groups/showGroupMemberList}" 　method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
         <button type="submit">メンバー</button>
     </form>
-    <form th:action="@{/files/filesShare/{groupId}(groupId = ${groupId})}" method="post">
+    <form th:action="@{/files/filesShare}" method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
         <button type="submit">ファイル共有</button>
     </form>
 </main>
