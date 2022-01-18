@@ -89,7 +89,7 @@ public class GroupController {
     //申請ボタンを押された時の処理
     @GetMapping("/apply/execution")
     public String Execution(@RequestParam("groupId") int id,
-                            @RequestParam("username") String username,
+                            @RequestParam("userId") String userId,
                             Model model){
 
         System.out.println(id);
@@ -99,15 +99,17 @@ public class GroupController {
 
         List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(id);
 
+        List<GroupMember> groupMember = groupMemberRepository.findByUserId(userId);
+
         System.out.println(groupLeader);
+
+        System.out.println(groupMember.get(0).getUserName());
 
         System.out.println(groupLeader.get(0).getUserId());
 
-        System.out.println(username);
+        System.out.println(userId);
 
-//        GroupMember leader = groupLeader.get(1);
-//
-//        System.out.println(leader);
+        System.out.println(id);
 
 
         return "main_menu";

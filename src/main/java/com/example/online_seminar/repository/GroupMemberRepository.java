@@ -16,6 +16,6 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, Intege
     @Query(name = "Member.findByGroupRoleNq", nativeQuery = true)
     List<GroupMember> findByGroupRoleNq(int id);
 
-//    List<GroupMember> findByGroupRole(int id);
+    List<GroupMember> findByUserId(String userId);
 
 }
