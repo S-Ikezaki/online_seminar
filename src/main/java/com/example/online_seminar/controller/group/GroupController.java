@@ -192,6 +192,7 @@ public class GroupController {
 
         return "search/search";
     }
+
     //グループの一件追加用メソッド
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
@@ -210,9 +211,7 @@ public class GroupController {
     }
 
     @GetMapping("/teacher/showCreateMenu")
-        public String showCreateMenu(Model model){
-            return "group_add";
-        }
+        public String showCreateMenu(Model model){ return "group_add"; }
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
@@ -240,7 +239,6 @@ public class GroupController {
     @GetMapping("/showGroupMemberList/{groupId}")
     public String showGroupMemberList(Model model,
                                       @PathVariable("groupId") String groupId){
-
 
         System.out.println(groupId + "グループID");
 
