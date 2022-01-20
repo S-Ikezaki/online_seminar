@@ -17,6 +17,22 @@
         function checkCB2(){
             document.search.elements["checkBoxReq"].checked = false;
         }
+
+        function checkNull(){
+            console.log("aaaa");
+
+            let num = 0;
+            for (let i = 1; i <= 3; i++) {
+                if(document.search.elements["seminar" + i].checked === false){
+                    num++;
+                }
+            }
+            if(document.search.elements["checkBoxReq"].checked === true){
+                num = 0;
+            }
+            return num !== 3;
+
+        }
     </script>
 </head>
 <body>
@@ -37,7 +53,7 @@
     <h6 th:object="${userId}" th:text="${userId}"></h6>
 
     <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
-    <form name="search" th:action="@{/groups/search_group_detail}" method="post">
+    <form name="search" th:action="@{/groups/search_group_detail}" method="post" onsubmit="return checkNull()">
         <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
         <input type="search" name="keyword" placeholder="キーワードを入力">
         <input type="submit" value="検索"><br>
