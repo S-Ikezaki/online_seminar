@@ -92,6 +92,7 @@ public class GroupController {
             return "seminar/seminar_apply";
         } else {
             model.addAttribute("id",id);
+            model.addAttribute("userId", userId);
             return "competition/apply";
         }
     }
