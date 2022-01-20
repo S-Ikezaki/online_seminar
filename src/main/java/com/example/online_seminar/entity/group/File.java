@@ -11,7 +11,7 @@ import java.sql.Date;
 public class File {
     @Id
     @Column(name = "file_id",nullable = false)
-    private String fileId;
+    private int fileId;
 
     @Column(name = "file_name")
     private String fileName;

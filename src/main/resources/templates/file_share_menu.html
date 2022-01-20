@@ -21,6 +21,33 @@
         </div>
     </div>
 
+    <table >
+        <thead>
+        <tr>
+            <th>ファイル名</th>
+            <th>アップロードした人</th>
+            <th>アップロード日</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
+        <!-- 要素の数ループする -->
+        <tr th:if="${!#lists.isEmpty(fileList)}" th:each="file : ${fileList}">
+            <form method="post" th:action="@{/files/download}" th:object="file">
+                <td th:text="${file.fileName}"></td>
+                <td th:text="${file.userName}"></td>
+                <td th:text="${file.createDatetime}"></td>
+                <td>
+                    <input type="submit" th:value="ダウンロード">
+                    <input type="hidden" th:value="${groupId}">
+                    <input type="hidden" th:value="${file.fileId}">
+                        <i class="クラス名">メニュー</i></a>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+
     <label>ファイルアップロード</label>
     <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data"  th:object="${uploadForm}">
         <div>

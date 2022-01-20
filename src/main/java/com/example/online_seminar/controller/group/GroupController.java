@@ -301,22 +301,18 @@ public class GroupController {
 
     //投稿一覧取得
     //グループ、ゼミのメインメニューを表示するためのメソッド
-    @GetMapping("/showGroupMessage/{groupId}")
-    public String showGroupMessage(Model model,@PathVariable("groupId") int groupId, Authentication loginUser){
+//    @GetMapping("/showGroupMessage/{groupId}")
+//    public String showGroupMessage(Model model,@PathVariable("groupId") int groupId, Authentication loginUser){
+    @PostMapping("/showGroupMessage")
+    public String showGroupMessage(Model model, int groupId, Authentication loginUser){
         List<GroupMessage> groupMessagesList = groupMessageRepository.findByGroup(groupId);
-//        for (GroupMessage groupMessage : groupMessagesList) {
-//            groupMessage.getCreateDatetime();
-//        }
+
         List<Group> group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
         System.out.println(groupId);
         model.addAttribute("groupId",groupId);
         model.addAttribute("username",loginUser.getName());
 
-
-//        System.out.println(group.get(0).getGroupName());
-
-        /*model.addAttribute("",groupRepository.)*/ //今やってる会議を表示
         if (group.get(0).getGroupRole() == 0) {
             return "seminar/seminar_menu";
         }else if(group.get(0).getGroupRole() == 1){
@@ -329,8 +325,9 @@ public class GroupController {
     }
 
     //グループのメッセージ追加
-    @GetMapping("/addGroupMessage")
-    public String addGroupMessage(int groupId,
+    @PostMapping("/addGroupMessage")
+    public String addGroupMessage(Model model,
+                                  int groupId,
                                   GroupMessage groupMessage,
                                   Authentication loginUser,
                                   BindingResult result){
@@ -354,9 +351,10 @@ public class GroupController {
         }
 
         groupMessageRepository.save(groupMessage);
-        groupId = groupMessage.getGroupId();
+        model.addAttribute("groupId", groupMessage.getGroupId());
 
-        return "redirect:showGroupMessage/"+groupId;
+
+        return "forward:showGroupMessage";
     }
 
 
