@@ -7,12 +7,14 @@
 <body>
     <h2>ゼミ作成リクエスト</h2>
 
+    <h6 th:text="${requestUser}"></h6>
+
 <form>
     <table>
-        <tr th:each="${Request}">
-            <td th:text="${Request.getRequest_user_id}">リクエスト申請者</td>
-            <td th:text="${Request.getRequest_content}">申請内容</td>
-            <td th:text="${Tag.GetTag_requests}">タグ名</td>
+        <tr >
+            <td >リクエスト申請者</td>
+            <td >申請内容</td>
+            <td >タグ名</td>
         </tr>
     </table>
 </form>

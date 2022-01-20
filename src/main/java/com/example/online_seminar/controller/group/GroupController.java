@@ -141,6 +141,21 @@ public class GroupController {
         return "main_menu";
     }
 
+    //ゼミ作成リクエスト画面に遷移
+    @GetMapping("/request_seminar")
+    public String RequestSeminar(@RequestParam("userId") String userId,
+                                 Model model){
+
+        //確認用
+        System.out.println("動作確認");
+        System.out.println(userId);
+
+        model.addAttribute("requestUser", userId);
+
+//        return "seminar/seminar_request";
+        return "student/request_send";
+    }
+
     // 検索画面に遷移
     @GetMapping("/search_group")
     public String SearchGroup(@RequestParam("userId") String userId,

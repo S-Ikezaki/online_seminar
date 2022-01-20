@@ -77,7 +77,7 @@
             <td th:text="${group.groupBio}"></td>
             <!-- GroupControllerのapplyにgroupIdとgroupRoleとuserNameを渡す -->
             <td>
-                <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
+                <input type="hidden" name="userId" th:value="${userId}">
                 <input type="hidden" name="groupId" th:value="${group.groupId}">
                 <button type="submit" name="groupRole" th:value="${group.groupRole}">参加申請</button>
             </td>
@@ -93,9 +93,11 @@
         </tr>
     </table>
 
-    <div sec:authorize="hasAnyRole('0')">
-        <button type="button" onclick="location.href='../seminar/seminar_request.html'">ゼミ作成リクエスト</button><br>
-    </div>
+    <form th:action="@{/groups/request_seminar}" method="get">
+        <div sec:authorize="hasAnyRole('0')">
+            <button type="submit" name="userId" th:value="${userId}">ゼミ作成リクエスト</button><br>
+        </div>
+    </form>
 </main>
 </body>
 </html>
