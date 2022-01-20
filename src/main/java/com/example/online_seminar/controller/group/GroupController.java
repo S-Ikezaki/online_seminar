@@ -3,10 +3,12 @@ package com.example.online_seminar.controller.group;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMember;
 import com.example.online_seminar.entity.group.GroupMessage;
+import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -40,6 +45,8 @@ public class GroupController {
 
     private final RequestRepository requestRepository;
 
+    private final ParticipationRepository participationRepository;
+
     @Autowired
     public GroupController(GroupRepository groupRepository,
                            TagGroupRepository tagGroupRepository,
@@ -47,7 +54,8 @@ public class GroupController {
                            GroupMemberRepository groupMemberRepository,
                            TagRepository tagRepository,
                            UserRepository userRepository,
-                           RequestRepository requestRepository) {
+                           RequestRepository requestRepository,
+                           ParticipationRepository participationRepository) {
         this.groupRepository = groupRepository;
         this.tagGroupRepository = tagGroupRepository;
         this.groupMessageRepository = groupMessageRepository;
@@ -55,6 +63,7 @@ public class GroupController {
         this.tagRepository = tagRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
+        this.participationRepository = participationRepository;
     }
 
     /*@GetMapping("/add")
@@ -90,27 +99,43 @@ public class GroupController {
     @GetMapping("/apply/execution")
     public String Execution(@RequestParam("groupId") int id,
                             @RequestParam("userId") String userId,
-                            Model model){
+                            @RequestParam("comment") String comment,
+                            Participation participation,
+                            BindingResult result){
 
         System.out.println(id);
         System.out.println("aaa");
 
-//        int groupId = Integer.parseInt(id);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sdfCalender = sdf.format((calendar.getTime()));
 
         List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(id);
 
         List<GroupMember> groupMember = groupMemberRepository.findByUserId(userId);
 
+        //受け取り確認用
         System.out.println(groupLeader);
+        System.out.println(id);//学生が申請したグループのID
+        System.out.println(userId);//申請した学生のID
+        System.out.println(groupMember.get(0).getUserName()); //申請した学生の名前
+        System.out.println(groupLeader.get(0).getUserId()); //申請を受け取る教師のID
+        System.out.println(comment);//参加申請画面で書かれたコメント
 
-        System.out.println(groupMember.get(0).getUserName());
+        participation.setCreateUserId(userId);
+        participation.setCreateUserName(groupMember.get(0).getUserName());
+        participation.setGroupId(id);
+        participation.setAddressUserId(groupLeader.get(0).getUserId());
+        participation.setParticipationContents(comment);
+        participation.setCreateDatetime(Date.valueOf(sdfCalender));
 
-        System.out.println(groupLeader.get(0).getUserId());
+        if(result.hasErrors()){
+            return  "error";
+        }
 
-        System.out.println(userId);
+        System.out.println(participation);
 
-        System.out.println(id);
-
+        participationRepository.save(participation);
 
         return "main_menu";
     }
@@ -169,6 +194,7 @@ public class GroupController {
         int roleC = 2;
 
         //ロール分け
+        //ゼミのみ
         if (checkBoxCompP == null && checkBoxCompS == null) {
             roleA = 0;
             roleB = 0;

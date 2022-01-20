@@ -1,4 +1,11 @@
 package com.example.online_seminar.repository;
 
-public interface ParticipationRepository {
+import com.example.online_seminar.entity.user.Participation;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+@Repository
+public interface ParticipationRepository extends JpaRepository<Participation, String> {
 }
