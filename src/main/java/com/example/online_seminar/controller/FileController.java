@@ -86,7 +86,7 @@ public class FileController{
         String sdfCalender = sdf.format((calendar.getTime()));
         String fileId = "0";
 
-        file.setFileId(fileId);
+//        file.setFileId(fileId);
         file.setFileName(fileName);
         file.setFilePath(filePath.toString());
         file.setUserName(loginUserName.getUserName());
