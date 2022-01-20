@@ -152,8 +152,14 @@ public class GroupController {
 
         model.addAttribute("requestUser", userId);
 
-//        return "seminar/seminar_request";
         return "student/request_send";
+    }
+
+    //リクエスト提示ボタンが押された時の処理
+    @PostMapping("/request_presentation")
+    public String RequestPresentation(Model model){
+
+        return "main_menu";
     }
 
     // 検索画面に遷移

@@ -12,7 +12,7 @@ import java.sql.Date;
 public class Request implements Serializable {
     @Id
     @Column(name = "request_id" ,nullable = false)
-    private String requestId;
+    private int requestId;
 
     @JoinColumn(name = "user_id" ,nullable = false,referencedColumnName = "user_id")
     private String requestUserId;

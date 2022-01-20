@@ -95,6 +95,7 @@
 
     <form th:action="@{/groups/request_seminar}" method="get">
         <div sec:authorize="hasAnyRole('0')">
+            <input type="hidden" name="">
             <button type="submit" name="userId" th:value="${userId}">ゼミ作成リクエスト</button><br>
         </div>
     </form>
