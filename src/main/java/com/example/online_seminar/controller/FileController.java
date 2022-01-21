@@ -112,14 +112,13 @@ public class FileController {
 
     @PostMapping("/download")
     public String download(int fileId,
-                           UploadForm uploadForm,
                            HttpServletResponse response
     ) {
 
         File file = fileRepository.findByFileId(fileId);
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename\"" + file.getFileName() + "\"");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + file.getFileName() + "\"");
         response.setHeader("Cache-Control", "private");
         response.setHeader("Pragma", "");
 
@@ -129,9 +128,11 @@ public class FileController {
         try {
             out = response.getOutputStream();
             in = Files.newInputStream(filePath);
+            int len = 0;
             byte[] bytes = new byte[1024];
-            int len = in.read(bytes,0,bytes.length);
-            out.write(bytes, 0, len);
+            while ((len = in.read(bytes, 0, bytes.length)) != -1){
+                out.write(bytes, 0, len);
+            }
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
