@@ -62,19 +62,19 @@
 
     <h2>ゼミ作成リクエスト</h2>
     <br>
-    <form >
+    <form th:action="@{/groups/request_presentation}" method="post">
         <h4 th:text="${requestUser}"></h4>
-        <input type="text" name="request_content" maxlength="500" placeholder="申請内容を入力してください">
+        <input type="text" name="comment" maxlength="500" placeholder="申請内容を入力してください">
         <br>
         タグ:
         <div id="form_area">
-            <input type="text" name="request_content" maxlength="100" id="inputform_0" placeholder="タグを入力してください">
+            <input type="text" name="tag" maxlength="100" id="inputform_0" placeholder="タグを入力してください">
             <button id="0" onclick="deleteBtn(this)">削除</button>
         </div>
         <input type="button" value="フォーム追加" onclick="addForm()">
-
         <br>
-        <button type="submit" name="request" th:value="${requestUser}">リクエスト提示</button>
+
+        <button type="submit" name="requestUser" th:value="${requestUser}">リクエスト提示</button>
     </form>
 
     <button type="button" onclick="history.back()">戻る</button>

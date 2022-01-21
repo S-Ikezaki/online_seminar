@@ -157,9 +157,39 @@ public class GroupController {
 
     //リクエスト提示ボタンが押された時の処理
     @PostMapping("/request_presentation")
-    public String RequestPresentation(Model model){
+    public String RequestPresentation(@RequestParam("requestUser") String userId,
+                                      @RequestParam("comment") String comment,
+                                      @RequestParam("tag") String tag,
+                                      Request request,
+                                      BindingResult result){
 
-        return "main_menu";
+        //確認用
+        System.out.println(userId);
+        System.out.println(comment);
+        System.out.println(tag);
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String sdfCalender = sdf.format((calendar.getTime()));
+
+        User user = userRepository.findByUserId(userId);
+
+        System.out.println("userName:"+user.getUserName());
+
+        request.setRequestUserId(userId);
+        request.setRequestUserName(user.getUserName());
+        request.setRequestContent(comment);
+        request.setRequestDatetime(Date.valueOf(sdfCalender));
+
+        if(result.hasErrors()){
+            return  "error";
+        }
+
+        System.out.println(request);
+
+        requestRepository.save(request);
+
+        return "seminar/seminar_request_completed";
     }
 
     // 検索画面に遷移
