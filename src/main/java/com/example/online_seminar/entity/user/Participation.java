@@ -4,6 +4,7 @@ import com.example.online_seminar.entity.group.Group;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Date;
 public class Participation {
     @Id
     @Column(name = "participation_id", nullable = false)
-    private String participationId;
+    private int participationId;
 
     @Column(name = "create_user_id", nullable = false)
     private String createUserId;
@@ -21,7 +22,7 @@ public class Participation {
     private String createUserName;
 
     @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id")
-    private String groupId;
+    private int groupId;
 
     @Column(name = "address_user_id", nullable = false)
     private String addressUserId;
