@@ -426,8 +426,11 @@ public class GroupController {
         return "hoge";
     }
 
-    @PostMapping("/meeting")
-    public String skyway(){
+    @PostMapping("/meeting/{groupId}")
+    public String skyway(@PathVariable int groupId, Model model){
+
+        model.addAttribute("groupId", groupId);
+
         return "/meeting_skyway/index.html";
     }
 }
