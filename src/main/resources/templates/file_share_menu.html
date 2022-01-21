@@ -33,15 +33,14 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(fileList)}" th:each="file : ${fileList}">
-            <form method="post" th:action="@{/files/download}" th:object="file">
+            <form method="post" th:action="@{/files/download}">
                 <td th:text="${file.fileName}"></td>
                 <td th:text="${file.userName}"></td>
                 <td th:text="${file.createDatetime}"></td>
                 <td>
-                    <input type="submit" th:value="ダウンロード">
-                    <input type="hidden" th:value="${groupId}">
-                    <input type="hidden" th:value="${file.fileId}">
-                        <i class="クラス名">メニュー</i></a>
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <input type="hidden" name="fileId" th:value="${file.fileId}">
+                        <button>ダウンロード</button>
                 </td>
             </form>
         </tr>
@@ -58,6 +57,11 @@
             <input type="submit" value="アップロード">
             <input type="hidden" name="groupId" th:value="${groupId}"}>
         </div>
+    </form>
+
+    <form th:action="@{/groups/showGroupMessage}" method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <button>メニューに戻る</button>
     </form>
 </main>
 </body>

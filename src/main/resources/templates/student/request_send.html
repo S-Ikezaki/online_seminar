@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/layout}">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>リクエスト作成画面</title>
@@ -14,41 +14,56 @@
         }
     </style>
 
+    <script>
+        var i = 1 ;
+        function addForm() {
+            var input_data = document.createElement('input');
+            input_data.type = 'text';
+            input_data.id = 'inputform_' + i;
+            input_data.placeholder = 'タグを入力してください';
+            var parent = document.getElementById('form_area');
+            parent.appendChild(input_data);
+
+            var button_data = document.createElement('button');
+            button_data.id = i;
+            button_data.onclick = function(){deleteBtn(this);}
+            button_data.innerHTML = '削除';
+            var input_area = document.getElementById(input_data.id);
+            parent.appendChild(button_data);
+
+            i++ ;
+        }
+
+        function deleteBtn(target) {
+            var target_id = target.id;
+            var parent = document.getElementById('form_area');
+            var ipt_id = document.getElementById('inputform_' + target_id);
+            var tgt_id = document.getElementById(target_id);
+            parent.removeChild(ipt_id);
+            parent.removeChild(tgt_id);
+        }
+    </script>
+
 </head>
 <body>
-<script>
-    var i = 1 ;
-    function addForm() {
-        var input_data = document.createElement('input');
-        input_data.type = 'text';
-        input_data.id = 'inputform_' + i;
-        input_data.placeholder = 'タグを入力してください';
-        var parent = document.getElementById('form_area');
-        parent.appendChild(input_data);
+<!-- サイドバーの表示-->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
 
-        var button_data = document.createElement('button');
-        button_data.id = i;
-        button_data.onclick = function(){deleteBtn(this);}
-        button_data.innerHTML = '削除';
-        var input_area = document.getElementById(input_data.id);
-        parent.appendChild(button_data);
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside bg-light">
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+    </div>
 
-        i++ ;
-    }
-
-    function deleteBtn(target) {
-        var target_id = target.id;
-        var parent = document.getElementById('form_area');
-        var ipt_id = document.getElementById('inputform_' + target_id);
-        var tgt_id = document.getElementById(target_id);
-        parent.removeChild(ipt_id);
-        parent.removeChild(tgt_id);
-    }
-</script>
-    ゼミ作成リクエスト
+    <h2>ゼミ作成リクエスト</h2>
     <br>
-    <br>
-    <form method="post" action="">
+    <form >
+        <h4 th:text="${requestUser}"></h4>
         <input type="text" name="request_content" maxlength="500" placeholder="申請内容を入力してください">
         <br>
         タグ:
@@ -59,8 +74,11 @@
         <input type="button" value="フォーム追加" onclick="addForm()">
 
         <br>
-        <input type="submit" value="リクエスト掲示">
+        <button type="submit" name="request" th:value="${requestUser}">リクエスト提示</button>
     </form>
-    <a href="student_main_menu.html">前画面に戻る</a>
+
+    <button type="button" onclick="history.back()">戻る</button>
+
+</main>
 </body>
 </html>

@@ -52,9 +52,10 @@
         </tbody>
     </table>
 
-    <p><button type="button" onclick="">ファイル提供</button>
-       <button type="button" onclick="">資料ダウンロード</button></p>
-
+    <form th:action="@{/files/filesShare}" method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <button type="submit">資料共有</button>
+    </form>
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_update.html'">コンペ内情報更新</button><br>
     </div>
