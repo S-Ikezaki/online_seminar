@@ -14,7 +14,7 @@ public class Request implements Serializable {
     @Column(name = "request_id" ,nullable = false)
     private int requestId;
 
-    @JoinColumn(name = "user_id" ,nullable = false,referencedColumnName = "user_id")
+    @Column(name = "user_id" ,nullable = false)
     private String requestUserId;
 
     @Column(name = "user_name")
@@ -26,8 +26,8 @@ public class Request implements Serializable {
     @Column(name = "request_datetime" ,nullable = false)
     private Date requestDatetime;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
+//    private User user;
 
 }
