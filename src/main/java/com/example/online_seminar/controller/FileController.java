@@ -5,7 +5,11 @@ import com.example.online_seminar.entity.group.UploadForm;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.FileRepository;
 import com.example.online_seminar.repository.UserRepository;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.PathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,47 +17,50 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.net.http.HttpHeaders;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("files")
-public class FileController{
+public class FileController {
     private final UserRepository userRepository;
     private final FileRepository fileRepository;
-        @Autowired
-    public FileController(UserRepository userRepository,
-                          FileRepository fileRepository){
-    this.userRepository = userRepository;
-    this.fileRepository = fileRepository;
-        }
 
+    @Autowired
+    public FileController(UserRepository userRepository,
+                          FileRepository fileRepository) {
+        this.userRepository = userRepository;
+        this.fileRepository = fileRepository;
+    }
 
 
     //        private final FileRepository fileRepository;
-    @PostMapping("/filesShare/{groupId}")
-    public String fileShare(Model model,
-                            @PathVariable("groupId") String groupId) {
+    @PostMapping("/filesShare")
+    public String fileShare(Model model, String groupId) {
         model.addAttribute("groupId", groupId);
+        //↓いらんかも
         model.addAttribute("uploadForm", new UploadForm());
+
+        List<File> list = fileRepository.findAll();
+        model.addAttribute("fileList", list);
+
+
         return "file_share_menu";
     }
-
-//    @PostMapping("/upload")
-//    private String  upload(UploadForm uploadForm,String groupId) {
-//        MultipartFile multipartFile = uploadForm.getMultipartFile();
-//
-//        uploadAction(multipartFile);
-//
-//        return "file_share_menu";
-//    }
 
     @PostMapping("/upload")
     private String upload(UploadForm uploadForm,
@@ -61,14 +68,14 @@ public class FileController{
                           int groupId,
                           Authentication loginUser,
                           BindingResult result) {
-            MultipartFile multipartFile = uploadForm.getMultipartFile();
-            File file = new File();
-            String fileName = multipartFile.getOriginalFilename();
+        MultipartFile multipartFile = uploadForm.getMultipartFile();
+        File file = new File();
+        String fileName = multipartFile.getOriginalFilename();
 
         Path filePath = Paths.get("C:/UploadTest/" + fileName);
 //        Path filePath = Paths.get("グループの共有ファイルフォルダ/" + fileName);
 
-        try{
+        try {
             byte[] bytes = multipartFile.getBytes();
 
             OutputStream stream = Files.newOutputStream(filePath);
@@ -84,7 +91,7 @@ public class FileController{
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sdfCalender = sdf.format((calendar.getTime()));
-        String fileId = "0";
+        int fileId = 0;
 
 //        file.setFileId(fileId);
         file.setFileName(fileName);
@@ -93,14 +100,59 @@ public class FileController{
         file.setCreateDatetime(Date.valueOf(sdfCalender));
         file.setGroupId(groupId);
 
-        if(result.hasErrors()){
-            return  "error";
+        if (result.hasErrors()) {
+            return "error";
         }
 
         fileRepository.save(file);
 
-        model.addAttribute("groupId",groupId);
-        return "file_share_menu";
+        model.addAttribute("groupId", groupId);
+        return "forward:fileShare";
+    }
+
+    @PostMapping("/download")
+    public String download(int fileId,
+                           HttpServletResponse response
+    ) {
+
+        File file = fileRepository.findByFileId(fileId);
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + file.getFileName() + "\"");
+        response.setHeader("Cache-Control", "private");
+        response.setHeader("Pragma", "");
+
+        Path filePath = Paths.get(file.getFilePath());
+        OutputStream out = null;
+        InputStream in = null;
+        try {
+            out = response.getOutputStream();
+            in = Files.newInputStream(filePath);
+            int len = 0;
+            byte[] bytes = new byte[1024];
+            while ((len = in.read(bytes, 0, bytes.length)) != -1){
+                out.write(bytes, 0, len);
+            }
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "forward:filesShare";
     }
 }
 
