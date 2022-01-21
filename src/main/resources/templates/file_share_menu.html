@@ -58,6 +58,11 @@
             <input type="hidden" name="groupId" th:value="${groupId}"}>
         </div>
     </form>
+
+    <form th:action="@{/groups/showGroupMessage}" method="post">
+        <input type="hidden" name="groupId" th:value="${groupId}">
+        <button>メニューに戻る</button>
+    </form>
 </main>
 </body>
 </html>
