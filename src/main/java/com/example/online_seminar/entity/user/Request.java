@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 @Data
@@ -24,7 +25,7 @@ public class Request implements Serializable {
     private String requestContent;
 
     @Column(name = "request_datetime" ,nullable = false)
-    private Date requestDatetime;
+    private String requestDatetime;
 
 //    @ManyToOne
 //    @JoinColumn(name = "user_id",referencedColumnName = "user_id",insertable = false, updatable=false)

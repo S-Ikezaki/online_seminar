@@ -3,12 +3,13 @@ package com.example.online_seminar.controller.group;
 import com.example.online_seminar.entity.group.Group;
 import com.example.online_seminar.entity.group.GroupMember;
 import com.example.online_seminar.entity.group.GroupMessage;
+import com.example.online_seminar.entity.tag.Tag;
+import com.example.online_seminar.entity.tag.TagRequest;
 import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +39,8 @@ public class GroupController {
 
     private final TagRepository tagRepository;
 
+    private final TagRequestRepository tagRequestRepository;
+
     private final UserRepository userRepository;
 
     private final RequestRepository requestRepository;
@@ -53,6 +53,7 @@ public class GroupController {
                            GroupMessageRepository groupMessageRepository,
                            GroupMemberRepository groupMemberRepository,
                            TagRepository tagRepository,
+                           TagRequestRepository tagRequestRepository,
                            UserRepository userRepository,
                            RequestRepository requestRepository,
                            ParticipationRepository participationRepository) {
@@ -61,6 +62,7 @@ public class GroupController {
         this.groupMessageRepository = groupMessageRepository;
         this.groupMemberRepository = groupMemberRepository;
         this.tagRepository = tagRepository;
+        this.tagRequestRepository = tagRequestRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
         this.participationRepository = participationRepository;
@@ -161,6 +163,7 @@ public class GroupController {
                                       @RequestParam("comment") String comment,
                                       @RequestParam("tag") String tag,
                                       Request request,
+                                      TagRequest tagRequest,
                                       BindingResult result){
 
         //確認用
@@ -169,25 +172,32 @@ public class GroupController {
         System.out.println(tag);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String sdfCalender = sdf.format((calendar.getTime()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         User user = userRepository.findByUserId(userId);
 
+        List<Tag> tagId = tagRepository.findByTagName(tag);
+
         System.out.println("userName:"+user.getUserName());
+        System.out.println("tagName:" + tagId.get(0).getTagId());
 
         request.setRequestUserId(userId);
         request.setRequestUserName(user.getUserName());
         request.setRequestContent(comment);
-        request.setRequestDatetime(Date.valueOf(sdfCalender));
+        request.setRequestDatetime(sdf.format(calendar.getTime()));
 
-        if(result.hasErrors()){
-            return  "error";
-        }
+//        if(result.hasErrors()){
+//            return  "error";
+//        }
 
         System.out.println(request);
-
         requestRepository.save(request);
+
+        tagRequest.setTagId(tagId.get(0).getTagId());
+        tagRequest.setRequestId(request.getRequestId());
+
+        System.out.println(tagRequest);
+        tagRequestRepository.save(tagRequest);
 
         return "seminar/seminar_request_completed";
     }
@@ -424,8 +434,11 @@ public class GroupController {
         return "hoge";
     }
 
-    @PostMapping("/meeting")
-    public String skyway(){
+    @PostMapping("/meeting/{groupId}")
+    public String skyway(@PathVariable int groupId, Model model){
+
+        model.addAttribute("groupId", groupId);
+
         return "/meeting_skyway/index.html";
     }
 }

@@ -12,4 +12,6 @@ public interface TagRepository extends JpaRepository<Tag,Long> {
 
     @Query(name = "Tag.findByGroupNq",nativeQuery = true)
     List<Tag> findByGroup(String groupId);
+
+    List<Tag> findByTagName(String tag);
 }
