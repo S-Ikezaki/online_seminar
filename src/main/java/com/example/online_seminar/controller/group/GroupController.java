@@ -193,8 +193,11 @@ public class GroupController {
         System.out.println(request);
         requestRepository.save(request);
 
+        Request requestID =  requestRepository.findByRequestDatetime(sdf.format(calendar.getTime()));
+
         tagRequest.setTagId(tagId.get(0).getTagId());
-        tagRequest.setRequestId(request.getRequestId());
+        tagRequest.setRequestId(requestID.getRequestId());
+//        tagRequest.setTag();
 
         System.out.println(tagRequest);
         tagRequestRepository.save(tagRequest);
