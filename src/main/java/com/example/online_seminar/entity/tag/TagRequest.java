@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "tag_request_mst")
-@IdClass(TagRequest.class)
+@IdClass(TagRequestID.class)
 public class TagRequest implements Serializable{
     @Id
     @Column(name = "tag_id")
@@ -17,7 +17,7 @@ public class TagRequest implements Serializable{
 
     @Id
     @Column(name = "request_id")
-    private long requestId;
+    private int requestId;
 
     @ManyToOne
     @JoinColumn(name = "request_id", referencedColumnName = "request_id",insertable = false, updatable=false)
