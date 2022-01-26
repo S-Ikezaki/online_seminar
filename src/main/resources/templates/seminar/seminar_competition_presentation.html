@@ -27,11 +27,12 @@
 
     <h4>投稿一覧</h4>
     <p>
-    <form th:action="@{/groups/addGroupMessage}" 　method="post">
+    <form th:action="@{/groups/addGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
         <button type="submit">投稿</button>
     </form>
+    <p>
     <!--<form>
         <p><button type="submit">投稿</button>
            <input th:object="${MeetingChat}" th:text="${MeetingChat.meetingChatContents}" placeholder="投稿内容">

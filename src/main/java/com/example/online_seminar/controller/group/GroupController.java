@@ -372,7 +372,7 @@ public class GroupController {
 
         List<Group> group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
-        System.out.println(groupId);
+        System.out.println("groupId:"+groupId);
         model.addAttribute("groupId",groupId);
         model.addAttribute("username",loginUser.getName());
 
