@@ -10,10 +10,7 @@ import com.example.online_seminar.repository.MeetingRepository;
 import com.example.online_seminar.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -78,4 +75,13 @@ public class SkywayController {
         groupMessageRepository.save(groupMessage);
 
     }
+
+    @GetMapping("/close")
+    public String closeMeeting(@RequestBody String groupId) {
+
+        
+
+        return "";
+    }
+
 }
