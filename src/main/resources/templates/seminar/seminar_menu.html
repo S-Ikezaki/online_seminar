@@ -68,11 +68,11 @@
     <br>
 
     <h4>会議</h4>
-    <!--    <form>-->
-    <!--        参加者:<input type="text" th:each="${MeetingMember}"><br>-->
-    <!--        主催者:<input type="text" th:each="${Meeting}"><br>-->
-    <!--        <button type="submit">参加</button>-->
-    <!--    </form>-->
+        <form>
+            参加者:<input type="text" th:each="${MeetingMember}"><br>
+            主催者:<input type="text" th:each="${Meeting}"><br>
+            <button type="submit">参加</button>
+        </form>
 
     <form th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">
         <button type="submit">新しく会議を始める</button>

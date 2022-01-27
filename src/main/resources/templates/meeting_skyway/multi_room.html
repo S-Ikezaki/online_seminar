@@ -1,0 +1,111 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.4.3.js"></script>
+    <title>ビデオ会議</title>
+</head>
+<body>
+
+<video id="js-local-stream"></video>
+<div class="remote-streams" id="js-remote-streams"></div>
+
+<script>
+    MediaDevices.getUserMedia()
+    // カメラ映像取得
+    const localStream = await navigator.mediaDevices
+        .getUserMedia({
+            audio: true,
+            video: true,
+        })
+        .catch(console.error);
+
+    // Render local stream
+    const localVideo = document.getElementById('js-local-stream');
+    localVideo.muted = true;
+    localVideo.srcObject = localStream;
+    localVideo.playsInline = true;
+    await localVideo.play().catch(console.error);
+
+    // peerIDを取得
+    peer.on('open', () => {
+        document.getElementById('my-id').textContent = peer.id;
+    });
+
+
+    const peer = new Peer({
+        key: 'b61e8381-31ba-47a5-a59c-ad88ab1472a2',
+        debug: 3
+    });
+
+    // ルームに参加
+    peer.on('open', () => {
+        const room = peer.joinRoom('test', {
+            mode: 'sfu',
+            stream: localStream,
+        });
+    });
+
+    room.once('open', () => {
+        // video要素にカメラ映像をセットして再生
+        const videoElm = document.getElementById('their-video')
+        videoElm.srcObject = stream;
+        videoElm.play();
+    });
+
+    // roomを出たとき
+    room.once('close', () => {
+        // テキスト通信を止める
+        sendTrigger.removeEventListener('click', onClickSend);
+        // 相手達のビデオストリームを止める
+        Array.from(remoteVideos.children).forEach(remoteVideo => {
+            remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+            remoteVideo.srcObject = null;
+            remoteVideo.remove();
+        });
+    });
+
+    // 1人がroomを出たとき
+    room.on('peerLeave', peerId => {
+        // ストリームを閉じてvideo要素を消す
+        const remoteVideo = remoteVideos.querySelector(
+            `[data-peer-id=${peerId}]`
+        );
+        remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+        remoteVideo.srcObject = null;
+        remoteVideo.remove();
+    });
+
+    // roomに入った一人のストリームを表示
+    room.on('stream', async stream => {
+        // video要素を生成
+        const newVideo = document.createElement('video');
+        newVideo.srcObject = stream;
+        newVideo.playsInline = true;
+        // peerLeaveイベントのときにストリームを見つけるためにpeerIdを付ける
+        newVideo.setAttribute('data-peer-id', stream.peerId);
+        remoteVideos.append(newVideo);
+        await newVideo.play().catch(console.error);
+    });
+
+    // メッセージを着信
+    room.on('data', ({ data, src }) => {
+        // メッセージと発信者を表示
+        messages.textContent += `${src}: ${data}\n`;
+    });
+
+    // メッセージを発信する
+    sendTrigger.addEventListener('click', onClickSend);
+
+    function onClickSend() {
+        // websocketでroomの皆さんにメッセージを起こる
+        room.send(localText.value);
+        // メッセージと発信者を表示
+        messages.textContent += `${peer.id}: ${localText.value}\n`;
+        // インプットを消す
+        localText.value = '';
+    };
+</script>
+
+</body>
+</html>

@@ -28,11 +28,6 @@
     </div>
 
 
-<!--    <form th:action="@{/meetings/ajaxTest}" method="post" id="url">-->
-<!--        <button id="jquery">JQuery</button>-->
-<!--    </form>-->
-
-
     <input type="hidden" id="group_id" th:value="${groupId}">
     <video autoplay id="my-video" muted playsinline width="400px"></video>
     <p id="my-id"></p>
@@ -76,7 +71,7 @@
             document.getElementById('my-id').textContent = peer.id;
             $("#jquery").text("open");
             $.ajax({
-                url: "/meetings/test",
+                url: "/meetings/open",
                 type: "POST",
                 data: {
                     peer_id: peer.id,
