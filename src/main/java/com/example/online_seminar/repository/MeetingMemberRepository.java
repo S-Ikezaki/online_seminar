@@ -9,4 +9,6 @@ import java.util.List;
 public interface MeetingMemberRepository extends JpaRepository<MeetingMember, MeetingMemberKey> {
 
     List<MeetingMember> findAllByGroupId(int groupId);
+
+    void deleteAllByGroupId(int groupId);
 }

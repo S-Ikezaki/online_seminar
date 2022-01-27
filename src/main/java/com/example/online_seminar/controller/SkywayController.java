@@ -76,12 +76,15 @@ public class SkywayController {
 
     }
 
-    @GetMapping("/close")
-    public String closeMeeting(@RequestBody String groupId) {
+    @PostMapping("/close")
+    public void closeMeeting(@RequestBody String data) {
 
-        
+        int groupId = Integer.parseInt(data.substring(data.lastIndexOf("=") + 1));
 
-        return "";
+        meetingMemberRepository.deleteAllByGroupId(groupId);
+        meetingRepository.deleteByGroupId(groupId);
+
+//        return "";
     }
 
 }

@@ -115,10 +115,18 @@
 
         peer.on('close', () => {
             $.ajax({
-                url: "/meetings/close"
+                url: "/meetings/close",
+                type: "POST",
+                data: {
+                    group_id: [[${groupId}]]
+                }
+            }).done(function (){
+                alert('退室しました');
+                window.close();
+            }).fail(function (){
+                alert("退室に失敗しました");
             })
-            alert('通信が切断しました。');
-            window.close();
+
         });
 
     </script>
