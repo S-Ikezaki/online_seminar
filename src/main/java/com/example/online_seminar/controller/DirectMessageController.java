@@ -4,6 +4,8 @@ import com.example.online_seminar.entity.user.DirectMessage;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.DirectMessageRepository;
 import com.example.online_seminar.repository.UserRepository;
+import com.example.online_seminar.service.DMService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,13 @@ public class DirectMessageController {
     public List<User> userList = new ArrayList<User>();
     public List<User> searchUserList = new ArrayList<User>();
     public List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
+    public List<DirectMessage> directMessageList = new ArrayList<DirectMessage>();
 
     public final DirectMessageRepository directMessageRepository;
     public final UserRepository userRepository;
+
+    @Autowired
+    public DMService dmService;
 
     public DirectMessageController(
             DirectMessageRepository directMessageRepository,
@@ -42,18 +48,26 @@ public class DirectMessageController {
     @ResponseBody
     public List<User> getUserList(String userId) {
 
-        List<DirectMessage> directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(userId,userId);
-        Collections.reverse(directMessageList);
+        System.out.println("ここから");
+        System.out.println(directMessageList.get(0).getCreateUser().getUserName());
+        System.out.println(directMessageList.get(0).getAddressUser().getUserName());
 
         List<User> users = new ArrayList<User>();
         for(DirectMessage directMessage: directMessageList){
             if(directMessage.getCreateUserId().equals(userId)){
                 if(!users.contains(directMessage.getAddressUser())){
+                    System.out.println("ここ！！！：" + directMessage.getAddressUser().getUserName());
                     users.add(directMessage.getAddressUser());
+//                    System.out.println(users.size());
+                    System.out.println("if1：ID" + users.get(users.size()-1).getUserId());
+                    System.out.println("if1：NAME" + users.get(users.size()-1).getUserName());
                 }
             } else {
                 if(!users.contains(directMessage.getCreateUser())){
                     users.add(directMessage.getCreateUser());
+//                    System.out.println(users.size());
+//                    System.out.println("if1：" + users.get(users.size()-1).getUserId());
+//                    System.out.println("if2：" + users.get(users.size()-1).getUserName());
                 }
             }
         }
@@ -66,10 +80,16 @@ public class DirectMessageController {
         String userId = id.getName();
 
         // DMに必要な情報をまとめて初期化（暫定、消す予定）
-        userList.clear();
+//        userList.clear();
+        userList = new ArrayList<>();
         searchUserList.clear();
         directMessages.clear();
         addressUser = new User();
+
+        directMessageList.clear();
+        directMessageList = dmService.FindAllByAddressUserIdOrCreateUserId(userId);
+//        directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(userId,userId);
+        Collections.reverse(directMessageList);
 
         userList = getUserList(userId);
 //        List<User> userList = getUserList(userId);
@@ -85,18 +105,15 @@ public class DirectMessageController {
     // 指定された相手とのDMを取得
     @PostMapping("dmToPerson/{addressUserId}")
     public String showDirectMessagePerson(@PathVariable("addressUserId") String addressUserId, Authentication user, Model model) {
-        System.out.println(user.getName());
-        System.out.println("私とのDM楽しい？");
-        System.out.print(addressUserId);
-        System.out.println("：楽しいよ");
 
         String userId = user.getName();
 
 //        List<DirectMessage> directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
-        directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
+        directMessages = dmService.FindDirectMessage(addressUserId,userId);
+//        directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
 //        User addressUser = userRepository.findByUserId(addressUserId);
-        addressUser = userRepository.findByUserId(addressUserId);
-        System.out.println(addressUser.getUserName());
+        addressUser = dmService.FindByUserId(addressUserId);
+//        addressUser = userRepository.findByUserId(addressUserId);
 
         model.addAttribute("addressUser",addressUser);
         model.addAttribute("users",userList);
@@ -110,8 +127,8 @@ public class DirectMessageController {
     @GetMapping("/search")
     public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result,Authentication loginUser ,Model model) {
 
-        System.out.println(keyword);
-        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
+        searchUserList = dmService.FindAllByUserNameLike(keyword);
+//        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
 
         searchUserList.removeIf(user -> user.getUserId().equals(loginUser.getName()));
 
@@ -145,9 +162,21 @@ public class DirectMessageController {
         directMessage.setDirectMessageContent(message);
         directMessage.setCreateDatetime(Date.valueOf(sdfCalender));
 
-        directMessageRepository.save(directMessage);
-        directMessages = directMessageRepository.findDirectMessage(addressUser.getUserId(),loginUserId);
-        userList.clear();
+//        dmService.SaveDirectMessage(directMessage);
+//        directMessageRepository.save(directMessage);
+
+        directMessageList.clear();
+        directMessageList = dmService.saveAndFindDM(directMessage, loginUserId);
+//        directMessageList = dmService.FindAllByAddressUserIdOrCreateUserId(loginUserId);
+//        directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(loginUserId,loginUserId);
+        Collections.reverse(directMessageList);
+
+        directMessages = dmService.FindDirectMessage(addressUser.getUserId(),loginUserId);
+//        directMessages = directMessageRepository.findDirectMessage(addressUser.getUserId(),loginUserId);
+
+
+
+        userList = new ArrayList<>();
         userList = getUserList(loginUserId);
 
         model.addAttribute("addressUser",addressUser);
