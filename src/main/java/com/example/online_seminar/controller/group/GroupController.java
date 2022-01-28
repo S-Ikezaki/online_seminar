@@ -316,6 +316,7 @@ public class GroupController {
         return "group_add_complete";
     }
 
+    //グループ作成
     @GetMapping("/teacher/showCreateMenu")
         public String showCreateMenu(Model model){ return "group_add"; }
 
