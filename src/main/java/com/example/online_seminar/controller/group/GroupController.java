@@ -453,7 +453,22 @@ public class GroupController {
     public String skyway(@PathVariable int groupId, Model model){
 
         model.addAttribute("groupId", groupId);
+        model.addAttribute("flg", "open"); // 会議の開始を示すフラグ
 
         return "/meeting_skyway/index.html";
     }
+
+    @PostMapping("/meeting/join/{groupId}")
+    public String joinMeeting(@PathVariable int groupId, @RequestParam(name = "peer_id") String peerId, Model model){
+
+        System.out.println("join:");
+        System.out.println(peerId);
+
+        model.addAttribute("groupId", groupId);
+        model.addAttribute("peerId", peerId);
+        model.addAttribute("flg", "join"); // 会議の参加を示すフラグ
+
+        return "/meeting_skyway/index.html";
+    }
+
 }

@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta th:name="_csrf" th:content="${_csrf.token}"/>
-    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta th:content="${_csrf.token}" th:name="_csrf"/>
+    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
     <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.4.3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>ビデオ会議</title>
@@ -27,16 +27,13 @@
         </div>
     </div>
 
-
-    <input type="hidden" id="group_id" th:value="${groupId}">
     <video autoplay id="my-video" muted playsinline width="400px"></video>
     <p id="my-id"></p>
-    <input id="their-id"></input>
-    <button id="make-call">発信</button>
     <video autoplay id="their-video" muted playsinline width="400px"></video>
     <button id="close-call">退室</button>
 
     <script>
+
         let localStream;
 
         console.log([[${groupId}]]);
@@ -53,8 +50,17 @@
             }).catch(error => {
             // 失敗時にはエラーログを出力
             console.error('mediaDevice.getUserMedia() error:', error);
-            return;
         });
+
+        // イベントリスナを設置する関数
+        const setEventListener = mediaConnection => {
+            mediaConnection.on('stream', stream => {
+                // video要素にカメラ映像をセットして再生
+                const videoElm = document.getElementById('their-video')
+                videoElm.srcObject = stream;
+                videoElm.play();
+            });
+        }
 
         let token = $("meta[name='_csrf']").attr("content");
         let header = $("meta[name='_csrf_header']").attr("content");
@@ -67,42 +73,51 @@
             debug: 3
         });
 
+
         peer.on('open', () => {
+            console.log("peerID")
             document.getElementById('my-id').textContent = peer.id;
             $("#jquery").text("open");
-            $.ajax({
-                url: "/meetings/open",
-                type: "POST",
-                data: {
-                    peer_id: peer.id,
-                    group_id: [[${groupId}]]
-                }
-            })
-                .done(function() {
-                    alert("せいこうしたよ");
+
+            // DBに会議情報追加
+            if ("[[${flg}]]" === "open") {
+                console.log("open:")
+                $.ajax({
+                    url: "/meetings/open",
+                    type: "POST",
+                    data: {
+                        peer_id: peer.id,
+                        group_id: [[${groupId}]]
+                    }
+                }).done(function () {
+                    alert("会議を開始しました");
                 })
-                .fail(function() {
-                    console.log("error!!!");
+                    .fail(function () {
+                        console.log("error!!!");
+                    })
+            }
+
+            // 参加
+            if ("[[${flg}]]" === "join") {
+                $.ajax({
+                    url: "/meetings/join",
+                    type: "POST",
+                    data: {
+                        peer_id: peer.id,
+                        group_id: [[${groupId}]]
+                    }
+                }).done(function () {
+                    alert("会議に参加しました");
+                }).fail(function () {
+                        console.log("error!!!");
                 })
 
+                const theirID = "[[${peerId}]]";
+                console.log(theirID);
+                const mediaConnection = peer.call(theirID, localStream);
+                setEventListener(mediaConnection);
+            }
         });
-
-        // 発信処理
-        document.getElementById('make-call').onclick = () => {
-            const theirID = document.getElementById('their-id').value;
-            const mediaConnection = peer.call(theirID, localStream);
-            setEventListener(mediaConnection);
-        };
-
-        // イベントリスナを設置する関数
-        const setEventListener = mediaConnection => {
-            mediaConnection.on('stream', stream => {
-                // video要素にカメラ映像をセットして再生
-                const videoElm = document.getElementById('their-video')
-                videoElm.srcObject = stream;
-                videoElm.play();
-            });
-        }
 
         document.getElementById('close-call').onclick = () => {
             peer.destroy();
@@ -113,20 +128,32 @@
             setEventListener(mediaConnection);
         });
 
-        peer.on('close', () => {
+        function closePeer() {
             $.ajax({
                 url: "/meetings/close",
                 type: "POST",
+                async: false,
                 data: {
                     group_id: [[${groupId}]]
                 }
-            }).done(function (){
+            }).done(function () {
                 alert('退室しました');
                 window.close();
-            }).fail(function (){
+            }).fail(function () {
                 alert("退室に失敗しました");
             })
+        }
 
+        peer.on('close', () => {
+            closePeer();
+        });
+
+        /*ウィンドウを閉じたときに処理をする*/
+        $(window).on('beforeunload', function () {
+            closePeer();
+            console.log("タブを閉じた");
+            alert("ちょっとまて！！")
+            return "ちょっとまて";
         });
 
     </script>

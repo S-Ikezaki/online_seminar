@@ -69,7 +69,7 @@
 
     <div class="meeting-container" th:if="${meeting} != null">
     <h4>会議</h4>
-        <form>
+        <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
             主催者:<p th:text="${meeting.userName}"></p><br>
             <table >
                 <thead>
@@ -84,7 +84,7 @@
                 </tbody>
 
             </table>
-
+            <input type="hidden" name="peer_id" th:value="${meeting.peerId}">
             <button type="submit">参加</button>
         </form>
     </div>
@@ -110,6 +110,8 @@
         <input type="hidden" name="groupId" th:value="${groupId}">
         <button type="submit">資料共有</button>
     </form>
+
+    
 
     <script th:src="@{/js/delete_check.js}"></script>
 </main>
