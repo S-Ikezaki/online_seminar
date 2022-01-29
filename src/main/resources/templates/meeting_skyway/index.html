@@ -132,7 +132,6 @@
             $.ajax({
                 url: "/meetings/close",
                 type: "POST",
-                async: false,
                 data: {
                     group_id: [[${groupId}]]
                 }
@@ -151,9 +150,6 @@
         /*ウィンドウを閉じたときに処理をする*/
         $(window).on('beforeunload', function () {
             closePeer();
-            console.log("タブを閉じた");
-            alert("ちょっとまて！！")
-            return "ちょっとまて";
         });
 
     </script>
