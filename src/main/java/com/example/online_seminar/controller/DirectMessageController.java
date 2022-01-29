@@ -125,19 +125,20 @@ public class DirectMessageController {
 
     // ユーザをキーワードで検索（名前）
     @GetMapping("/search")
-    public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result,Authentication loginUser ,Model model) {
+    @ResponseBody
+    public List<User> searchUser(@RequestBody String keyword, Authentication loginUser , Model model) {
 
-        searchUserList = dmService.FindAllByUserNameLike(keyword);
-//        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
+        System.out.println(keyword);
+        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
 
         searchUserList.removeIf(user -> user.getUserId().equals(loginUser.getName()));
 
-        model.addAttribute("addressUser",addressUser);
-        model.addAttribute("users",userList);
-        model.addAttribute("searchUsers",searchUserList);
-        model.addAttribute("dms", directMessages);
+//        model.addAttribute("addressUser",addressUser);
+//        model.addAttribute("users",userList);
+//        model.addAttribute("searchUsers",searchUserList);
+//        model.addAttribute("dms", directMessages);
 
-        return "dm/direct_message";
+        return searchUserList;
     }
 
     // ダイレクトメッセージの送信
