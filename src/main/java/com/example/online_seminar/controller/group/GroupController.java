@@ -16,6 +16,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -326,6 +331,7 @@ public class GroupController {
     public String addGroup(@Validated @ModelAttribute Group group,
                            Model model, BindingResult result){
 
+        group.setGroupId(group.getGroupId());
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
@@ -334,6 +340,7 @@ public class GroupController {
         System.out.println("groupRole:"+group.getGroupRole());
         System.out.println("groupBio:"+group.getGroupBio());
 
+        createDirectory(group);
         model.addAttribute("groups",group);
         if(result.hasErrors()){
             return "error";
@@ -345,6 +352,23 @@ public class GroupController {
     //グループ作成
     @GetMapping("/teacher/showCreateMenu")
     public String showCreateMenu(Model model){ return "group_add"; }
+
+    //グループ専用のディレクトリ作成
+    @PostMapping("/createDirectory")
+    public static void createDirectory(Group group){
+
+        System.out.println("作成通過！");
+        String pathName = "C:/groups/"+group.getGroupId();
+        Path p = Paths.get(pathName);
+        System.out.println("作成完了！");
+
+        try{
+            Files.createDirectories(p);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
