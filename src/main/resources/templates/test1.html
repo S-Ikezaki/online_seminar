@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>グループ作成画面（仮）</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 管理者と教師しかいけないよん
+
+<script>
+    $(window).on('beforeunload', function () {
+        return "確認";
+    })
+</script>
+
 </body>
 </html>

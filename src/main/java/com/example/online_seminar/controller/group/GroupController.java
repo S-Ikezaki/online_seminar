@@ -399,6 +399,9 @@ public class GroupController {
         model.addAttribute("groupId",groupId);
         model.addAttribute("username",loginUser.getName());
 
+        GroupMember groupMember = groupMemberRepository.findByGroupIdAndUserId(groupId, loginUser.getName());
+        model.addAttribute("groupMember", groupMember);
+
         Meeting meeting = meetingRepository.findByGroupId(groupId);
         List<MeetingMember> meetingMembers = meetingMemberRepository.findAllByGroupId(groupId);
 
@@ -467,10 +470,30 @@ public class GroupController {
     }
 
     @PostMapping("/meeting/{groupId}")
-    public String skyway(@PathVariable int groupId, Model model){
+    public String skyway(@PathVariable int groupId, Model model, Authentication loginUser){
 
+        User loginUserName = userRepository.findByUserId(loginUser.getName());
+
+        model.addAttribute("userName", loginUserName.getUserName());
         model.addAttribute("groupId", groupId);
+        model.addAttribute("flg", "open"); // 会議の開始を示すフラグ
 
-        return "/meeting_skyway/index.html";
+        return "/meeting_skyway/meeting.html";
     }
+
+    @PostMapping("/meeting/join/{groupId}")
+    public String joinMeeting(@PathVariable int groupId, @RequestParam(name = "peer_id") String peerId, Model model, Authentication loginUser){
+
+        System.out.println("join:");
+        System.out.println(peerId);
+        User loginUserName = userRepository.findByUserId(loginUser.getName());
+
+        model.addAttribute("userName", loginUserName.getUserName());
+        model.addAttribute("groupId", groupId);
+        model.addAttribute("peerId", peerId);
+        model.addAttribute("flg", "join"); // 会議の参加を示すフラグ
+
+        return "/meeting_skyway/meeting.html";
+    }
+
 }
