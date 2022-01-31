@@ -3,12 +3,13 @@ package com.example.online_seminar.entity.group;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "meeting_mst")
-public class Meeting{
+public class Meeting implements Serializable {
     @Id
     @Column(name = "group_id",nullable = false)
     private int groupId;
