@@ -6,25 +6,20 @@ import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.FileRepository;
 import com.example.online_seminar.repository.UserRepository;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.PathResource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.net.http.HttpHeaders;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,14 +45,13 @@ public class FileController {
 
     //        private final FileRepository fileRepository;
     @PostMapping("/filesShare")
-    public String fileShare(Model model, String groupId) {
+    public String filesShare(Model model, String groupId) {
         model.addAttribute("groupId", groupId);
         //↓いらんかも
         model.addAttribute("uploadForm", new UploadForm());
-
+        System.out.println("きたよ");
         List<File> list = fileRepository.findAll();
         model.addAttribute("fileList", list);
-
 
         return "file_share_menu";
     }
@@ -107,12 +101,13 @@ public class FileController {
         fileRepository.save(file);
 
         model.addAttribute("groupId", groupId);
-        return "forward:fileShare";
+        return "forward:/files/filesShare";
     }
 
     @PostMapping("/download")
     public String download(int fileId,
-                           HttpServletResponse response
+                           HttpServletResponse response,
+                           Model model
     ) {
 
         File file = fileRepository.findByFileId(fileId);
@@ -152,7 +147,27 @@ public class FileController {
                 }
             }
         }
-        return "forward:filesShare";
+        return "forward:/files/filesShare";
+    }
+
+    @PostMapping("/delete")
+    public String delete(int fileId,Model model) {
+        File file = fileRepository.findByFileId(fileId);
+        Path filePath = Paths.get(file.getFilePath());
+
+        try{
+            Files.delete(filePath);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        fileRepository.deleteByFileId(fileId);
+
+        List<File> list = fileRepository.findAll();
+//        model.addAttribute("fileList", list);
+//        model.addAttribute("uploadForm", new UploadForm());
+//        return "file_share_menu";
+        return "forward:/files/filesShare";
     }
 }
 

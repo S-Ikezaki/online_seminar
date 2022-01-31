@@ -314,6 +314,7 @@ public class GroupController {
 
         return "search/search";
     }
+
     //グループの一件追加用メソッド
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
@@ -331,10 +332,9 @@ public class GroupController {
         return "group_add_complete";
     }
 
+    //グループ作成
     @GetMapping("/teacher/showCreateMenu")
-        public String showCreateMenu(Model model){
-            return "group_add";
-        }
+        public String showCreateMenu(Model model){ return "group_add"; }
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
@@ -363,7 +363,6 @@ public class GroupController {
     public String showGroupMemberList(Model model,
                                       @PathVariable("groupId") String groupId){
 
-
         System.out.println(groupId + "グループID");
 
         List<GroupMember> groupMembers= groupMemberRepository.findByGroupId(groupId);
@@ -390,7 +389,7 @@ public class GroupController {
 
         List<Group> group = groupRepository.findById(groupId);
         model.addAttribute("groupMessages",groupMessagesList);
-        System.out.println(groupId);
+        System.out.println("groupId:"+groupId);
         model.addAttribute("groupId",groupId);
         model.addAttribute("username",loginUser.getName());
 

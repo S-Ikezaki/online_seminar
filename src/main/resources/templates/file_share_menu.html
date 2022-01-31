@@ -5,6 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script type="text/javascript">
+        function check(){
+            if(upload_file.indexOf(fileList.fileName) != -1) {
+                alert("同名のファイルがすでに存在します")
+            } else{
+                return true;
+            }
+        }
+    </script>
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -21,6 +31,7 @@
         </div>
     </div>
 
+
     <table >
         <thead>
         <tr>
@@ -33,7 +44,7 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(fileList)}" th:each="file : ${fileList}">
-            <form method="post" th:action="@{/files/download}">
+            <form method="post" th:action="@{/files/download}" >
                 <td th:text="${file.fileName}"></td>
                 <td th:text="${file.userName}"></td>
                 <td th:text="${file.createDatetime}"></td>
@@ -41,20 +52,27 @@
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <input type="hidden" name="fileId" th:value="${file.fileId}">
                         <button>ダウンロード</button>
-                </td>
             </form>
+                </td>
+                <td>
+                    <form method="post" th:action="@{/files/delete}">
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <input type="hidden" name="fileId" th:value="${file.fileId}">
+                        <button>削除</button>
+                    </form>
+                </td>
         </tr>
         </tbody>
     </table>
 
     <label>ファイルアップロード</label>
-    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data"  th:object="${uploadForm}">
+    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data"  th:object="${uploadForm}" name="upload_form">
         <div>
             <label>■ファイルパス:</label>
-            <input type="file" th:field="*{multipartFile}">
+            <input type="file" th:field="*{multipartFile}" name="upload_file" required>
         </div>
         <div>
-            <input type="submit" value="アップロード">
+            <input type="submit" value="アップロード" onclick="return check();">
             <input type="hidden" name="groupId" th:value="${groupId}"}>
         </div>
     </form>
