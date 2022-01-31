@@ -17,9 +17,6 @@ public class Meeting implements Serializable {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "peer_id")
-    private String peerId;
-
     @OneToOne
     @JoinColumn(name = "group_id",referencedColumnName = "group_id",insertable = false, updatable=false)
     private Group group;

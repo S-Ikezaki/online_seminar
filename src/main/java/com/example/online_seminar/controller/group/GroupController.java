@@ -482,15 +482,14 @@ public class GroupController {
     }
 
     @PostMapping("/meeting/join/{groupId}")
-    public String joinMeeting(@PathVariable int groupId, @RequestParam(name = "peer_id") String peerId, Model model, Authentication loginUser){
+    public String joinMeeting(@PathVariable int groupId, Model model, Authentication loginUser){
+//        @RequestParam(name = "peer_id") String peerId,
 
-        System.out.println("join:");
-        System.out.println(peerId);
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
         model.addAttribute("userName", loginUserName.getUserName());
         model.addAttribute("groupId", groupId);
-        model.addAttribute("peerId", peerId);
+//        model.addAttribute("peerId", peerId);
         model.addAttribute("flg", "join"); // 会議の参加を示すフラグ
 
         return "/meeting_skyway/meeting.html";

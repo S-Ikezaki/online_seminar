@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--        layout:decorate="~{layout/layout}"-->
-<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
-<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"-->
 
 <head lang="ja">
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Harbbit | Meeting </title>
-<!--    <link rel="stylesheet" href="./src/shared/style.css">-->
     <meta th:content="${_csrf.token}" th:name="_csrf"/>
     <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -19,8 +15,6 @@
 </div>
 <div class="controller-container">
     <p>Your id: <span id="js-local-id">...</span></p>
-<!--    <input type="text" placeholder="Join room..." id="js-room-id">-->
-<!--    <button id="js-join-trigger">Join</button>-->
     <button id="js-leave-trigger">退室</button>
     <pre class="messages" id="js-messages"></pre>
     <input type="text" id="msg" placeholder="チャットを入力"><button id="send">送信</button>
@@ -33,21 +27,12 @@
     const localVideo = document.getElementById('js-local-video');
     const localId = document.getElementById('js-local-id');
     const videosContainer = document.getElementById('js-videos-container');
-    // const roomId = document.getElementById('js-room-id');
     const messages = document.getElementById('js-messages');
-    // const joinTrigger = document.getElementById('js-join-trigger');
     const leaveTrigger = document.getElementById('js-leave-trigger');
     const msg = document.getElementById('msg');
     const sendButton = document.getElementById('send');
 
     (async function main() {
-        // const localVideo = document.getElementById('js-local-video');
-        // const localId = document.getElementById('js-local-id');
-        // const videosContainer = document.getElementById('js-videos-container');
-        // // const roomId = document.getElementById('js-room-id');
-        // const messages = document.getElementById('js-messages');
-        // // const joinTrigger = document.getElementById('js-join-trigger');
-        // const leaveTrigger = document.getElementById('js-leave-trigger');
 
         const localStream = await navigator.mediaDevices.getUserMedia({
             video: true,
@@ -62,16 +47,13 @@
         });
 
         const peer = new Peer({
-            // key: window.__SKYWAY_KEY__,
             key: 'b61e8381-31ba-47a5-a59c-ad88ab1472a2',
             debug: 3,
         });
 
         peer.on('open', (id) => {
             localId.textContent = id;
-        // });
 
-        // joinTrigger.addEventListener('click', () => {
             const room = peer.joinRoom([[${groupId}]], {
                 mode: 'sfu',
                 stream: localStream,
@@ -86,7 +68,6 @@
                         url: "/meetings/open",
                         type: "POST",
                         data: {
-                            peer_id: peer.id,
                             group_id: [[${groupId}]]
                         }
                     }).done(function () {
@@ -103,7 +84,6 @@
                         url: "/meetings/join",
                         type: "POST",
                         data: {
-                            peer_id: peer.id,
                             group_id: [[${groupId}]]
                         }
                     }).done(function () {
@@ -126,8 +106,6 @@
             })
 
             room.on('peerJoin', peerId => {
-                // messages.textContent += (`===[[${userName}]]joined===\n`);
-                // chatlog(`===[[${userName}]]joined===\n`);
             });
 
             room.on('stream', async stream => {
@@ -148,11 +126,9 @@
                 remoteVideo.srcObject = null;
                 remoteVideo.remove();
 
-                // messages.textContent += (`===${peerId} left===\n`);
             });
 
             room.once('close', () => {
-                // messages.textContent += ('===[[${userName}]] left ===\n');
                 const remoteVideos = videosContainer.querySelectorAll('[data-peer-id]');
                 Array.from(remoteVideos)
                     .forEach(remoteVideo => {
@@ -201,6 +177,5 @@
 
 </script>
 
-<!--</main>-->
 </body>
 </html>

@@ -40,15 +40,13 @@ public class SkywayController {
 
         System.out.println(data);
 
-        String peerId = data.substring(data.indexOf("=") + 1, data.indexOf("&"));
-        int groupId = Integer.parseInt(data.substring(data.lastIndexOf("=") + 1));
+        int groupId = Integer.parseInt(data.substring(data.indexOf("=") + 1));
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
         Meeting meeting = new Meeting();
         meeting.setGroupId(groupId);
         meeting.setUserName(loginUserName.getUserName());
-        meeting.setPeerId(peerId);
 
         meetingRepository.save(meeting);
 
@@ -65,7 +63,7 @@ public class SkywayController {
 
         System.out.println(data);
 
-        int groupId = Integer.parseInt(data.substring(data.lastIndexOf("=") + 1));
+        int groupId = Integer.parseInt(data.substring(data.indexOf("=") + 1));
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
@@ -92,7 +90,6 @@ public class SkywayController {
         }
 
         System.out.println("削除した!!");
-//        meetingMemberRepository.deleteAllByGroupId(groupId);
 
 
 //        return "";
