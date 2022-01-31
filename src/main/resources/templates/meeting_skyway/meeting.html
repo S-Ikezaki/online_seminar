@@ -60,7 +60,7 @@
             });
 
             room.on('open', () => {
-                chatlog('===[[${userName}]] joined===', room);
+                chatlog('===[[${userName}]] さんが参加しました===', room);
                 // DBに会議情報追加
                 if ("[[${flg}]]" === "open") {
                     console.log("open:")
@@ -140,7 +140,7 @@
             });
 
             leaveTrigger.addEventListener('click', () => {
-                chatlog('===[[${userName}]] left ===' ,room)
+                chatlog('===[[${userName}]] さんが退室しました===' ,room)
                 room.close();
                 closePeer();
                 $(window).off("beforeunload");
