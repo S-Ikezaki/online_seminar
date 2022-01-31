@@ -19,12 +19,12 @@ public class Tag{
     @Column(name ="tag_name",nullable = false)
     private String tagName;
 
-    @OneToMany(mappedBy = "tag")
-    List<TagUser> tagUsers;
-
-    @OneToMany(mappedBy = "tag")
-    List<TagRequest> tagRequestList;
-
-    @OneToMany(mappedBy = "tag")
-    List<TagGroup> tagGroups;
+//    @OneToMany(mappedBy = "tag")
+//    List<TagUser> tagUsers;
+//
+//    @OneToMany(mappedBy = "tag")
+//    List<TagRequest> tagRequestList;
+//
+//    @OneToMany(mappedBy = "tag")
+//    List<TagGroup> tagGroups;
 }

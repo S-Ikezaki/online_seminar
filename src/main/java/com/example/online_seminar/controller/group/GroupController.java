@@ -161,22 +161,39 @@ public class GroupController {
     @PostMapping("/request_presentation")
     public String RequestPresentation(@RequestParam("requestUser") String userId,
                                       @RequestParam("comment") String comment,
-                                      @RequestParam("tag") String tag,
+                                      @RequestParam("tagName") String tagName,
                                       Request request,
+                                      Tag tag,
                                       TagRequest tagRequest,
                                       BindingResult result){
 
         //確認用
         System.out.println(userId);
         System.out.println(comment);
-        System.out.println(tag);
+        System.out.println(tagName);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         User user = userRepository.findByUserId(userId);
 
-        List<Tag> tagId = tagRepository.findByTagName(tag);
+        List<Tag> tagId = tagRepository.findByTagName(tagName);
+
+        try{
+        if (tagId.get(0).equals(null)) {
+
+        }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("null確認");
+
+            tag.setTagName(tagName);
+            System.out.println(tag);
+            tagRepository.save(tag);
+
+            tagId = tagRepository.findByTagName(tagName);
+
+//            return "seminar/seminar_request_completed";
+        }
 
         System.out.println("userName:"+user.getUserName());
         System.out.println("tagName:" + tagId.get(0).getTagId());
@@ -197,7 +214,6 @@ public class GroupController {
 
         tagRequest.setTagId(tagId.get(0).getTagId());
         tagRequest.setRequestId(requestID.getRequestId());
-//        tagRequest.setTag();
 
         System.out.println(tagRequest);
         tagRequestRepository.save(tagRequest);
