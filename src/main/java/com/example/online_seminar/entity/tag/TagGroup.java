@@ -10,10 +10,11 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@ToString(exclude = {"tag","group"})
+@ToString(exclude = {"tag", "group"})
 @Table(name = "tag_group_mst")
-@IdClass(value= TagGroupKeys.class)
-public class TagGroup implements Serializable{
+@IdClass(value = TagGroupKeys.class)
+public class TagGroup implements Serializable {
+
     @Id
     @Column(name = "tag_id", nullable = false)
     private int tagId;
@@ -23,10 +24,11 @@ public class TagGroup implements Serializable{
     private String groupId;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id", nullable = false,referencedColumnName = "tag_id",insertable = false, updatable=false)
+    @JoinColumn(name = "tag_id", nullable = false, referencedColumnName = "tag_id", insertable = false, updatable = false)
     private Tag tag;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id",insertable = false, updatable=false)
+    @JoinColumn(name = "group_id", nullable = false, referencedColumnName = "group_id", insertable = false, updatable = false)
     private Group group;
+
 }

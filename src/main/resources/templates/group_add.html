@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>グループ追加画面</title>
+    <title>グループ作成</title>
 
 
     <script>
-
         let i = 1 ;
         function addForm() {
             let input_data = document.createElement('input');
@@ -26,10 +26,14 @@
             let input_area = document.getElementById(input_data.id);
             parent.appendChild(button_data);
 
-            i++ ;
+            let br_data = document.getElementById("form_area");
+            br_data.insertAdjacentHTML("beforeend","<br>");
+
+            i++;
         }
 
         function deleteBtn(target) {
+            /*DeleteNewLine(this); //改行削除*/
             let target_id = target.id;
             let parent = document.getElementById('form_area');
             let ipt_id = document.getElementById('tag_' + target_id);
@@ -38,6 +42,10 @@
             parent.removeChild(tgt_id);
         }
 
+        function DeleteNewLine(myLen) {
+            var newLen = myLen.replace(/\r?\n/g,'');
+            return(newLen);
+        }
 
         window.onload = function(){
             let id = document.getElementById("id");
@@ -95,29 +103,32 @@
     </div>
 
 
-<form th:action="@{/groups/addGroup}" method="post" th:object=>
-    <p>グループ作成画面</p>
+<form th:action="@{/groups/addGroup}" method="post" th:object="${group}">
+    <p>グループ作成</p>
     <input type="radio" name="groupRole" id="seminar" checked value="0"  onclick="buttonClick()">ゼミ
     <input type="radio" name="groupRole" id="announcement_comp" value="1"  onclick="buttonClick()">発表型コンペ
     <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
-
-    <p>グループ名</p>
-    <input type="text" id="groupName">
-    <p>グループ概要</p>
-    <input type="text" id="groupBio">
+    <br>
+    <br>
+    <p>グループ名<br>
+    <input type="text" id="groupName" name="groupName">
+    </p>
+    <p>グループ概要<br>
+    <input type="text" id="groupBio" name="groupBio">
+    </p>
     <p>タグ</p>
-    <div id="form_area">
-        <input type="text" name="tag_0" maxlength="100" id="tag_0" placeholder="タグを入力してください">
-        <button id="0" onclick="deleteBtn(this)">削除</button>
+    <div id="form_area" >
     </div>
     <br>
-    <input type="button" value="フォーム追加" onclick="addForm()">
+    <input type="button" value="タグ追加" onclick="addForm()">
     <br>
     <!---コンペ用の情報-->
-    <div id="deadline">
-        <p>提出期限</p>
+    <p>
+        <div id="deadline">
+        提出期限<br>
         <input type="datetime-local" name="deadline">
     </div>
+    </p>
     <br>
     <input type="submit" value="作成">
 </form>

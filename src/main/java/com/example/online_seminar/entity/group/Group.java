@@ -22,7 +22,7 @@ public class Group implements Serializable {
     @Column(name = "role",nullable = false)
     private int groupRole;
 
-    @Column(name = "group_bio")
+    @Column(name = "group_bio",nullable = false)
     private String groupBio;
 
     @OneToMany(mappedBy = "group")

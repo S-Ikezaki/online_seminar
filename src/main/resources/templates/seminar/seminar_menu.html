@@ -67,19 +67,35 @@
     <br>
     <br>
 
+    <div class="meeting-container" th:if="${meeting} != null">
     <h4>会議</h4>
-        <form>
-            参加者:<input type="text" th:each="${MeetingMember}"><br>
-            主催者:<input type="text" th:each="${Meeting}"><br>
+        <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
+            <p th:text="'主催者：' + ${meeting.userName}"></p><br>
+            <table >
+                <thead>
+                <tr>
+                    <th>参加者:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${!#lists.isEmpty(meetingMembers)}" th:each="meetingMember : ${meetingMembers}">
+                    <td th:text="${meetingMember.userName}"></td>
+                </tr>
+                </tbody>
+
+            </table>
+
             <button type="submit">参加</button>
         </form>
-
-    <form th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">
+    </div>
+    <form th:if="${meeting == null && groupMember.groupRole != 0}" th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">
         <button type="submit">新しく会議を始める</button>
     </form>
 
+
+
     <div sec:authorize="hasAnyRole('1','3')">
-        <button value="グループ削除" onclick="func1('/groups/deleteOne/{groupId}')"></button>
+        <button value="グループ削除" onclick="func1('/groups/deleteOne/{groupId}')">ゼミ削除</button>
         <!--        <form th:action="@{groups/deleteOne/{groupId}}" method="post">-->
         <!--            <input type="hidden" name="groupId" th:value="${groupMember.userId}">-->
         <!--            <td><button type="submit">グループ削除</button></td>-->
