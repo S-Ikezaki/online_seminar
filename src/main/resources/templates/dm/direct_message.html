@@ -165,14 +165,14 @@
                 </tbody>
             </table>
             <br>
-            <form method="POST" th:action="@{/dm/send}">
-                <label>
-                    <input maxlength="500" name="message" required type="text">
-                    <input name="addressUser" th:object="${addressUser}" type="hidden">
-                </label>
-                <input name="send" type="submit" value="送信">
-            </form>
         </div>
+        <form method="POST" th:action="@{/dm/send}">
+            <label>
+                <input maxlength="500" name="message" required type="text">
+                <input name="addressUser" th:object="${addressUser}" type="hidden">
+            </label>
+            <input name="send" type="submit" value="送信">
+        </form>
     </div>
 
 </main>
