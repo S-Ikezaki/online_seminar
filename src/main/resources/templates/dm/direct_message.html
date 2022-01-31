@@ -69,12 +69,12 @@
         </div>
     </div>
 
-    DM
+    <h2>DM</h2>
     <form method="get" th:action="@{/dm/search}">
         <label>
             <input maxlength="50" name="keyword" type="search">
         </label>
-        <input type="submit" value="検索">
+        <input id="search" type="submit" value="検索">
     </form>
 
     <div class="tabs">
@@ -87,29 +87,28 @@
         <div class="tab_content" id="all_content">
             <thead>
             <tr>
-                <th>ユーザー名</th>
-                <th>所属</th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}" th:if="${!#lists.isEmpty(users)}">
                 <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
-                    <td th:text="${user.getUserName()}">ユーザー名</td>
-                    <td th:if="${user.getCertification().getRole() == '0' }"
-                        th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">
-                        所属
+                    <td th:text="${user.getUserName()}"></td>
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
+                                             th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == '1' }"
-                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '1' }"
+                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == 2 }"
-                        th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == 2 }"
+                                             th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == '3' }"
-                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '3' }"
+                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
                     </td>
-                    <td><input th:value="DM" type="submit"></td>
+                    <td><input id="dm" th:value="DM" type="submit"></td>
                 </form>
             </tr>
             </tbody>
@@ -119,8 +118,8 @@
         <div class="tab_content" id="result_content">
             <thead>
             <tr>
-                <th>ユーザー名</th>
-                <th>所属</th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
@@ -128,18 +127,17 @@
             <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}">
                 <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
                     <td th:text="${user.getUserName()}">ユーザー名</td>
-                    <td th:if="${user.getCertification().getRole() == '0' }"
-                        th:text="${user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年'}">
-                        所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
+                                             th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == '1' }"
-                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '1' }"
+                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == 2 }"
-                        th:text="${user.getEmployees().getEnterprise().getEnterpriseName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == 2 }"
+                                             th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
                     </td>
-                    <td th:if="${user.getCertification().getRole() == '3' }"
-                        th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
+                    <td><small><small><small th:if="${user.getCertification().getRole() == '3' }"
+                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
                     </td>
                     <td><input th:value="DM" type="submit"></td>
                 </form>
@@ -178,38 +176,53 @@
     </div>
 
     <script>
-        function sendDirectMessage(){
+
+        const keyword = document.getElementById('keyword');
+        const search = document.getElementById('search');
+        const directMessage = document.getElementById('dm');
+
+        search.addEventListener('submit'){
+
+        }
+
+        function sendDirectMessage() {
             $.ajax({
-                url:"/dm/send",
+                url: "/dm/send",
                 type: "POST",
                 data: {
                     message:
                 }
-            }).done(function(){
+            }).done(function () {
 
-            }).fail(function(){
-
-            })
-        }
-
-        function showMessage(){
-            $.ajax({
-                url:"/dm/send",
-                type: "POST"
-            }).done(function(response){
-
-            }).fail(function(){
+            }).fail(function () {
 
             })
         }
 
-        function searchUser(){
+        function showMessage() {
             $.ajax({
-                url:"/dm/send",
-                type: "POST"
-            }).done(function(response){
+                url: "/dm/send",
+                type: "POST",
+                data: {
+                    userId: ""
+                }
+            }).done(function (response) {
 
-            }).fail(function(){
+            }).fail(function () {
+
+            })
+        }
+
+        function searchUser() {
+            $.ajax({
+                url: "/dm/send",
+                type: "POST",
+                data: {
+                    keyword: keyword.value
+                }
+            }).done(function (response) {
+
+            }).fail(function () {
 
             })
         }
