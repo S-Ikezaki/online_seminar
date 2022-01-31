@@ -303,10 +303,14 @@ public class GroupController {
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
                            Model model, BindingResult result){
-        group.setGroupId(group.getGroupId());
+
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
+
+        System.out.println("groupName:"+group.getGroupName());
+        System.out.println("groupRole:"+group.getGroupRole());
+        System.out.println("groupBio:"+group.getGroupBio());
 
         model.addAttribute("groups",group);
         if(result.hasErrors()){
