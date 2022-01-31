@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>DM画面</title>
-
+    <meta th:content="${_csrf.token}" th:name="_csrf"/>
+    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
         /*.tabs {*/
@@ -174,6 +176,44 @@
             <input name="send" type="submit" value="送信">
         </form>
     </div>
+
+    <script>
+        function sendDirectMessage(){
+            $.ajax({
+                url:"/dm/send",
+                type: "POST",
+                data: {
+                    message:
+                }
+            }).done(function(){
+
+            }).fail(function(){
+
+            })
+        }
+
+        function showMessage(){
+            $.ajax({
+                url:"/dm/send",
+                type: "POST"
+            }).done(function(response){
+
+            }).fail(function(){
+
+            })
+        }
+
+        function searchUser(){
+            $.ajax({
+                url:"/dm/send",
+                type: "POST"
+            }).done(function(response){
+
+            }).fail(function(){
+
+            })
+        }
+    </script>
 
 </main>
 
