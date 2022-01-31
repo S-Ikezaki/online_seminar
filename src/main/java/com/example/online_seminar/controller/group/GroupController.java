@@ -1,8 +1,6 @@
 package com.example.online_seminar.controller.group;
 
-import com.example.online_seminar.entity.group.Group;
-import com.example.online_seminar.entity.group.GroupMember;
-import com.example.online_seminar.entity.group.GroupMessage;
+import com.example.online_seminar.entity.group.*;
 import com.example.online_seminar.entity.tag.Tag;
 import com.example.online_seminar.entity.tag.TagRequest;
 import com.example.online_seminar.entity.user.Participation;
@@ -19,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Max;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +51,10 @@ public class GroupController {
 
     private final ParticipationRepository participationRepository;
 
+    private final MeetingRepository meetingRepository;
+
+    private final MeetingMemberRepository meetingMemberRepository;
+
     @Autowired
     public GroupController(GroupRepository groupRepository,
                            TagGroupRepository tagGroupRepository,
@@ -57,7 +64,9 @@ public class GroupController {
                            TagRequestRepository tagRequestRepository,
                            UserRepository userRepository,
                            RequestRepository requestRepository,
-                           ParticipationRepository participationRepository) {
+                           ParticipationRepository participationRepository,
+                           MeetingRepository meetingRepository,
+                           MeetingMemberRepository meetingMemberRepository) {
         this.groupRepository = groupRepository;
         this.tagGroupRepository = tagGroupRepository;
         this.groupMessageRepository = groupMessageRepository;
@@ -67,6 +76,8 @@ public class GroupController {
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
         this.participationRepository = participationRepository;
+        this.meetingRepository = meetingRepository;
+        this.meetingMemberRepository = meetingMemberRepository;
     }
 
     /*@GetMapping("/add")
@@ -325,31 +336,51 @@ public class GroupController {
     //グループの一件追加用メソッド
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,
-                           Model model, BindingResult result) {
+                           Model model, BindingResult result){
+
         group.setGroupId(group.getGroupId());
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
 
-        model.addAttribute("groups", group);
-        if (result.hasErrors()) {
+        System.out.println("groupName:"+group.getGroupName());
+        System.out.println("groupRole:"+group.getGroupRole());
+        System.out.println("groupBio:"+group.getGroupBio());
+
+        createDirectory(group);
+        model.addAttribute("groups",group);
+        if(result.hasErrors()){
             return "error";
         }
         groupRepository.save(group);
         return "group_add_complete";
     }
 
-    //グループ作成
-    @GetMapping("/teacher/showCreateMenu")
-    public String showCreateMenu(Model model) {
-        return "group_add";
+        //グループ作成
+        @GetMapping("/teacher/showCreateMenu")
+        public String showCreateMenu(Model model){ return "group_add"; }
+
+    //グループ専用のディレクトリ作成
+    @PostMapping("/createDirectory")
+    public static void createDirectory(Group group){
+
+        System.out.println("作成通過！");
+        String pathName = "C:/groups/"+group.getGroupId();
+        Path p = Paths.get(pathName);
+        System.out.println("作成完了！");
+
+        try{
+            Files.createDirectories(p);
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
 //    @ResponseBody
-    public String showGroupList(Model model, String id) {
-        model.addAttribute("groups", groupRepository.findByUser(id));
+    public String showGroupList(Model model,String id){
+        model.addAttribute("groups",groupRepository.findByUser(id));
         return "group/showGroupList";
     }
 
@@ -401,6 +432,15 @@ public class GroupController {
         System.out.println("groupId:" + groupId);
         model.addAttribute("groupId", groupId);
         model.addAttribute("username", loginUser.getName());
+
+        GroupMember groupMember = groupMemberRepository.findByGroupIdAndUserId(groupId, loginUser.getName());
+        model.addAttribute("groupMember", groupMember);
+
+        Meeting meeting = meetingRepository.findByGroupId(groupId);
+        List<MeetingMember> meetingMembers = meetingMemberRepository.findAllByGroupId(groupId);
+
+        model.addAttribute("meeting", meeting);
+        model.addAttribute("meetingMembers", meetingMembers);
 
         if (group.get(0).getGroupRole() == 0) {
             return "seminar/seminar_menu";
@@ -464,10 +504,29 @@ public class GroupController {
     }
 
     @PostMapping("/meeting/{groupId}")
-    public String skyway(@PathVariable int groupId, Model model) {
+    public String skyway(@PathVariable int groupId, Model model, Authentication loginUser){
 
+        User loginUserName = userRepository.findByUserId(loginUser.getName());
+
+        model.addAttribute("userName", loginUserName.getUserName());
         model.addAttribute("groupId", groupId);
+        model.addAttribute("flg", "open"); // 会議の開始を示すフラグ
 
-        return "/meeting_skyway/index.html";
+        return "/meeting_skyway/meeting.html";
     }
+
+    @PostMapping("/meeting/join/{groupId}")
+    public String joinMeeting(@PathVariable int groupId, Model model, Authentication loginUser){
+//        @RequestParam(name = "peer_id") String peerId,
+
+        User loginUserName = userRepository.findByUserId(loginUser.getName());
+
+        model.addAttribute("userName", loginUserName.getUserName());
+        model.addAttribute("groupId", groupId);
+//        model.addAttribute("peerId", peerId);
+        model.addAttribute("flg", "join"); // 会議の参加を示すフラグ
+
+        return "/meeting_skyway/meeting.html";
+    }
+
 }

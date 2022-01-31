@@ -33,7 +33,7 @@
         }
 
         function deleteBtn(target) {
-            DeleteNewLine(this); //改行削除
+            /*DeleteNewLine(this); //改行削除*/
             let target_id = target.id;
             let parent = document.getElementById('form_area');
             let ipt_id = document.getElementById('tag_' + target_id);
@@ -46,7 +46,6 @@
             var newLen = myLen.replace(/\r?\n/g,'');
             return(newLen);
         }
-
 
         window.onload = function(){
             let id = document.getElementById("id");
@@ -104,7 +103,7 @@
     </div>
 
 
-<form th:action="@{/groups/addGroup}" method="post" th:object="${addGroup}">
+<form th:action="@{/groups/addGroup}" method="post" th:object="${group}">
     <p>グループ作成</p>
     <input type="radio" name="groupRole" id="seminar" checked value="0"  onclick="buttonClick()">ゼミ
     <input type="radio" name="groupRole" id="announcement_comp" value="1"  onclick="buttonClick()">発表型コンペ
@@ -112,13 +111,13 @@
     <br>
     <br>
     <p>グループ名<br>
-    <input type="text" id="groupName">
+    <input type="text" id="groupName" name="groupName">
     </p>
     <p>グループ概要<br>
-    <input type="text" id="groupBio">
+    <input type="text" id="groupBio" name="groupBio">
     </p>
     <p>タグ</p>
-    <div id="form_area">
+    <div id="form_area" >
     </div>
     <br>
     <input type="button" value="タグ追加" onclick="addForm()">
