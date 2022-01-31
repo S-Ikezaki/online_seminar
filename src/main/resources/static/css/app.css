@@ -2,15 +2,16 @@
 .bg-image {
     background:
             linear-gradient(to bottom,
-            rgba(34, 74, 190, 1),
-            rgba(34, 74, 190, 0.7)
+            rgba(127, 191, 255, 1),
+            rgba(127, 191, 255, 0.7)
             ),
             url('/img/photo.jpg');
     background-size: cover;
 }
 
 .text-navy {
-    color: #224abe;
+    color: #7fffff;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .btn-navy {
@@ -56,4 +57,10 @@ a {
 /* Size */
 .mh-100 {
     height: calc(100vh - 56px)
+}
+
+h2 {
+    padding: 1rem 2rem;
+    background: #d6eaff;
+    font-family: "	Hiragino Kaku Gothic ProN、ヒラギノ角ゴ ProN、Hiragino Kaku Gothic Pro、ヒラギノ角ゴ Pro";
 }

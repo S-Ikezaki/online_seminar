@@ -5,14 +5,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <script type="text/javascript">
-        function check(){
-            if(upload_file.indexOf(fileList.fileName) != -1) {
+        function check() {
+            if (upload_file.indexOf(fileList.fileName) != -1) {
                 alert("同名のファイルがすでに存在します")
-            } else{
+            } else {
                 return true;
             }
+        }
+
+        function warning() {
+            var result = confirm('本当に削除しますか？');
+            if (result) {
+                console.log('削除しました');
+                return true;
+            } else {
+                return false;
+            }
+
         }
     </script>
 </head>
@@ -32,7 +45,7 @@
     </div>
 
 
-    <table >
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>ファイル名</th>
@@ -44,42 +57,43 @@
         <!-- groupsが空でない場合、groupsの要素をgroupに格納する -->
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(fileList)}" th:each="file : ${fileList}">
-            <form method="post" th:action="@{/files/download}" >
-                <td th:text="${file.fileName}"></td>
-                <td th:text="${file.userName}"></td>
-                <td th:text="${file.createDatetime}"></td>
-                <td>
+            <td th:text="${file.fileName}"></td>
+            <td th:text="${file.userName}"></td>
+            <td th:text="${file.createDatetime}"></td>
+            <td>
+                <form method="post" th:action="@{/files/download}">
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <input type="hidden" name="fileId" th:value="${file.fileId}">
-                        <button>ダウンロード</button>
-            </form>
-                </td>
-                <td>
-                    <form method="post" th:action="@{/files/delete}">
+                    <button>
+                        <i class="fas fa-download"></i>ダウンロード
+                    </button>
+                </form>
+                <form method="post" th:action="@{/files/delete}">
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <input type="hidden" name="fileId" th:value="${file.fileId}">
-                        <button>削除</button>
-                    </form>
-                </td>
+                    <button class="btn-danger" onclick="return warning()">削除</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 
     <label>ファイルアップロード</label>
-    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data"  th:object="${uploadForm}" name="upload_form">
+    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data" th:object="${uploadForm}"
+          name="upload_form">
         <div>
             <label>■ファイルパス:</label>
             <input type="file" th:field="*{multipartFile}" name="upload_file" required>
         </div>
         <div>
             <input type="submit" value="アップロード" onclick="return check();">
-            <input type="hidden" name="groupId" th:value="${groupId}"}>
+            <input type="hidden" name="groupId" th:value="${groupId}" }>
         </div>
     </form>
 
     <form th:action="@{/groups/showGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
-        <button>メニューに戻る</button>
+        <button class="btn btn-primary">メニューに戻る</button>
     </form>
 </main>
 </body>
