@@ -16,12 +16,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.Max;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -203,7 +201,7 @@ public class GroupController {
                 System.out.println("tagNameが存在してるとき");
                 break;
             }
-            if (!(tagList.get(i).getTagName().equals(tagName)) && i <= tagList.size()){
+            if (!(tagList.get(i).getTagName().equals(tagName)) && i >= tagList.size()){
                 System.out.println("tagNameが存在しないとき");
                 tag.setTagName(tagName);
                 System.out.println(tag);
