@@ -125,7 +125,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}">
+            <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}" id="searchUsers">
                 <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
                     <td th:text="${user.getUserName()}">ユーザー名</td>
                     <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
@@ -239,15 +239,17 @@
             console.log("searchUser:"+ keyword.value);
 
             $.ajax({
-                url: "/dm/search",
+                url: "/dm/ajax/search",
                 type: "POST",
                 data: {
                     keyword: keyword.value
                 }
-            }).done(function (response) {
-                    console.log(response);
+            }).done(function () {
+                $("#result_content").html(data);
+                    // console.log(JSON.parse(response));
+                    // console.log(decodeURI(response));
             }).fail(function () {
-
+                console.log("通信に失敗しました");
             })
         }
     </script>

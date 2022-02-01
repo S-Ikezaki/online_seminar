@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -127,9 +128,9 @@ public class DirectMessageController {
     @PostMapping("/search")
     @ResponseBody
     public List<User> searchUser(@RequestBody String keyword, Authentication loginUser , Model model) {
-
-        System.out.println(keyword);
-        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
+//        List<User>
+        String decodeKeyword = URLDecoder.decode(keyword);
+        searchUserList = userRepository.findAllByUserNameLike("%" + decodeKeyword + "%");
 
         searchUserList.removeIf(user -> user.getUserId().equals(loginUser.getName()));
 
