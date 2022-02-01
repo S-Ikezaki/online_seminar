@@ -124,7 +124,7 @@ public class DirectMessageController {
     }
 
     // ユーザをキーワードで検索（名前）
-    @GetMapping("/search")
+    @PostMapping("/search")
     @ResponseBody
     public List<User> searchUser(@RequestBody String keyword, Authentication loginUser , Model model) {
 

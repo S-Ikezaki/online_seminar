@@ -70,11 +70,12 @@
     </div>
 
     <h2>DM</h2>
-    <form method="get" th:action="@{/dm/search}">
+    <form method="get">
+<!--        th:action="@{/dm/search}">-->
         <label>
-            <input maxlength="50" name="keyword" type="search">
+            <input maxlength="50" id="keyword" type="search">
         </label>
-        <input id="search" type="submit" value="検索">
+        <input id="search" type="button" value="検索">
     </form>
 
     <div class="tabs">
@@ -168,7 +169,7 @@
         </div>
         <form method="POST" th:action="@{/dm/send}">
             <label>
-                <input maxlength="500" name="message" required type="text">
+                <input maxlength="500" id="message" required type="text">
                 <input name="addressUser" th:object="${addressUser}" type="hidden">
             </label>
             <input name="send" type="submit" value="送信">
@@ -179,18 +180,35 @@
 
         const keyword = document.getElementById('keyword');
         const search = document.getElementById('search');
+        const message = document.getElementById('message');
         const directMessage = document.getElementById('dm');
+        const sendMessage = document.getElementById('send');
 
-        search.addEventListener('submit'){
+        let token = $("meta[name='_csrf']").attr("content");
+        let header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
 
-        }
+        search.addEventListener('click', () => {
+            console.log("search:")
+            searchUser();
+        })
+
+        directMessage.addEventListener('submit', () => {
+
+        })
+
+        // sendMessage.addEventListener('click', () => {
+        //     sendDirectMessage();
+        // })
 
         function sendDirectMessage() {
             $.ajax({
                 url: "/dm/send",
                 type: "POST",
                 data: {
-                    message:
+                    message: ""
                 }
             }).done(function () {
 
@@ -213,15 +231,21 @@
             })
         }
 
+        function showUserList() {
+
+        }
+
         function searchUser() {
+            console.log("searchUser:"+ keyword.value);
+
             $.ajax({
-                url: "/dm/send",
+                url: "/dm/search",
                 type: "POST",
                 data: {
                     keyword: keyword.value
                 }
             }).done(function (response) {
-
+                    console.log(response);
             }).fail(function () {
 
             })
