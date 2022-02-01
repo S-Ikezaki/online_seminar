@@ -65,7 +65,7 @@
         </tbody>
     </table>
     <div class="meeting-container" th:if="${meeting} != null">
-        <h4>会議</h4>
+        <h4>開催中の会議</h4>
         <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
             <p th:text="'主催者：' + ${meeting.userName}"></p><br>
             <table>
