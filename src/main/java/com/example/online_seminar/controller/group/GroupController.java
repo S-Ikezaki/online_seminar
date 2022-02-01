@@ -442,14 +442,13 @@ public class GroupController {
 
         model.addAttribute("meeting", meeting);
         model.addAttribute("meetingMembers", meetingMembers);
+        model.addAttribute("groups", group);
 
         if (group.get(0).getGroupRole() == 0) {
             return "seminar/seminar_menu";
         } else if (group.get(0).getGroupRole() == 1) {
-            model.addAttribute("groups", group);
             return "seminar/seminar_competition_presentation";
         } else {
-            model.addAttribute("groups", group);
             return "seminar/seminar_competition_submission";
         }
     }
