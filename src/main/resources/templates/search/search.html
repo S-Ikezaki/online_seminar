@@ -84,15 +84,23 @@
         </tr>
     </table>
 
+    <form th:action="@{/groups/requestDelete}" method="get">
     <table>
         <tr th:each="request: ${requestList}" class="align-middle">
             <td th:text="${request.requestUserName}"></td>
             <td th:text="${request.requestContent}"></td>
             <td>
-                <button type="submit" name="">ゼミ作成</button>
+                <button class="btn btn-primary"
+                        th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
+                    <i class="far fa-plus-square"></i> グループ作成
+                </button>
+            </td>
+            <td>
+                <button type="submit" name="requestId" th:value="${request.getRequestId()}">拒否</button>
             </td>
         </tr>
     </table>
+    </form>
 
     <form th:action="@{/groups/request_seminar}" method="get">
         <div sec:authorize="hasAnyRole('0')">

@@ -194,10 +194,12 @@ public class GroupController {
 
         System.out.println(tagList.size());
 
+        System.out.println(tagList.get(6).getTagName());
+
         System.out.println("for確認：外");
         for (int i = 0; i < tagList.size(); i++ ){
             System.out.println("for確認：内: " + i);
-            if (tagList.get(i).getTagName().equals(tagName)){
+            if (tagList.get(i).getTagName().equalsIgnoreCase(tagName)){
                 System.out.println("tagNameが存在してるとき");
                 break;
             }
@@ -254,6 +256,18 @@ public class GroupController {
 
         model.addAttribute("groups", groupList);
         model.addAttribute("userId", userId);
+
+        return "search/search";
+    }
+
+    //ゼミ作成リクエストの１件削除用
+    @GetMapping("/requestDelete")
+    public String requestDelete(@RequestParam("requestId") long requestId){
+
+        //確認用
+        System.out.println(requestId);
+
+        requestRepository.deleteById(requestId);
 
         return "search/search";
     }
