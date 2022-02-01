@@ -10,7 +10,7 @@
 }
 
 .text-navy {
-    color: #7fffff;
+    color: darkgrey;
     font-family: 'Noto Serif JP', serif;
 }
 
@@ -59,8 +59,45 @@ a {
     height: calc(100vh - 56px)
 }
 
-h2 {
+.seminar_title {
     padding: 1rem 2rem;
-    background: #d6eaff;
-    font-family: "	Hiragino Kaku Gothic ProN、ヒラギノ角ゴ ProN、Hiragino Kaku Gothic Pro、ヒラギノ角ゴ Pro";
+    background: #224abe;
+    color: white;
 }
+
+.outer{
+    text-align: center;
+}
+.inner{
+    display: inline-block;
+    text-align: left;
+}
+
+table.layout-table01 {
+    table-layout: auto;
+    width: 100%;
+    text-align: center;
+}
+
+table.layout-table01,
+table.layout-table01 td,
+table.layout-table01 th {
+    border: solid 1px #fff;
+    border-collapse: collapse;
+}
+
+th.top {
+    width: 100px;
+}
+
+table.layout-table01 th {
+    background-color: lightgray;
+}
+
+table.layout-table01 td,
+table.layout-table01 th {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+

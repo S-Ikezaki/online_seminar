@@ -194,10 +194,12 @@ public class GroupController {
 
         System.out.println(tagList.size());
 
+        System.out.println(tagList.get(6).getTagName());
+
         System.out.println("for確認：外");
         for (int i = 0; i < tagList.size(); i++ ){
             System.out.println("for確認：内: " + i);
-            if (tagList.get(i).getTagName().equals(tagName)){
+            if (tagList.get(i).getTagName().equalsIgnoreCase(tagName)){
                 System.out.println("tagNameが存在してるとき");
                 break;
             }
@@ -258,6 +260,18 @@ public class GroupController {
         return "search/search";
     }
 
+    //ゼミ作成リクエストの１件削除用
+    @GetMapping("/requestDelete")
+    public String requestDelete(@RequestParam("requestId") long requestId){
+
+        //確認用
+        System.out.println(requestId);
+
+        requestRepository.deleteById(requestId);
+
+        return "search/search";
+    }
+
     //検索ボタンが押された時の処理
     @PostMapping("/search_group_detail")
     public String SearchGroupDetail(@RequestParam(value = "keyword", required = false) String keyword,
@@ -277,7 +291,7 @@ public class GroupController {
 
         if (Objects.equals(checkBoxReq, "request")) {
             System.out.println("仮成功");
-            List<Request> requestList = requestRepository.findAllSelect();
+            List<Request> requestList = requestRepository.findAll();
             model.addAttribute("requestList", requestList);
 
             return "search/search";
@@ -471,14 +485,13 @@ public class GroupController {
 
         model.addAttribute("meeting", meeting);
         model.addAttribute("meetingMembers", meetingMembers);
+        model.addAttribute("groups", group);
 
         if (group.get(0).getGroupRole() == 0) {
             return "seminar/seminar_menu";
         } else if (group.get(0).getGroupRole() == 1) {
-            model.addAttribute("groups", group);
             return "seminar/seminar_competition_presentation";
         } else {
-            model.addAttribute("groups", group);
             return "seminar/seminar_competition_submission";
         }
     }

@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{/layout/layout}">>
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>competition present</title>
+    <title>Harbbit | CompetitionPresentationMenu</title>
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -15,15 +15,17 @@
 
 <!-- コンテンツの表示 -->
 <main layout:fragment="content"
-      class="offcanvas-outside bg-light">
+      class="offcanvas-outside">
     <div class="container-fluid">
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    </div>
+        <div class="row">
+            <div class="col">
 
-    <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
-    <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
+    <h2 class="seminar_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
+
+                <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
 
     <h4>投稿一覧</h4>
     <p>
@@ -33,11 +35,6 @@
         <button type="submit">投稿</button>
     </form>
     <p>
-    <!--<form>
-        <p><button type="submit">投稿</button>
-           <input th:object="${MeetingChat}" th:text="${MeetingChat.meetingChatContents}" placeholder="投稿内容">
-        </p>
-    </form>-->
     <table>
         <thead>
         <tr>
@@ -57,24 +54,6 @@
         </tbody>
     </table>
 
-<!--    <form>-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td th:text="${Meeting.groupId}">会議id</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td th:each="${MeetingMember.userName}">参加者</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td th:text="${Meeting.userName}">主催者</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><button type="submit">参加</button></td>-->
-<!--                <td><button type="submit">開催</button></td>-->
-<!--&lt;!&ndash;                会議中は開催ボタンを押せないよにする&ndash;&gt;-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </form>-->
     <form th:action="@{/files/filesShare}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <button type="submit">資料共有</button>
@@ -85,6 +64,9 @@
     </div>
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
+    </div>
+            </div>
+        </div>
     </div>
 </main>
 </body>
