@@ -335,7 +335,7 @@ public class GroupController {
 
     //グループの一件追加用メソッド
     @PostMapping("/addGroup")
-    public String addGroup(@Validated @ModelAttribute Group group,
+    public String addGroup(@Validated @ModelAttribute Group group,Authentication loginUser,GroupMember groupMember,
                            Model model, BindingResult result){
 
         group.setGroupId(group.getGroupId());
@@ -343,17 +343,19 @@ public class GroupController {
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
 
+        System.out.println("groupId:"+group.getGroupId());
         System.out.println("groupName:"+group.getGroupName());
         System.out.println("groupRole:"+group.getGroupRole());
         System.out.println("groupBio:"+group.getGroupBio());
 
-        createDirectory(group);
         model.addAttribute("groups",group);
         if(result.hasErrors()){
             return "error";
         }
+
         groupRepository.save(group);
-        return "group_add_complete";
+
+        return "forward:/groups/addUser";
     }
 
         //グループ作成
@@ -375,6 +377,33 @@ public class GroupController {
             System.out.println(e);
         }
     }
+
+    @PostMapping("/addUser")
+    public String addUser(Authentication loginUser,GroupMember groupMember,Group group){
+
+
+        groupMember.setGroupId(group.getGroupId());
+        groupMember.setUserId(loginUser.getName());
+        groupMember.setGroupRole(group.getGroupRole());
+
+        System.out.println("groupMId:"+groupMember.getGroupId());
+        System.out.println("groupMRole:"+groupMember.getGroupRole());
+        System.out.println("groupMUId:"+groupMember.getUserId());
+
+        User user = userRepository.findByUserId(loginUser.getName());
+        groupMember.setUserName(user.getUserName());
+
+        System.out.println("groupMUName:"+groupMember.getUserName());
+
+        group.setGroupId(group.getGroupId());
+        System.out.println("groupId:"+group.getGroupId());
+        createDirectory(group);
+
+        groupMemberRepository.save(groupMember);
+
+        return "/main_menu.html";
+    }
+
 
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
