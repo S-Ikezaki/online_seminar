@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
     <title>Harbbit | Search</title>
     <!-- チェックボックスを制御するためのscript -->
     <script language="JavaScript">
@@ -57,7 +57,7 @@
     <form name="search" th:action="@{/groups/search_group_detail}" method="post" onsubmit="return checkNull()">
         <div class="form-control">
         <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
-        <input type="search" name="keyword" placeholder="キーワードを入力">
+        <input type="search" name="keyword" placeholder="タグを入力">
         <button class="btn btn-primary">
             <i class="fas fa-search"></i>
         </button>
