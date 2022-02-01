@@ -63,7 +63,14 @@ a {
     padding: 1rem 2rem;
     background: #224abe;
     color: white;
+}
 
+.outer{
+    text-align: center;
+}
+.inner{
+    display: inline-block;
+    text-align: left;
 }
 
 table.layout-table01 {
