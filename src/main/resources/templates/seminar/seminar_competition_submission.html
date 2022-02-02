@@ -6,6 +6,9 @@
       layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.4.3.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Harbbit | CompetitonSubmissionMenu</title>
 </head>
 <body>
@@ -21,53 +24,100 @@
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    <div class="row">
-        <div class="col">
+        <div class="row">
+            <div class="col">
 
-            <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
-            <h5 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h5>
+                <h2 class="seminar_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
+                <br>
+                <h4 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h4>
+                <br>
 
-    <h4>投稿</h4>
-    <p>
-    <form th:action="@{/groups/addGroupMessage}" method="post">
-        <input type="hidden" name="groupId" th:value="${groupId}">
-        <input type="text" name="messageContents" size="30"  placeholder="投稿内容">
-        <button type="submit">投稿</button>
-    </form>
-    <p>
+                <form th:action="@{/groups/addGroupMessage}" method="post">
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <input type="text" name="messageContents" size="30" placeholder="投稿内容">
+                    <button class="btn btn-primary" type="submit">投稿</button>
+                </form>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ユーザ名</th>
+                        <th>投稿内容</th>
+                        <th>日付</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- messageが空でない場合、messageの要素をmessageに格納する -->
+                    <!-- 要素の数ループする -->
+                    <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
+                        <td th:text="${groupMessage.userName}"></td>
+                        <td th:text="${groupMessage.messageContents}"></td>
+                        <td th:text="${groupMessage.createDatetime}"></td>
+                        <!--            <div sec:authorize="hasAnyRole('1','3')">-->
+                        <!--                <form th:action="@{groups/deleteGroupMessage}" method="post">-->
+                        <!--                    <input type="hidden" name="messageId" th:value="${groupMessage.groupMessageId}">-->
+                        <!--                    <td>-->
+                        <!--                        <button class="btn btn-primary" type="submit">削除</button>-->
+                        <!--                    </td>-->
+                        <!--                </form>-->
+                        <!--            </div>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="meeting-container" th:if="${meeting} != null">
+                    <h4>会議</h4>
+                    <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
+                        <p th:text="'主催者：' + ${meeting.userName}"></p><br>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>参加者:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${!#lists.isEmpty(meetingMembers)}" th:each="meetingMember : ${meetingMembers}">
+                                <td th:text="${meetingMember.userName}"></td>
+                            </tr>
+                            </tbody>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ユーザ名</th>
-            <th>投稿内容</th>
-            <th>日付</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- messageが空でない場合、messageの要素をmessageに格納する -->
-        <!-- 要素の数ループする -->
-        <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
-            <td th:text="${groupMessage.userName}"></td>
-            <td th:text="${groupMessage.messageContents}"></td>
-            <td th:text="${groupMessage.createDatetime}"></td>
-        </tr>
-        </tbody>
-    </table>
+                        </table>
+                        <button class="btn btn-primary" type="submit">参加</button>
+                    </form>
+                </div>
 
-    <form th:action="@{/files/filesShare}" method="post">
-        <input type="hidden" name="groupId" th:value="${groupId}">
-        <button type="submit">資料共有</button>
-    </form>
-    <div sec:authorize="hasAnyRole('2', '3')">
-    <button type="button" onclick="location.href='seminar_competition_update.html'">コンペ内情報更新</button><br>
-    </div>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            <form th:if="${meeting == null && groupMember.groupRole != 0}"
+                                  th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-video"></i> 新しく会議を始める
+                                </button>
+                            </form>
+                        </td>
 
-    <div sec:authorize="hasAnyRole('2', '3')">
-    <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
-    </div>
+                        <!--            <td>-->
+                        <!--                <form th:action="@{/groups/showGroupMemberList}" method="post">-->
+                        <!--                    <input type="hidden" name="groupId" th:value="${groupId}">-->
+                        <!--                    <button type="submit" class="btn btn-primary">-->
+                        <!--                        <i class="fas fa-users"></i>メンバー-->
+                        <!--                    </button>-->
+                        <!--                </form>-->
+                        <!--            </td>-->
+
+                        <td>
+                            <form th:action="@{/files/filesShare}" method="post">
+                                <input type="hidden" name="groupId" th:value="${groupId}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-file"></i>資料共有
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
-    </div>
     </div>
 </main>
 </body>

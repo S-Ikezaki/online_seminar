@@ -82,9 +82,10 @@
     <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data" th:object="${uploadForm}"
           name="upload_form">
         <div>
-            <label>■ファイルパス:</label>
+            <label>■ファイルパス</label>
             <input type="file" th:field="*{multipartFile}" name="upload_file" required>
         </div>
+        <br>
         <div>
             <input type="submit" value="アップロード" onclick="return check();">
             <input type="hidden" name="groupId" th:value="${groupId}" }>
