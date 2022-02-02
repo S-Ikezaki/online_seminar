@@ -23,11 +23,10 @@
         <div class="row">
             <div class="col">
 
-    <h2 class="seminar_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
+                <h3 class="seminar_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
+                <h5 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h5>
 
-                <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
-
-    <h4>投稿一覧</h4>
+    <h4>投稿</h4>
     <p>
     <form th:action="@{/groups/addGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">

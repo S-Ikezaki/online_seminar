@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html"
       layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
@@ -20,12 +21,13 @@
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    </div>
+    <div class="row">
+        <div class="col">
 
-    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
-    <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>
+            <h3 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupName}"></h3>
+            <h5 th:object="${group}" th:each="group : ${groups}" th:text="${group.groupBio}"></h5>
 
-    <h4>投稿一覧</h4>
+    <h4>投稿</h4>
     <p>
     <form th:action="@{/groups/addGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
@@ -63,6 +65,9 @@
 
     <div sec:authorize="hasAnyRole('2', '3')">
     <button type="button" onclick="location.href='seminar_competition_delete.html'">コンペ削除</button><br>
+    </div>
+        </div>
+    </div>
     </div>
 </main>
 </body>
