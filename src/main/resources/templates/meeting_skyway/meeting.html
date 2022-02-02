@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-<head lang="ja">
+<head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Harbbit | Meeting </title>
     <meta th:content="${_csrf.token}" th:name="_csrf"/>
     <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
 
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside">
+    <div class="container-fluid">
+
+        <p></p>
+
+        <div class="row">
+            <div class="col">
+
+<h2 class="seminar_title">会議</h2>
 <div id="js-videos-container" class="videos-container">
     <video id="js-local-video" autoplay muted="true"></video>
 </div>
+
+
+
 <div class="controller-container">
-    <p>Your id: <span id="js-local-id">...</span></p>
-    <button id="js-leave-trigger">退室</button>
+<!--    <p>Your id: <span id="js-local-id">...</span></p>-->
+    <button class="btn btn-primary" id="js-leave-trigger">退室</button>
     <pre class="messages" id="js-messages"></pre>
-    <input type="text" id="msg" placeholder="チャットを入力"><button id="send">送信</button>
+    <input type="text" id="msg" placeholder="チャットを入力">
+    <button class="btn btn-primary" id="send">送信</button>
+</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
@@ -25,7 +48,7 @@
 <script>
     const Peer = window.Peer;
     const localVideo = document.getElementById('js-local-video');
-    const localId = document.getElementById('js-local-id');
+    // const localId = document.getElementById('js-local-id');
     const videosContainer = document.getElementById('js-videos-container');
     const messages = document.getElementById('js-messages');
     const leaveTrigger = document.getElementById('js-leave-trigger');
@@ -52,7 +75,7 @@
         });
 
         peer.on('open', (id) => {
-            localId.textContent = id;
+            // localId.textContent = id;
 
             const room = peer.joinRoom([[${groupId}]], {
                 mode: 'sfu',
@@ -176,6 +199,6 @@
     }
 
 </script>
-
+</main>
 </body>
 </html>
