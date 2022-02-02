@@ -295,7 +295,8 @@ public class GroupController {
             return "search/search";
         }
 
-        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword == null) {
+        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword.equals("")) {
+            System.out.println("null確認");
             model.addAttribute("userId", userId);
             return "search/search";
         }
@@ -307,6 +308,7 @@ public class GroupController {
         //ロール分け
         //ゼミのみ
         if (checkBoxCompP == null && checkBoxCompS == null) {
+            System.out.println("ゼミのみ");
             roleA = 0;
             roleB = 0;
             roleC = 0;
@@ -335,6 +337,10 @@ public class GroupController {
             roleB = 1;
             roleC = 2;
         }
+
+        System.out.println(roleA);
+        System.out.println(roleB);
+        System.out.println(roleC);
 
         List<Group> groupList = groupRepository.findByRoleNq(keyword, roleA, roleB, roleC);
 
