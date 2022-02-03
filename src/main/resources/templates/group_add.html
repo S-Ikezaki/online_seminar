@@ -10,44 +10,42 @@
 
 
     <script>
-        let i = 1 ;
+        let i = 1;
+
         function addForm() {
             let input_data = document.createElement('input');
             input_data.type = 'text';
             input_data.id = 'tag_' + i;
+            let br_data= 'br_' + i;
             input_data.placeholder = 'タグを入力してください';
             let parent = document.getElementById('form_area');
             parent.appendChild(input_data);
 
             let button_data = document.createElement('button');
             button_data.id = i;
-            button_data.onclick = function(){deleteBtn(this); }
             button_data.innerHTML = '削除';
             let input_area = document.getElementById(input_data.id);
             parent.appendChild(button_data);
-
-            let br_data = document.getElementById("form_area");
-            br_data.insertAdjacentHTML("beforeend","<br>");
+            parent.insertAdjacentHTML("beforeend", "<br id="+br_data+">");
+            button_data.onclick = function () {
+                deleteBtn(this);
+            }
 
             i++;
         }
 
         function deleteBtn(target) {
-            /*DeleteNewLine(this); //改行削除*/
             let target_id = target.id;
             let parent = document.getElementById('form_area');
             let ipt_id = document.getElementById('tag_' + target_id);
             let tgt_id = document.getElementById(target_id);
+            let br_id = document.getElementById('br_'+target_id);
             parent.removeChild(ipt_id);
             parent.removeChild(tgt_id);
+            parent.removeChild(br_id);
         }
 
-        function DeleteNewLine(myLen) {
-            var newLen = myLen.replace(/\r?\n/g,'');
-            return(newLen);
-        }
-
-        window.onload = function(){
+        window.onload = function () {
             let id = document.getElementById("id");
             let name = document.getElementById("name");
             let bio = document.getElementById("bio");
@@ -76,10 +74,9 @@
                 deadline.style.display = "none";
             } else if (announcementcompform.checked) {
                 deadline.style.display = "";
-            }
-            else if(submissioncompform.checked){
+            } else if (submissioncompform.checked) {
                 deadline.style.display = "";
-            }else {
+            } else {
                 deadline.style.display = "none";
             }
         }
@@ -100,38 +97,39 @@
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    </div>
+        <div class="row">
+            <p>グループ作成</p>
+                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" class="col">
 
-
-<form th:action="@{/groups/addGroup}" method="post" th:object="${group}">
-    <p>グループ作成</p>
-    <input type="radio" name="groupRole" id="seminar" checked value="0"  onclick="buttonClick()">ゼミ
-    <input type="radio" name="groupRole" id="announcement_comp" value="1"  onclick="buttonClick()">発表型コンペ
-    <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
-    <br>
-    <br>
-    <p>グループ名<br>
-    <input type="text" id="groupName" name="groupName">
-    </p>
-    <p>グループ概要<br>
-    <input type="text" id="groupBio" name="groupBio">
-    </p>
-    <p>タグ</p>
-    <div id="form_area" >
+                    <input type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()">ゼミ
+                    <input type="radio" name="groupRole" id="announcement_comp" value="1" onclick="buttonClick()">発表型コンペ
+                    <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
+                    <br>
+                    <br>
+                    <p>グループ名<br>
+                        <input type="text" id="groupName" name="groupName">
+                    </p>
+                    <p>グループ概要<br>
+                        <input type="text" id="groupBio" name="groupBio">
+                    </p>
+                    <p>タグ</p>
+                    <div id="form_area">
+                    </div>
+                    <br>
+                    <input type="button" value="タグ追加" onclick="addForm()">
+                    <br>
+                    <!---コンペ用の情報-->
+                    <p>
+                    <div id="deadline">
+                        提出期限<br>
+                        <input type="datetime-local" name="deadline">
+                    </div>
+                    </p>
+                    <br>
+                    <input type="submit" value="作成">
+                </form>
+        </div>
     </div>
-    <br>
-    <input type="button" value="タグ追加" onclick="addForm()">
-    <br>
-    <!---コンペ用の情報-->
-    <p>
-        <div id="deadline">
-        提出期限<br>
-        <input type="datetime-local" name="deadline">
-    </div>
-    </p>
-    <br>
-    <input type="submit" value="作成">
-</form>
 </main>
 </body>
 </html>

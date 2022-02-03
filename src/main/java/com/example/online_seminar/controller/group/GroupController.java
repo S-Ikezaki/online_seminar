@@ -345,7 +345,7 @@ public class GroupController {
         return "search/search";
     }
 
-    //グループの一件追加用メソッド
+    //グループ一件追加用メソッド
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,Authentication loginUser,GroupMember groupMember,
                            Model model, BindingResult result){
@@ -370,9 +370,9 @@ public class GroupController {
         return "forward:/groups/addUser";
     }
 
-        //グループ作成
-        @GetMapping("/teacher/showCreateMenu")
-        public String showCreateMenu(Model model){ return "group_add"; }
+    //グループ作成HTMLを開くための処理
+    @GetMapping("/teacher/showCreateMenu")
+    public String showCreateMenu(Model model){ return "group_add"; }
 
     //グループ専用のディレクトリ作成
     @PostMapping("/createDirectory")
@@ -390,6 +390,7 @@ public class GroupController {
         }
     }
 
+    //グループ作成時に作成者をグループに追加する（下竹）
     @PostMapping("/addUser")
     public String addUser(Authentication loginUser,GroupMember groupMember,Group group){
 
@@ -413,7 +414,7 @@ public class GroupController {
 
         groupMemberRepository.save(groupMember);
 
-        return "/main_menu.html";
+        return "main_menu";
     }
 
 
