@@ -421,8 +421,18 @@ public class GroupController {
 
         groupMemberRepository.save(groupMember);
 
-
-        return "seminar/seminar_menu";
+        if (group.getGroupRole() == 0) {
+            //System.out.println("ゼミメニュー");
+            return "seminar/seminar_menu";
+        } else if (group.getGroupRole() == 1) {
+            //System.out.println("発表型コンペメニュー");
+            return "seminar/seminar_competition_presentation";
+        } else if (group.getGroupRole() == 2){
+            //System.out.println("提出型コンペメニュー");
+            return "seminar/seminar_competition_submission";
+        }else{
+            return "error";
+        }
     }
 
 
