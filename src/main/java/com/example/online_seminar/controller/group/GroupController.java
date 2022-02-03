@@ -394,7 +394,7 @@ public class GroupController {
 
         //System.out.println("adduser");
 
-        int group_role=0;
+        int group_role=1;
         Group group_info = groupRepository.findByGroupNameAndGroupRole(group.getGroupName(),group.getGroupRole());
 
         //System.out.println("group_member_Id:"+group_id);
