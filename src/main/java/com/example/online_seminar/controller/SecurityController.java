@@ -2,7 +2,9 @@ package com.example.online_seminar.controller;
 
 import com.example.online_seminar.controller.group.GroupController;
 import com.example.online_seminar.entity.group.Group;
+import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.GroupRepository;
+import com.example.online_seminar.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import java.util.List;
 public class SecurityController {
 
     private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -40,7 +43,10 @@ public class SecurityController {
             }
         }
 
+        User userName = userRepository.findByUserId(userId);
+
         model.addAttribute("userId", loginUser.getName());
+        model.addAttribute("userName", userName);
         model.addAttribute("role", loginUser.getAuthorities());
 
         System.out.println(loginUser.getAuthorities());

@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/heading.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
-        body {
-            margin-right: auto;
-            margin-left: auto;
-            padding: 30px 20px;
-            max-width: 640px;
-            background-color: bisque;
-        }
-
         .FlexTextarea {
             position: relative;
             font-size: 1rem;
             line-height: 1.8;
         }
-
         .FlexTextarea__dummy {
             overflow: hidden;
             visibility: hidden;
@@ -29,7 +23,6 @@
             overflow-wrap: break-word;
             border: 1px solid;
         }
-
         .FlexTextarea__textarea {
             position: absolute;
             top: 0;
@@ -37,7 +30,7 @@
             box-sizing: border-box;
             padding: 5px 15px;
             width: 100%;
-            height: 200%;
+            height: 110%;
             background-color: white;
             border: 1px solid #b6c3c6;
             border-radius: 4px;
@@ -52,34 +45,41 @@
             outline: 0;
         }
 
-
-        button {
-            width: 50%;
-            min-width: 50px;
-            max-width: 100px;
-            position: relative;
-            top: 180px;
-            padding: 15px;
+        .button_transition {
+            width: 60px;
+            height: 50px;
+            outline: 0;
             margin: 30px 40px 40px 80px;
-            background-color: chartreuse;
-            cursor: pointer;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            color: #fff;
+            background-color: #0a58ca;
+            border-color: #0a53be;
         }
-
-        div {
+        .button_wrapper{
             text-align: center;
         }
-
-        textarea {
-            resize: none;
-        }
-
-
     </style>
     <title>join apply</title>
 </head>
 <body>
+<!-- サイドバーの表示-->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
+
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside">
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div
+                th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+
+        <div class="row">
+            <div class="col">
 <div>
-    <h2 class="heading" data-en="Harbbit">ゼミ参加申請画面</h2>
+    <h2 class="seminar_title" data-en="Harbbit">ゼミ参加申請画面</h2>
 </div>
 <form th:object="${id}" th:action="@{/groups/apply/execution}" method="get">
     <div class="FlexTextarea">
@@ -89,15 +89,17 @@
         </textarea><br>
     </div>
 
-<div>
+<div class="button_wrapper">
         <!--        後で操作しているアカウントのロールによってstudentかteacherのどちらのメニュー画面に遷移するか決定するcontrollerクラスに情報を渡すようなコードに変える-->
         <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
-        <button type="submit" name="groupId" th:value="${id}"> 申請 </button>
+        <button type="submit" class="button_transition"  name="groupId" th:value="${id}"> 申請 </button>
 
-        <button type="button" onclick="history.back()"> 戻る </button>
+        <button type="button" class="button_transition" onclick="history.back()"> 戻る </button>
 </div>
 </form>
-
-
+    </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

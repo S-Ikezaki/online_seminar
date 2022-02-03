@@ -4,6 +4,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Harbbit | DM</title>
 
 
@@ -65,14 +67,16 @@
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    </div>
 
-    <h2>DM</h2>
+    <div class="row">
+        <div class="col">
+
+    <h2 class="seminar_title">DM</h2>
     <form method="get" th:action="@{/dm/search}">
         <label>
             <input maxlength="50" name="keyword" type="search">
         </label>
-        <input type="submit" value="検索">
+        <input type="submit" class="btn btn-primary" value="検索">
     </form>
 
     <div class="tabs">
@@ -83,6 +87,7 @@
 
         <!--一覧-->
         <div class="tab_content" id="all_content">
+            <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ユーザー名</th>
@@ -107,14 +112,16 @@
                     <td th:if="${user.getCertification().getRole() == '3' }"
                         th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
                     </td>
-                    <td><input th:value="DM" type="submit"></td>
+                    <td><input th:value="DM" type="submit" class="btn btn-primary"></td>
                 </form>
             </tr>
             </tbody>
+            </table>
 
             <!--検索結果-->
         </div>
         <div class="tab_content" id="result_content">
+            <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ユーザー名</th>
@@ -139,10 +146,11 @@
                     <td th:if="${user.getCertification().getRole() == '3' }"
                         th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
                     </td>
-                    <td><input th:value="DM" type="submit"></td>
+                    <td><input th:value="DM" class="btn btn-primary" type="submit"></td>
                 </form>
             </tr>
             </tbody>
+            </table>
 
         </div>
         <br><br>
@@ -152,7 +160,7 @@
     <div class="dm_content" id="dm_content">
         <h5 th:text="${addressUser.getUserName()}"></h5>
         <div class="dm" th:if="${!#lists.isEmpty(dms)}">
-            <table>
+            <table class="table table-bordered">
                 <tbody>
                 <tr th:each="dm : ${dms}">
                     <form action="" method="POST">
@@ -171,8 +179,11 @@
                 <input maxlength="500" name="message" required type="text">
                 <input name="addressUser" th:object="${addressUser}" type="hidden">
             </label>
-            <input name="send" type="submit" value="送信">
+            <input name="send" type="submit" class="btn btn-primary" value="送信">
         </form>
+    </div>
+        </div>
+    </div>
     </div>
 
 </main>

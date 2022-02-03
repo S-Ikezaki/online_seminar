@@ -295,7 +295,8 @@ public class GroupController {
             return "search/search";
         }
 
-        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword == null) {
+        if (checkBoxSem == null && checkBoxCompP == null && checkBoxCompS == null && keyword.equals("")) {
+            System.out.println("null確認");
             model.addAttribute("userId", userId);
             return "search/search";
         }
@@ -307,6 +308,7 @@ public class GroupController {
         //ロール分け
         //ゼミのみ
         if (checkBoxCompP == null && checkBoxCompS == null) {
+            System.out.println("ゼミのみ");
             roleA = 0;
             roleB = 0;
             roleC = 0;
@@ -336,6 +338,10 @@ public class GroupController {
             roleC = 2;
         }
 
+        System.out.println(roleA);
+        System.out.println(roleB);
+        System.out.println(roleC);
+
         List<Group> groupList = groupRepository.findByRoleNq(keyword, roleA, roleB, roleC);
 
         model.addAttribute("groupList", groupList);
@@ -355,11 +361,6 @@ public class GroupController {
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
 
-        System.out.println("groupId:"+group.getGroupId());
-        System.out.println("groupName:"+group.getGroupName());
-        System.out.println("groupRole:"+group.getGroupRole());
-        System.out.println("groupBio:"+group.getGroupBio());
-
         model.addAttribute("groups",group);
         if(result.hasErrors()){
             return "error";
@@ -369,7 +370,7 @@ public class GroupController {
 
         return "forward:/groups/addUser";
     }
-
+    
     //グループ作成HTMLを開くための処理
     @GetMapping("/teacher/showCreateMenu")
     public String showCreateMenu(Model model){ return "group_add"; }
@@ -378,10 +379,8 @@ public class GroupController {
     @PostMapping("/createDirectory")
     public static void createDirectory(Group group){
 
-        System.out.println("作成通過！");
         String pathName = "C:/groups/"+group.getGroupId();
         Path p = Paths.get(pathName);
-        System.out.println("作成完了！");
 
         try{
             Files.createDirectories(p);
@@ -394,23 +393,32 @@ public class GroupController {
     @PostMapping("/addUser")
     public String addUser(Authentication loginUser,GroupMember groupMember,Group group){
 
+        //System.out.println("adduser");
 
-        groupMember.setGroupId(group.getGroupId());
+        int group_role=1;
+        Group group_info = groupRepository.findByGroupNameAndGroupRole(group.getGroupName(),group.getGroupRole());
+
+        //System.out.println("group_member_Id:"+group_id);
+        //System.out.println("group_member_role:"+group_role);
+
+        System.out.println("groupMUId:"+group_info);
+        //System.out.println("userID:"+loginUser.getName());
+
+        int group_Id = group_info.getGroupId();
+        System.out.println("グループID"+group_Id);
+
+        groupMember.setGroupId(group_Id);
         groupMember.setUserId(loginUser.getName());
-        groupMember.setGroupRole(group.getGroupRole());
-
-        System.out.println("groupMId:"+groupMember.getGroupId());
-        System.out.println("groupMRole:"+groupMember.getGroupRole());
-        System.out.println("groupMUId:"+groupMember.getUserId());
+        groupMember.setGroupRole(group_role);
 
         User user = userRepository.findByUserId(loginUser.getName());
         groupMember.setUserName(user.getUserName());
 
-        System.out.println("groupMUName:"+groupMember.getUserName());
+        //System.out.println("groupMUName:"+groupMember.getUserName());
 
-        group.setGroupId(group.getGroupId());
-        System.out.println("groupId:"+group.getGroupId());
+        group.setGroupId(0);
         createDirectory(group);
+        System.out.println(groupMember);
 
         groupMemberRepository.save(groupMember);
 
