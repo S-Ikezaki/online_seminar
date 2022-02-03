@@ -87,23 +87,23 @@ public class GroupController {
     @GetMapping("/apply")
     //searchの参加申請ボタンを押された時groupRoleを受け取りゼミかコンペで遷移先を分ける?
     public String Transition(@RequestParam("groupRole") int role,
-                             @RequestParam("groupId") String id,
+                             @RequestParam("groupId") String groupId,
                              @RequestParam("userId") String userId,
                              Model model
     ) {
 
         //確認用
         System.out.println(role);
-        System.out.println(id);
+        System.out.println(groupId);
         System.out.println(userId);
 
         //ロールによって遷移先を分ける
         if (role == 0) {
-            model.addAttribute("id", id);
+            model.addAttribute("groupId", groupId);
             model.addAttribute("userId", userId);
             return "seminar/seminar_apply";
         } else {
-            model.addAttribute("id", id);
+            model.addAttribute("groupId", groupId);
             model.addAttribute("userId", userId);
             return "competition/apply";
         }
@@ -111,26 +111,31 @@ public class GroupController {
 
     //申請ボタンを押された時の処理
     @GetMapping("/apply/execution")
-    public String Execution(@RequestParam("groupId") int id,
+    public String Execution(@RequestParam("groupId") int groupId,
                             @RequestParam("userId") String userId,
                             @RequestParam("comment") String comment,
                             Participation participation,
                             BindingResult result) {
 
-        System.out.println(id);
         System.out.println("aaa");
+        System.out.println(groupId);
+        System.out.println(userId);
+        System.out.println(comment);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sdfCalender = sdf.format((calendar.getTime()));
 
-        List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(id);
+        List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(groupId);
 
         List<GroupMember> groupMember = groupMemberRepository.findByUserId(userId);
 
+        System.out.println(groupLeader.size());
+
         //受け取り確認用
         System.out.println(groupLeader);
-        System.out.println(id);//学生が申請したグループのID
+        System.out.println(groupMember);
+        System.out.println(groupId);//学生が申請したグループのID
         System.out.println(userId);//申請した学生のID
         System.out.println(groupMember.get(0).getUserName()); //申請した学生の名前
         System.out.println(groupLeader.get(0).getUserId()); //申請を受け取る教師のID
@@ -138,7 +143,7 @@ public class GroupController {
 
         participation.setCreateUserId(userId);
         participation.setCreateUserName(groupMember.get(0).getUserName());
-        participation.setGroupId(id);
+        participation.setGroupId(groupId);
         participation.setAddressUserId(groupLeader.get(0).getUserId());
         participation.setParticipationContents(comment);
         participation.setCreateDatetime(Date.valueOf(sdfCalender));
