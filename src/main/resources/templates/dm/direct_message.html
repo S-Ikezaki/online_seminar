@@ -85,66 +85,15 @@
         <label class="tab_item" for="result">検索結果</label>
 
         <!--一覧-->
-        <div class="tab_content" id="all_content">
-            <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}" th:if="${!#lists.isEmpty(users)}">
-                <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
-                    <td th:text="${user.getUserName()}"></td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
-                                             th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '1' }"
-                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == 2 }"
-                                             th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '3' }"
-                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                    </td>
-                    <td><input id="dm" th:value="DM" type="submit"></td>
-                </form>
-            </tr>
-            </tbody>
-
-            <!--検索結果-->
+        <div class="tab_content" th:fragment="user_list" id="all_content">
+            <div th:substituteby="fragments/directmessage/user_list :: userList" th:fragment="userList">
+            </div>
         </div>
-        <div class="tab_content" id="result_content">
-            <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}" id="searchUsers">
-                <form method="post" th:action="@{'/dm/dmToPerson/' + ${user.getUserId()}}" th:object="${users}">
-                    <td th:text="${user.getUserName()}">ユーザー名</td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
-                                             th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '1' }"
-                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == 2 }"
-                                             th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
-                    </td>
-                    <td><small><small><small th:if="${user.getCertification().getRole() == '3' }"
-                                             th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                    </td>
-                    <td><input th:value="DM" type="submit"></td>
-                </form>
-            </tr>
-            </tbody>
 
+        <!--検索結果-->
+        <div class="tab_content" id="result_content">
+            <div th:substituteby="fragments/directmessage/user_list :: searchUser" th:fragment="searchList">
+            </div>
         </div>
         <br><br>
     </div>
@@ -182,6 +131,7 @@
         const search = document.getElementById('search');
         const message = document.getElementById('message');
         const directMessage = document.getElementById('dm');
+        const directMessage2 = document.getElementById('dm2');
         const sendMessage = document.getElementById('send');
 
         let token = $("meta[name='_csrf']").attr("content");
@@ -195,9 +145,17 @@
             searchUser();
         })
 
-        directMessage.addEventListener('submit', () => {
-
-        })
+        // directMessage.addEventListener('submit', () => {
+        //     console.log("DMが押されたよooooo");
+        //     alert("DMがおされたぞおおおおお")
+        //
+        // })
+        //
+        // directMessage2.addEventListener('submit', () => {
+        //     console.log("DMが押されたよooooo");
+        //     alert("DMがおされたぞおおおおおss22222")
+        //
+        // })
 
         // sendMessage.addEventListener('click', () => {
         //     sendDirectMessage();
@@ -218,10 +176,12 @@
         }
 
         function showMessage() {
+            alert("DMが押されたよ！！")
             $.ajax({
-                url: "/dm/send",
+                url: "/dm/ajax/show",
                 type: "POST",
                 data: {
+
                     userId: ""
                 }
             }).done(function (response) {
@@ -243,9 +203,10 @@
                 type: "POST",
                 data: {
                     keyword: keyword.value
-                }
-            }).done(function () {
-                $("#result_content").html(data);
+                },
+                dataType: "html"
+            }).done(function (data) {
+                $('#result_content').html(data);
                     // console.log(JSON.parse(response));
                     // console.log(decodeURI(response));
             }).fail(function () {

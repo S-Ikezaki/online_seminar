@@ -1,15 +1,18 @@
 package com.example.online_seminar.controller;
 
+import com.example.online_seminar.entity.user.DirectMessage;
 import com.example.online_seminar.entity.user.User;
+import com.example.online_seminar.repository.DirectMessageRepository;
 import com.example.online_seminar.repository.UserRepository;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/dm/ajax")
 public class DirectMessageAjaxController {
 
@@ -20,17 +23,17 @@ public class DirectMessageAjaxController {
 //    public List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
 //    public List<DirectMessage> directMessageList = new ArrayList<DirectMessage>();
 //
-//    public final DirectMessageRepository directMessageRepository;
+    public final DirectMessageRepository directMessageRepository;
     public final UserRepository userRepository;
 //
 //    @Autowired
 //    public DMService dmService;
 
     public DirectMessageAjaxController(
-//            DirectMessageRepository directMessageRepository,
+            DirectMessageRepository directMessageRepository,
             UserRepository userRepository
     ) {
-//        this.directMessageRepository = directMessageRepository;
+        this.directMessageRepository = directMessageRepository;
         this.userRepository = userRepository;
     }
 
@@ -64,29 +67,29 @@ public class DirectMessageAjaxController {
 //    }
 
     // 指定された相手とのDMを取得
-//    @PostMapping("dmToPerson/{addressUserId}")
-//    public String showDirectMessagePerson(@PathVariable("addressUserId") String addressUserId, Authentication user, Model model) {
-//
-//        String userId = user.getName();
-//
-////        List<DirectMessage> directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
+    @PostMapping("/show")
+    public String showDirectMessagePerson(@RequestBody String addressUserId, Authentication user, Model model) {
+
+        String userId = user.getName();
+
+        DirectMessage directMessages = new DirectMessage();
+        User addressUser = new User();
+
+//        List<DirectMessage> directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
 //        directMessages = dmService.FindDirectMessage(addressUserId,userId);
-////        directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
-////        User addressUser = userRepository.findByUserId(addressUserId);
+//        directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
+//        User addressUser = userRepository.findByUserId(addressUserId);
 //        addressUser = dmService.FindByUserId(addressUserId);
-////        addressUser = userRepository.findByUserId(addressUserId);
-//
-//        model.addAttribute("addressUser",addressUser);
-//        model.addAttribute("users",userList);
-//        model.addAttribute("searchUsers",searchUserList);
-//        model.addAttribute("dms",directMessages);
-//
-//        return "dm/direct_message";
-//    }
+//        addressUser = userRepository.findByUserId(addressUserId);
+
+        model.addAttribute("dms",directMessages);
+
+        return "dm/direct_message";
+    }
 
     // ユーザをキーワードで検索（名前）
     @PostMapping("/search")
-    public void searchUser(@RequestBody String keyword, Authentication loginUser , Model model) {
+    public String searchUser(@RequestBody String keyword, Authentication loginUser , Model model) {
 //        List<User>
         String decodeKeyword = URLDecoder.decode(keyword);
         System.out.println(decodeKeyword.substring(decodeKeyword.indexOf("=") + 1));
@@ -97,16 +100,12 @@ public class DirectMessageAjaxController {
 
         searchUserList.removeIf(user -> user.getUserId().equals(loginUser.getName()));
 
-//        model.addAttribute("addressUser",addressUser);
-//        model.addAttribute("users",userList);
         model.addAttribute("searchUsers",searchUserList);
-//        model.addAttribute("dms", directMessages);
-//        System.out.println(searchUserList.get(0).getUserName());
 
         System.out.println("レスポンス前");
 
 //        return searchUserList;
-//        return dm/ajax/input + " :: result_content";
+        return "dm/direct_message :: searchList";
     }
 
     @GetMapping("dm/ajax/input")
