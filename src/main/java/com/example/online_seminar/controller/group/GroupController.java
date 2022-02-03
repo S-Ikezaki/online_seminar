@@ -356,7 +356,7 @@ public class GroupController {
         return "search/search";
     }
 
-    //グループの一件追加用メソッド
+    //グループ一件追加用メソッド
     @PostMapping("/addGroup")
     public String addGroup(@Validated @ModelAttribute Group group,Authentication loginUser,GroupMember groupMember,
                            Model model, BindingResult result){
@@ -375,8 +375,8 @@ public class GroupController {
 
         return "forward:/groups/addUser";
     }
-
-    //グループ作成
+    
+    //グループ作成HTMLを開くための処理
     @GetMapping("/teacher/showCreateMenu")
     public String showCreateMenu(Model model){ return "group_add"; }
 
@@ -394,19 +394,19 @@ public class GroupController {
         }
     }
 
+    //グループ作成時に作成者をグループに追加する（下竹）
     @PostMapping("/addUser")
     public String addUser(Authentication loginUser,GroupMember groupMember,Group group){
 
-        //System.out.println("adduser");
+        System.out.println("adduser");
 
         int group_role=1;
         Group group_info = groupRepository.findByGroupNameAndGroupRole(group.getGroupName(),group.getGroupRole());
 
-        //System.out.println("group_member_Id:"+group_id);
-        //System.out.println("group_member_role:"+group_role);
+        System.out.println("group_member_role:"+group_role);
 
         System.out.println("groupMUId:"+group_info);
-        //System.out.println("userID:"+loginUser.getName());
+        System.out.println("userID:"+loginUser.getName());
 
         int group_Id = group_info.getGroupId();
         System.out.println("グループID"+group_Id);
@@ -418,7 +418,7 @@ public class GroupController {
         User user = userRepository.findByUserId(loginUser.getName());
         groupMember.setUserName(user.getUserName());
 
-        //System.out.println("groupMUName:"+groupMember.getUserName());
+        System.out.println("groupMUName:"+groupMember.getUserName());
 
         group.setGroupId(0);
         createDirectory(group);
@@ -426,7 +426,8 @@ public class GroupController {
 
         groupMemberRepository.save(groupMember);
 
-        return "/main_menu.html";
+
+        return "seminar/seminar_menu";
     }
 
 
