@@ -36,7 +36,7 @@
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
 
-        <h2 class="seminar_title"th:text="検索画面"></h2>
+        <h2 class="page_title" th:text="検索画面"></h2>
 
     <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
     <form name="search" th:action="@{/groups/search_group_detail}" method="post">

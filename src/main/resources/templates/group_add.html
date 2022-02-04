@@ -98,20 +98,25 @@
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
         <div class="row">
-            <p>グループ作成</p>
-                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" class="col">
+            <div class="col">
+                <h2 class="page_title">グループ新規作成</h2>
+                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" >
+
 
                     <input type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()">ゼミ
                     <input type="radio" name="groupRole" id="announcement_comp" value="1" onclick="buttonClick()">発表型コンペ
                     <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
                     <br>
-                    <br>
-                    <p>グループ名<br>
-                        <input type="text" id="groupName" name="groupName">
-                    </p>
-                    <p>グループ概要<br>
-                        <input type="text" id="groupBio" name="groupBio">
-                    </p>
+
+                    <div class="form-group">
+                        <label for="groupName">グループ名</label>
+                        <input type="text" id="groupName" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupBio">グループ概要</label>
+                        <textarea  id="groupBio" >
+                    </div>
                     <p>タグ</p>
                     <div id="form_area">
                     </div>
@@ -128,6 +133,7 @@
                     <br>
                     <input type="submit" value="作成">
                 </form>
+        </div>
         </div>
     </div>
 </main>

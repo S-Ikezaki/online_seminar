@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <h2 class="seminar_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
+                <h2 class="page_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
                 <br>
                 <h4 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h4>
                 <br>
