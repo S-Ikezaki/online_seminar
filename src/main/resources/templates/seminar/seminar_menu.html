@@ -29,16 +29,7 @@
         <div class="col">
 
     <h2 class="page_title" th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupName}"></h2>
-    <!--    <h3 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h3>-->
-
-    <!--    <div th:text="${groupMessages.groupName}">-->
-
-    <form th:action="@{/groups/addGroupMessage}" method="post">
-        <input type="hidden" name="groupId" th:value="${groupId}">
-        <input type="text" name="messageContents" size="30" placeholder="投稿内容">
-        <button class="btn btn-primary" type="submit">投稿</button>
-    </form>
-    <table class="table table-bordered">
+    <table class="layout-table01">
         <thead>
         <tr>
             <th>ユーザ名</th>
@@ -53,17 +44,18 @@
             <td th:text="${groupMessage.userName}"></td>
             <td th:text="${groupMessage.messageContents}"></td>
             <td th:text="${groupMessage.createDatetime}"></td>
-<!--            <div sec:authorize="hasAnyRole('1','3')">-->
-<!--                <form th:action="@{groups/deleteGroupMessage}" method="post">-->
-<!--                    <input type="hidden" name="messageId" th:value="${groupMessage.groupMessageId}">-->
-<!--                    <td>-->
-<!--                        <button class="btn btn-primary" type="submit">削除</button>-->
-<!--                    </td>-->
-<!--                </form>-->
-<!--            </div>-->
         </tr>
         </tbody>
     </table>
+            <br><br><br>
+            <form th:action="@{/groups/addGroupMessage}" method="post">
+                <div class="form-group">
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <!--        <input type="text" name="messageContents" size="30" placeholder="投稿内容">-->
+                    <textarea  name="messageContents" rows="3" class="form-control w-50"></textarea>
+                    <button class="btn btn-primary" type="submit">投稿</button>
+                </div>
+            </form>
     <div class="meeting-container" th:if="${meeting} != null">
         <h4>開催中の会議</h4>
         <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
