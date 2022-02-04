@@ -107,7 +107,7 @@
                 </form>
             </td>
             <td>
-                <form th:action="@{/groups/showGroupMemberList}" method="get">
+                <form th:action="@{/groups/showGroupMemberList}" method="post">
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-users"></i>メンバー

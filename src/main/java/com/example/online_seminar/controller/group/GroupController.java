@@ -469,12 +469,13 @@ public class GroupController {
     }
 
     //グループのメンバー一覧表示
-    @GetMapping("/showGroupMemberList")
+    @PostMapping("/showGroupMemberList")
     public String showGroupMemberList(Model model,int groupId) {
 
         System.out.println(groupId + "グループID");
         List<GroupMember> groupMembers = groupMemberRepository.findByGroupId(groupId);
         System.out.println(groupMembers);
+        model.addAttribute("groupId",groupId);
         model.addAttribute("groupMembers", groupMembers);
 
         return "seminar/group_member_list";
