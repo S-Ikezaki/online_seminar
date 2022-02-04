@@ -16,7 +16,7 @@
             let input_data = document.createElement('input');
             input_data.type = 'text';
             input_data.id = 'tag_' + i;
-            let br_data= 'br_' + i;
+            let br_data = 'br_' + i;
             input_data.placeholder = 'タグを入力してください';
             let parent = document.getElementById('form_area');
             parent.appendChild(input_data);
@@ -26,7 +26,7 @@
             button_data.innerHTML = '削除';
             let input_area = document.getElementById(input_data.id);
             parent.appendChild(button_data);
-            parent.insertAdjacentHTML("beforeend", "<br id="+br_data+">");
+            parent.insertAdjacentHTML("beforeend", "<br id=" + br_data + ">");
             button_data.onclick = function () {
                 deleteBtn(this);
             }
@@ -39,7 +39,7 @@
             let parent = document.getElementById('form_area');
             let ipt_id = document.getElementById('tag_' + target_id);
             let tgt_id = document.getElementById(target_id);
-            let br_id = document.getElementById('br_'+target_id);
+            let br_id = document.getElementById('br_' + target_id);
             parent.removeChild(ipt_id);
             parent.removeChild(tgt_id);
             parent.removeChild(br_id);
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col">
                 <h2 class="page_title">グループ新規作成</h2>
-                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" >
+                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}">
 
 
                     <input type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()">ゼミ
@@ -115,7 +115,7 @@
 
                     <div class="form-group">
                         <label for="groupBio">グループ概要</label>
-                        <textarea  id="groupBio" >
+                        <textarea id="groupBio">
                     </div>
                     <p>タグ</p>
                     <div id="form_area">
