@@ -16,7 +16,7 @@
             let input_data = document.createElement('input');
             input_data.type = 'text';
             input_data.id = 'tag_' + i;
-            let br_data= 'br_' + i;
+            let br_data = 'br_' + i;
             input_data.placeholder = 'タグを入力してください';
             let parent = document.getElementById('form_area');
             parent.appendChild(input_data);
@@ -26,7 +26,7 @@
             button_data.innerHTML = '削除';
             let input_area = document.getElementById(input_data.id);
             parent.appendChild(button_data);
-            parent.insertAdjacentHTML("beforeend", "<br id="+br_data+">");
+            parent.insertAdjacentHTML("beforeend", "<br id=" + br_data + ">");
             button_data.onclick = function () {
                 deleteBtn(this);
             }
@@ -39,7 +39,7 @@
             let parent = document.getElementById('form_area');
             let ipt_id = document.getElementById('tag_' + target_id);
             let tgt_id = document.getElementById(target_id);
-            let br_id = document.getElementById('br_'+target_id);
+            let br_id = document.getElementById('br_' + target_id);
             parent.removeChild(ipt_id);
             parent.removeChild(tgt_id);
             parent.removeChild(br_id);
@@ -97,10 +97,10 @@
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-        <div class="row">
-            <div class="col">
+<!--        <div class="row">-->
+<!--            <div class="col">-->
                 <h2 class="page_title">グループ新規作成</h2>
-                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" >
+                <form th:action="@{/groups/addGroup}" method="post" th:object="${group}">
 
 
                     <input type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()">ゼミ
@@ -110,13 +110,14 @@
 
                     <div class="form-group">
                         <label for="groupName">グループ名</label>
-                        <input type="text" id="groupName" class="form-control">
+                        <input type="text" id="groupName" class="form-control w50">
                     </div>
 
                     <div class="form-group">
                         <label for="groupBio">グループ概要</label>
-                        <textarea  id="groupBio" >
+                        <textarea id="groupBio" name="groupBio" rows="8" class="form-control w80"></textarea>
                     </div>
+                    <br>
                     <p>タグ</p>
                     <div id="form_area">
                     </div>
@@ -124,18 +125,17 @@
                     <input type="button" value="タグ追加" onclick="addForm()">
                     <br>
                     <!---コンペ用の情報-->
-                    <p>
                     <div id="deadline">
                         提出期限<br>
                         <input type="datetime-local" name="deadline">
                     </div>
-                    </p>
                     <br>
-                    <input type="submit" value="作成">
+                    <button type="submit" class="btn btn-primary">作成する</button>
                 </form>
-        </div>
-        </div>
-    </div>
+            </div>
+<!--        </div>-->
+<!--    </div>-->
 </main>
 </body>
+<script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </html>
