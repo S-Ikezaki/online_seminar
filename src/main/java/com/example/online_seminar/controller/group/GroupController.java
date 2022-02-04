@@ -7,6 +7,7 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
+import org.hibernate.result.UpdateCountOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -365,6 +366,9 @@ public class GroupController {
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
+
+        System.out.println(group.getGroupId());
+        System.out.println(group.getGroupName());
 
         model.addAttribute("groups", group);
         if (result.hasErrors()) {
