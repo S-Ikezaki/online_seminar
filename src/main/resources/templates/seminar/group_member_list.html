@@ -11,15 +11,11 @@
         let roleName = document.createTextNode("");
         try {
             if (role === 0) {
-                roleName = document.createTextNode("学生");
+                roleName = document.createTextNode("一般");
             } else if (role === 1) {
-                roleName = document.createTextNode("学生管理者");
+                roleName = document.createTextNode("代表");
             } else if (role === 2) {
-                roleName = document.createTextNode("教師");
-            } else if (role === 3) {
-                roleName = document.createTextNode("企業担当者");
-            } else if (role === 4) {
-                roleName = document.createTextNode("代表者");
+                roleName = document.createTextNode("講師");
             }
         } catch (e) {
             console.error("エラー：", e.message);
