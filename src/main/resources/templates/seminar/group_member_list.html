@@ -66,7 +66,7 @@
             <td th:text="${groupMember.userName}"></td>
             <td id="groupRole" th:text="${groupMember.groupRole}"></td>
             <div sec:authorize="hasAnyRole('1','3')">
-                <form th:action="@{groups/deleteGroupMember}" method="get">
+                <form th:action="@{groups/deleteGroupMember}" method="post">
                     <input type="hidden" name="userId" th:value="${groupMember.userId}">
                     <td>
                         <button type="submit">退会</button>
@@ -79,7 +79,7 @@
 
     <form th:action="@{/groups/showGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
-        <button type="submit">グループメニューに戻る</button>
+        <button class="btn btn-primary">グループメニューに戻る</button>
     </form>
 
 </main>
