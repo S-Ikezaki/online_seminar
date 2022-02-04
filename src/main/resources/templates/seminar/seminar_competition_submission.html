@@ -78,7 +78,6 @@
                                 <td th:text="${meetingMember.userName}"></td>
                             </tr>
                             </tbody>
-
                         </table>
                         <button class="btn btn-primary" type="submit">参加</button>
                     </form>
@@ -110,6 +109,14 @@
                                 <input type="hidden" name="groupId" th:value="${groupId}">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-file"></i>資料共有
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/groups/showGroupMemberList}" method="get">
+                                <input type="hidden" name="groupId" th:value="${groupId}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class=""></i>メンバー
                                 </button>
                             </form>
                         </td>

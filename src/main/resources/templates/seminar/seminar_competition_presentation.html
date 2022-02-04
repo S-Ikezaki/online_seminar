@@ -110,6 +110,14 @@
                                 </button>
                             </form>
                         </td>
+                        <td>
+                            <form th:action="@{/groups/showGroupMemberList}" method="get">
+                                <input type="hidden" name="groupId" th:value="${groupId}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class=""></i>メンバー
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </table>
 

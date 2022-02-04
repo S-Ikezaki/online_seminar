@@ -106,6 +106,14 @@
                     </button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/groups/showGroupMemberList}" method="get">
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class=""></i>メンバー
+                    </button>
+                </form>
+            </td>
         </tr>
     </table>
 
@@ -118,10 +126,6 @@
     <!--        &lt;!&ndash;            &lt;!&ndash;                <button th:attr="onClick='location.href=\'' +@{/users/teacher/group_create} + '\''">グループ作成画面</button>&ndash;&gt;&ndash;&gt;-->
     <!--        &lt;!&ndash;        </form>&ndash;&gt;-->
     <!--    </div>-->
-    <!--    <form th:action="@{/groups/showGroupMemberList}" method="post">-->
-    <!--        <input type="hidden" name="groupId" th:value="${groupId}">-->
-    <!--        <button type="submit">メンバー</button>-->
-    <!--    </form>-->
     <!--    <form th:action="@{/files/filesShare}" method="post">-->
     <!--        <input type="hidden" name="groupId" th:value="${groupId}">-->
     <!--        <button type="submit">資料共有</button>-->
