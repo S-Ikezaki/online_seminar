@@ -53,29 +53,52 @@
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <!--        <input type="text" name="messageContents" size="30" placeholder="投稿内容">-->
                     <textarea  name="messageContents" rows="3" class="form-control w-50"></textarea>
+                    <br>
                     <button class="btn btn-primary" type="submit">投稿</button>
                 </div>
             </form>
-    <div class="meeting-container" th:if="${meeting} != null">
-        <h4>開催中の会議</h4>
-        <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
-            <p th:text="'主催者：' + ${meeting.userName}"></p><br>
-            <table>
-                <thead>
-                <tr>
-                    <th>参加者:</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${!#lists.isEmpty(meetingMembers)}" th:each="meetingMember : ${meetingMembers}">
-                    <td th:text="${meetingMember.userName}"></td>
-                </tr>
-                </tbody>
+            <br>
 
-            </table>
-            <button class="btn btn-primary" type="submit">参加</button>
-        </form>
-    </div>
+            <div class="meeting-container" th:if="${meeting} != null">
+                <div class="card shadow" style="width: 400px">
+                    <div class="card-header" style="width: 400px">
+                        <h4 class="page_title">開催中の会議</h4>
+                        <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>主催者</th><th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <td></td><td th:text="${meeting.userName}"></td><br>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>参加者</th><th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${!#lists.isEmpty(meetingMembers)}" th:each="meetingMember : ${meetingMembers}">
+                                        <td></td><td th:text="${meetingMember.userName}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br>
+                            <button class="btn btn-primary" type="submit">参加</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="meeting-container" th:if="${meeting} == null">
+                <h4>開催中の会議はありません</h4>
+            </div>
 
     <br>
     <table>
