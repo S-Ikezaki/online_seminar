@@ -23,11 +23,11 @@
         </div>
         <div class="row">
             <div class="col">
-                <!--                <div class="card shadow">-->
-                <!--                    <div class="card-header">-->
+<!--                                <div class="card shadow">-->
+<!--                                    <div class="card-header">-->
 
 
-<!--                <h2 class="seminar_title" th:text="${userName.userName}"></h2>-->
+                <h2 class="page_title" th:text="${userName.userName}"></h2>
 
                 <!--参加ゼミ一覧表示-->
                 <div sec:authorize="hasAnyRole('0','1','3')">
@@ -97,14 +97,14 @@
                                 <input type="hidden" name="userId" th:value="${userId}">
                                 <input type="hidden" name="role" th:value="${role}">
                                 <button class="btn btn-primary">
-                                    <i class="fas fa-search"></i> グループ検索
+                                    <i class="fas fa-search"></i> 検索
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <div sec:authorize="hasAnyRole('1','3')">
+                            <div sec:authorize="hasAnyRole('1','3','2')">
                                 <button class="btn btn-primary"
-                                        th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
+                                        th:attr="onClick='location.href=\'' +@{/groups/showCreateMenu} + '\''">
                                     <i class="far fa-plus-square"></i> グループ作成
                                 </button>
                             </div>
@@ -129,8 +129,8 @@
             </div>
         </div>
     </div>
-    <!--        </div>-->
-    <!--    </div>-->
+<!--            </div>-->
+<!--        </div>-->
 </main>
 </body>
 <script th:src="@{webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>

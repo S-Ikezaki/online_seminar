@@ -7,7 +7,6 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
-import org.hibernate.result.UpdateCountOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -116,7 +115,9 @@ public class GroupController {
                             @RequestParam("userId") String userId,
                             @RequestParam("comment") String comment,
                             Participation participation,
-                            BindingResult result) {
+                            BindingResult result,
+                            Model model,
+                            Authentication loginUser) {
 
         System.out.println("aaa");
         System.out.println(groupId);
@@ -156,6 +157,28 @@ public class GroupController {
         System.out.println(participation);
 
         participationRepository.save(participation);
+
+        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
+        List<Group> seminar = new ArrayList<Group>();
+        List<Group> competition = new ArrayList<Group>();
+
+        for (Group group : groupList) {
+            if (group.getGroupRole() == 0) {
+                seminar.add(group);
+            } else {
+                competition.add(group);
+            }
+        }
+
+        User userName = userRepository.findByUserId(userId);
+
+        model.addAttribute("userId", loginUser.getName());
+        model.addAttribute("userName", userName);
+        model.addAttribute("role", loginUser.getAuthorities());
+
+        System.out.println(loginUser.getAuthorities());
+        model.addAttribute("seminars", seminar);
+        model.addAttribute("competitions", competition);
 
         return "main_menu";
     }
@@ -265,13 +288,13 @@ public class GroupController {
     }
 
     //ゼミ作成リクエストの１件削除用
-    @GetMapping("/requestDelete")
-    public String requestDelete(@RequestParam("requestId") long requestId) {
+    @PostMapping("/requestDelete")
+    public String requestDelete(int requestId) {
 
         //確認用
         System.out.println(requestId);
 
-        requestRepository.deleteById(requestId);
+        requestRepository.deleteById((long) requestId);
 
         return "search/search";
     }
@@ -371,6 +394,7 @@ public class GroupController {
         System.out.println(group.getGroupName());
 
         model.addAttribute("groups", group);
+        model.addAttribute("groupId",group.getGroupId());
         if (result.hasErrors()) {
             return "error";
         }
@@ -381,7 +405,7 @@ public class GroupController {
     }
 
     //グループ作成HTMLを開くための処理
-    @GetMapping("/teacher/showCreateMenu")
+    @GetMapping("/showCreateMenu")
     public String showCreateMenu(Model model) {
         return "group_add";
     }
@@ -402,7 +426,7 @@ public class GroupController {
 
     //グループ作成時に作成者をグループに追加する
     @PostMapping("/addUser")
-    public String addUser(Authentication loginUser, GroupMember groupMember, Group group) {
+    public String addUser(Authentication loginUser, GroupMember groupMember, Group group, Model model) {
 
         System.out.println("adduser");
 
@@ -430,7 +454,9 @@ public class GroupController {
         createDirectory(group);
         System.out.println(groupMember);
 
+
         groupMemberRepository.save(groupMember);
+        model.addAttribute("groupId",group_Id);
 
         if (group.getGroupRole() == 0) {
             //System.out.println("ゼミメニュー");
@@ -530,11 +556,14 @@ public class GroupController {
                                   Authentication loginUser,
                                   BindingResult result) {
 
+        System.out.println("addGroup-GroupId:"+groupId);
+        System.out.println("addGroup-GroupMessage:"+groupMessage);
+
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String sdfCalender = sdf.format((calendar.getTime()));
+        String sdfCalender = sdf.format(calendar.getTime());
         int groupMessageId = 0;
 
         groupMessage.setGroupMessageId(groupMessageId);
