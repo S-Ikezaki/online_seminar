@@ -91,14 +91,14 @@
             </tr>
         </table>
 
-        <form th:action="@{/groups/requestDelete}" method="get">
+        <form th:action="@{/groups/requestDelete}" method="post">
             <table class="table">
                 <tr th:each="request: ${requestList}" class="align-middle">
                     <td th:text="${request.requestUserName}"></td>
                     <td th:text="${request.requestContent}"></td>
                     <td>
                         <button class="btn btn-primary"
-                                th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
+                                th:attr="onClick='location.href=\'' +@{/groups/showCreateMenu} + '\''">
                             <i class="far fa-plus-square"></i> グループ作成
                         </button>
                     </td>
