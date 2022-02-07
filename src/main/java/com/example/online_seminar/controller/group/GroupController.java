@@ -7,7 +7,6 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
-import org.hibernate.result.UpdateCountOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -116,7 +115,9 @@ public class GroupController {
                             @RequestParam("userId") String userId,
                             @RequestParam("comment") String comment,
                             Participation participation,
-                            BindingResult result) {
+                            BindingResult result,
+                            Model model,
+                            Authentication loginUser) {
 
         System.out.println("aaa");
         System.out.println(groupId);
@@ -156,6 +157,28 @@ public class GroupController {
         System.out.println(participation);
 
         participationRepository.save(participation);
+
+        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
+        List<Group> seminar = new ArrayList<Group>();
+        List<Group> competition = new ArrayList<Group>();
+
+        for (Group group : groupList) {
+            if (group.getGroupRole() == 0) {
+                seminar.add(group);
+            } else {
+                competition.add(group);
+            }
+        }
+
+        User userName = userRepository.findByUserId(userId);
+
+        model.addAttribute("userId", loginUser.getName());
+        model.addAttribute("userName", userName);
+        model.addAttribute("role", loginUser.getAuthorities());
+
+        System.out.println(loginUser.getAuthorities());
+        model.addAttribute("seminars", seminar);
+        model.addAttribute("competitions", competition);
 
         return "main_menu";
     }
