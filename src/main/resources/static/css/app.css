@@ -104,6 +104,12 @@ table.layout-table01 {
     text-align: center;
 }
 
+table.layout-table02 {
+    table-layout: auto;
+    width: 50%;
+    text-align: center;
+}
+
 table.layout-table01,
 table.layout-table01 td,
 table.layout-table01 th {
@@ -126,3 +132,19 @@ table.layout-table01 th {
 }
 
 
+table.layout-table02,
+table.layout-table02 td,
+table.layout-table02 th {
+    border: solid 1px #fff;
+    border-collapse: collapse;
+}
+
+table.layout-table02 th {
+    background-color: lightgray;
+}
+
+table.layout-table02 td,
+table.layout-table02 th {
+    padding: 10px;
+    box-sizing: border-box;
+}

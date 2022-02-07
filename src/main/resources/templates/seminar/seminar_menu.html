@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <input type="hidden" name="groupId" th:value="${groupId}">
                     <!--        <input type="text" name="messageContents" size="30" placeholder="投稿内容">-->
-                    <textarea  name="messageContents" rows="3" class="form-control w-50"></textarea>
+                    <textarea required name="messageContents" rows="3" class="form-control w-50" maxlength="500"></textarea>
                     <button class="btn btn-primary" type="submit">投稿</button>
                 </div>
             </form>

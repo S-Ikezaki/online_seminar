@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Harbbit | RequestSend</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
     <!--タグ入力欄用のCSS-->
     <style>
         input {
@@ -42,7 +44,84 @@
             parent.removeChild(ipt_id);
             parent.removeChild(tgt_id);
         }
+        function send() {
+            alert('送信しました');
+        }
     </script>
+
+<!--    <script>-->
+<!--        let i = 1;-->
+
+<!--        function addForm() {-->
+<!--            let input_data = document.createElement('input');-->
+<!--            input_data.type = 'text';-->
+<!--            input_data.id = 'tag_' + i;-->
+<!--            let br_data = 'br_' + i;-->
+<!--            input_data.placeholder = 'タグを入力してください';-->
+<!--            let parent = document.getElementById('form_area');-->
+<!--            parent.appendChild(input_data);-->
+
+<!--            let button_data = document.createElement('button');-->
+<!--            button_data.id = i;-->
+<!--            button_data.innerHTML = '削除';-->
+<!--            let input_area = document.getElementById(input_data.id);-->
+<!--            parent.appendChild(button_data);-->
+<!--            parent.insertAdjacentHTML("beforeend", "<br id=" + br_data + ">");-->
+<!--            button_data.onclick = function () {-->
+<!--                deleteBtn(this);-->
+<!--            }-->
+
+<!--            i++;-->
+<!--        }-->
+
+<!--        function deleteBtn(target) {-->
+<!--            let target_id = target.id;-->
+<!--            let parent = document.getElementById('form_area');-->
+<!--            let ipt_id = document.getElementById('tag_' + target_id);-->
+<!--            let tgt_id = document.getElementById(target_id);-->
+<!--            let br_id = document.getElementById('br_' + target_id);-->
+<!--            parent.removeChild(ipt_id);-->
+<!--            parent.removeChild(tgt_id);-->
+<!--            parent.removeChild(br_id);-->
+<!--        }-->
+
+<!--        window.onload = function () {-->
+<!--            let id = document.getElementById("id");-->
+<!--            let name = document.getElementById("name");-->
+<!--            let bio = document.getElementById("bio");-->
+
+<!--            let deadline = document.getElementById("deadline");-->
+
+<!--            deadline.style.display = "none";-->
+
+<!--            id.value = "";-->
+<!--            name.value = "";-->
+<!--            bio.value = "";-->
+
+<!--            deadline.value = "";-->
+<!--        }-->
+
+<!--        function buttonClick() {-->
+<!--            let seminarform = document.getElementById("seminar");-->
+<!--            let announcementcompform = document.getElementById("announcement_comp");-->
+<!--            let submissioncompform = document.getElementById("submission_comp");-->
+
+<!--            let deadline = document.getElementById("deadline");-->
+
+<!--            deadline.value = "";-->
+
+<!--            if (seminarform.checked) {-->
+<!--                deadline.style.display = "none";-->
+<!--            } else if (announcementcompform.checked) {-->
+<!--                deadline.style.display = "";-->
+<!--            } else if (submissioncompform.checked) {-->
+<!--                deadline.style.display = "";-->
+<!--            } else {-->
+<!--                deadline.style.display = "none";-->
+<!--            }-->
+<!--        }-->
+
+<!--    </script>-->
 
 </head>
 <body>
@@ -53,32 +132,37 @@
 
 <!-- コンテンツの表示 -->
 <main layout:fragment="content"
-      class="offcanvas-outside bg-light">
+      class="offcanvas-outside">
     <div class="container-fluid">
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
         </div>
-    </div>
 
-    <h2>ゼミ作成リクエスト</h2>
-    <br>
+    <h2 class="page_title">ゼミ作成リクエスト</h2>
+
     <form th:action="@{/groups/request_presentation}" method="post">
-        <h4 th:text="${requestUser}"></h4>
-        <input type="text" name="comment" maxlength="500" placeholder="申請内容を入力してください">
+<!--        <input type="text" name="comment" maxlength="500" placeholder="申請内容を入力してください">-->
+        <label>申請内容</label>
+        <textarea required name="comment" rows="3" class="form-control w-50" maxlength="500" placeholder="申請内容を入力してください"></textarea>
         <br>
-        タグ:
+        <p>タグ</p>
         <div id="form_area">
-            <input type="text" name="tagName" maxlength="100" id="inputform_0" placeholder="タグを入力してください">
+            <input type="text" name="tagName"  maxlength="100" id="inputform_0" placeholder="タグを入力してください">
             <button id="0" onclick="deleteBtn(this)">削除</button>
         </div>
         <input type="button" value="タグ追加" onclick="addForm()">
         <br>
+        <button class="btn btn-primary" name="requestUser" type="submit" th:value="${requestUser}" onclick="send()">
+            <i class="fas fa-share-square"></i>リクエスト送信
+        </button>
+        </td>
 
-        <button type="submit" name="requestUser" th:value="${requestUser}">リクエスト提示</button>
     </form>
-
-    <button type="button" onclick="history.back()">戻る</button>
-
+    <br>
+    <button class="btn btn-primary" onclick="history.back()">
+        <i class="fas fa-search"></i> 検索画面に戻る
+    </button>
+    </div>
 </main>
 </body>
 </html>

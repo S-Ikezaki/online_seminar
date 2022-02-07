@@ -80,13 +80,11 @@
                 <form th:action="@{/groups/apply}" th:method="get">
                     <td th:text="${group.groupName}"></td>
                     <td th:text="${group.groupBio}"></td>
-                    <!-- GroupControllerのapplyにgroupIdとgroupRoleとuserNameを渡す -->
                     <td>
                         <input type="hidden" name="userId" th:value="${userId}">
                         <input type="hidden" name="groupId" th:value="${group.groupId}">
                         <button class="btn btn-primary" type="submit" name="groupRole" th:value="${group.groupRole}">参加</button>
                     </td>
-                    <!-- -->
                 </form>
             </tr>
         </table>
@@ -96,13 +94,11 @@
                 <tr th:each="request: ${requestList}" class="align-middle">
                     <td th:text="${request.requestUserName}"></td>
                     <td th:text="${request.requestContent}"></td>
-                    <td>
+                    <td align="right">
                         <button class="btn btn-primary"
                                 th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
                             <i class="far fa-plus-square"></i> グループ作成
                         </button>
-                    </td>
-                    <td>
                         <button type="submit" name="requestId" th:value="${request.getRequestId()}">拒否</button>
                     </td>
                 </tr>
