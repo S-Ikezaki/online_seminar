@@ -32,9 +32,9 @@
     <table class="layout-table01">
         <thead>
         <tr>
-            <th>ユーザ名</th>
-            <th>投稿内容</th>
-            <th>日付</th>
+            <th class="w10">ユーザ名</th>
+            <th class="w55">投稿内容</th>
+            <th class="w10">日付</th>
         </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
         <!-- 要素の数ループする -->
         <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
             <td th:text="${groupMessage.userName}"></td>
-            <td th:text="${groupMessage.messageContents}"></td>
+            <td th:text="${groupMessage.messageContents}" class="content"></td>
             <td th:text="${groupMessage.createDatetime}"></td>
         </tr>
         </tbody>

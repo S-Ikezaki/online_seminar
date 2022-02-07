@@ -9,6 +9,9 @@
     background-size: cover;
 }
 
+.content{
+    text-align: left;
+}
 .text-navy {
     color: darkgrey;
     font-family: 'Noto Serif JP', serif;
