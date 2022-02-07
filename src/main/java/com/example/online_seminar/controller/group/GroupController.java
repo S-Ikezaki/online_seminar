@@ -265,7 +265,7 @@ public class GroupController {
         System.out.println(tagRequest);
         tagRequestRepository.save(tagRequest);
 
-        return "seminar/seminar_request_completed";
+        return "search/search";
     }
 
     // 検索画面に遷移

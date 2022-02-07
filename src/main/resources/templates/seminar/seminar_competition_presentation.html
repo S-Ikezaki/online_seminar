@@ -28,18 +28,12 @@
                 <br>
                 <h4 th:object="${groups}" th:each="group : ${groups}" th:text="${group.groupBio}"></h4>
                 <br>
-
-                <form th:action="@{/groups/addGroupMessage}" method="post">
-                    <input type="hidden" name="groupId" th:value="${groupId}">
-                    <input type="text" name="messageContents" size="30" placeholder="投稿内容">
-                    <button class="btn btn-primary" type="submit">投稿</button>
-                </form>
-                <table class="table table-bordered">
+                <table class="layout-table01">
                     <thead>
                     <tr>
-                        <th>ユーザ名</th>
-                        <th>投稿内容</th>
-                        <th>日付</th>
+                        <th class="w10">ユーザ名</th>
+                        <th class="w55">投稿内容</th>
+                        <th class="w10">日付</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,19 +41,20 @@
                     <!-- 要素の数ループする -->
                     <tr th:if="${!#lists.isEmpty(groupMessages)}" th:each="groupMessage : ${groupMessages}">
                         <td th:text="${groupMessage.userName}"></td>
-                        <td th:text="${groupMessage.messageContents}"></td>
+                        <td th:text="${groupMessage.messageContents}" class="content"></td>
                         <td th:text="${groupMessage.createDatetime}"></td>
-                        <!--            <div sec:authorize="hasAnyRole('1','3')">-->
-                        <!--                <form th:action="@{groups/deleteGroupMessage}" method="post">-->
-                        <!--                    <input type="hidden" name="messageId" th:value="${groupMessage.groupMessageId}">-->
-                        <!--                    <td>-->
-                        <!--                        <button class="btn btn-primary" type="submit">削除</button>-->
-                        <!--                    </td>-->
-                        <!--                </form>-->
-                        <!--            </div>-->
                     </tr>
                     </tbody>
                 </table>
+                <br><br><br>
+                <form th:action="@{/groups/addGroupMessage}" method="post">
+                    <div class="form-group">
+                        <input type="hidden" name="groupId" th:value="${groupId}">
+                        <!--        <input type="text" name="messageContents" size="30" placeholder="投稿内容">-->
+                        <textarea required name="messageContents" rows="3" class="form-control w-50" maxlength="500"></textarea>
+                        <button class="btn btn-primary" type="submit">投稿</button>
+                    </div>
+                </form>
                 <div class="meeting-container" th:if="${meeting} != null">
                     <h4>会議</h4>
                     <form th:action="@{'/groups/meeting/join/' + ${groupId}}" target="_blank" method="post">
@@ -92,15 +87,6 @@
                                 </button>
                             </form>
                         </td>
-
-                        <!--            <td>-->
-                        <!--                <form th:action="@{/groups/showGroupMemberList}" method="post">-->
-                        <!--                    <input type="hidden" name="groupId" th:value="${groupId}">-->
-                        <!--                    <button type="submit" class="btn btn-primary">-->
-                        <!--                        <i class="fas fa-users"></i>メンバー-->
-                        <!--                    </button>-->
-                        <!--                </form>-->
-                        <!--            </td>-->
 
                         <td>
                             <form th:action="@{/files/filesShare}" method="post">
