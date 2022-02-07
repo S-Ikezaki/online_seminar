@@ -38,73 +38,73 @@
 
         <h2 class="seminar_title"th:text="検索画面"></h2>
 
-    <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
-    <form name="search" th:action="@{/groups/search_group_detail}" method="post">
-        <div class="form-control">
-        <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
-        <input type="search" name="keyword" placeholder="タグを入力">
-        <button class="btn btn-primary">
-            <i class="fas fa-search"></i>
-        </button>
-        </div>
+        <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
+        <form name="search" th:action="@{/groups/search_group_detail}" method="post">
+            <div class="form-control">
+                <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
+                <input type="search" name="keyword" placeholder="タグを入力">
+                <button class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
 
-        <table>
-        <div sec:authorize="hasAnyRole('0', '1', '3')">
-            <tr>
-                <td><input type="checkbox" name="seminar1" onclick="checkCB2()"/>ゼミ</td>
-                <td><input type="checkbox" name="seminar2" onclick="checkCB2()"/>コンペ(発表)</td>
-                <td><input type="checkbox" name="seminar3" onclick="checkCB2()"/>コンペ(提出)</td>
-            </tr>
-        </div>
-        </table>
+            <table>
+                <div sec:authorize="hasAnyRole('0', '1', '3')">
+                    <tr>
+                        <td><input type="checkbox" name="seminar1" onclick="checkCB2()"/>ゼミ</td>
+                        <td><input type="checkbox" name="seminar2" onclick="checkCB2()"/>コンペ(発表)</td>
+                        <td><input type="checkbox" name="seminar3" onclick="checkCB2()"/>コンペ(提出)</td>
+                    </tr>
+                </div>
+            </table>
 
-        <div sec:authorize="hasAnyRole('1', '3')">
-            <input type="checkbox" name="checkBoxReq" value="request" onclick="checkCB()"/>リクエスト
-        </div>
-    </form>
+            <div sec:authorize="hasAnyRole('1', '3')">
+                <input type="checkbox" name="checkBoxReq" value="request" onclick="checkCB()"/>リクエスト
+            </div>
+        </form>
 
         <br>
 
-    <!-- groupListを使いキーワードとチャックボックスで指定された開催中のグループを表示させる -->
-    <table class="table">
-        <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
-            <form th:action="@{/groups/apply}" th:method="get">
-            <td th:text="${group.groupName}"></td>
-            <td th:text="${group.groupBio}"></td>
-            <!-- GroupControllerのapplyにgroupIdとgroupRoleとuserNameを渡す -->
-            <td>
-                <input type="hidden" name="userId" th:value="${userId}">
-                <input type="hidden" name="groupId" th:value="${group.groupId}">
-                <button class="btn btn-primary" type="submit" name="groupRole" th:value="${group.groupRole}">参加</button>
-            </td>
-            <!-- -->
-            </form>
-        </tr>
-    </table>
+        <!-- groupListを使いキーワードとチャックボックスで指定された開催中のグループを表示させる -->
+        <table class="table">
+            <tr th:each="group: ${groupList}" th:if="${!#lists.isEmpty(groupList)}" class="align-middle">
+                <form th:action="@{/groups/apply}" th:method="get">
+                    <td th:text="${group.groupName}"></td>
+                    <td th:text="${group.groupBio}"></td>
+                    <!-- GroupControllerのapplyにgroupIdとgroupRoleとuserNameを渡す -->
+                    <td>
+                        <input type="hidden" name="userId" th:value="${userId}">
+                        <input type="hidden" name="groupId" th:value="${group.groupId}">
+                        <button class="btn btn-primary" type="submit" name="groupRole" th:value="${group.groupRole}">参加</button>
+                    </td>
+                    <!-- -->
+                </form>
+            </tr>
+        </table>
 
-    <form th:action="@{/groups/requestDelete}" method="get">
-    <table class="table">
-        <tr th:each="request: ${requestList}" class="align-middle">
-            <td th:text="${request.requestUserName}"></td>
-            <td th:text="${request.requestContent}"></td>
-            <td>
-                <button class="btn btn-primary"
-                        th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
-                    <i class="far fa-plus-square"></i> グループ作成
-                </button>
-            </td>
-            <td>
-                <button type="submit" name="requestId" th:value="${request.getRequestId()}">拒否</button>
-            </td>
-        </tr>
-    </table>
-    </form>
+        <form th:action="@{/groups/requestDelete}" method="get">
+            <table class="table">
+                <tr th:each="request: ${requestList}" class="align-middle">
+                    <td th:text="${request.requestUserName}"></td>
+                    <td th:text="${request.requestContent}"></td>
+                    <td>
+                        <button class="btn btn-primary"
+                                th:attr="onClick='location.href=\'' +@{/groups/teacher/showCreateMenu} + '\''">
+                            <i class="far fa-plus-square"></i> グループ作成
+                        </button>
+                    </td>
+                    <td>
+                        <button type="submit" name="requestId" th:value="${request.getRequestId()}">拒否</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
 
-    <form th:action="@{/groups/request_seminar}" method="get">
-        <div sec:authorize="hasAnyRole('0')">
-            <button class="btn btn-primary" type="submit" name="userId" th:value="${userId}">ゼミ作成リクエスト</button><br>
-        </div>
-    </form>
+        <form th:action="@{/groups/request_seminar}" method="get">
+            <div sec:authorize="hasAnyRole('0')">
+                <button class="btn btn-primary" type="submit" name="userId" th:value="${userId}">ゼミ作成リクエスト</button><br>
+            </div>
+        </form>
     </div>
 </main>
 </body>

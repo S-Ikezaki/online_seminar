@@ -375,7 +375,7 @@ public class GroupController {
 
         return "forward:/groups/addUser";
     }
-    
+
     //グループ作成HTMLを開くための処理
     @GetMapping("/teacher/showCreateMenu")
     public String showCreateMenu(Model model){ return "group_add"; }
