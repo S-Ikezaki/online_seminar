@@ -79,7 +79,7 @@
     </table>
 
     <label>ファイルアップロード</label>
-    <form th:action="@{/files/upload}" method="post" enctype="multipart/form-data" th:object="${uploadForm}"
+    <p><form th:action="@{/files/upload}" method="post" enctype="multipart/form-data" th:object="${uploadForm}"
           name="upload_form">
         <div>
             <label>■ファイルパス</label>
@@ -87,15 +87,17 @@
         </div>
         <br>
         <div>
-            <input type="submit" value="アップロード" onclick="return check();">
+            <input type="submit" class="btn btn-primary" value="アップロード" onclick="return check();">
             <input type="hidden" name="groupId" th:value="${groupId}" }>
         </div>
     </form>
-
+    </p>
+    <p>
     <form th:action="@{/groups/showGroupMessage}" method="post">
         <input type="hidden" name="groupId" th:value="${groupId}">
         <button class="btn btn-primary">メニューに戻る</button>
     </form>
+    </p>
 </main>
 </body>
 </html>

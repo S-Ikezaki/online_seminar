@@ -18,11 +18,16 @@
             } else if (role === 2) {
                 role = role.replace('2','講師');
                 console.log(role)
+            }else if (role === 3) {
+                role = role.replace('3','企業関係者');
+                console.log(role)
+            }else if (role === 4) {
+                role = role.replace('4','代表者');
+                console.log(role)
             }
         } catch (e) {
             console.error("エラー：", e.message);
         }
-
     }
 
 
@@ -52,13 +57,37 @@
         <div class="row">
             <div class="col">
 
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ユーザ名</th>-->
+<!--            <th>権限</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        &lt;!&ndash; messageが空でない場合、messageの要素をmessageに格納する &ndash;&gt;-->
+<!--        &lt;!&ndash; 要素の数ループする &ndash;&gt;-->
+<!--        <tr th:if="${!#lists.isEmpty(groupMembers)}" th:each="groupMember : ${groupMembers}">-->
+<!--            <td th:text="${groupMember.userName}"></td>-->
+<!--            <td id="groupRole" th:text="${groupMember.groupRole}"></td>-->
+<!--            <div sec:authorize="hasAnyRole('1','3')">-->
+<!--                <form th:action="@{groups/deleteGroupMember}" method="post">-->
+<!--                    <input type="hidden" name="userId" th:value="${groupMember.userId}">-->
+<!--                    <td>-->
+<!--                        <button type="submit">退会</button>-->
+<!--                    </td>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--=======-->
                 <h2 class="page_title">参加メンバー</h2>
                 <br>
-                <table class="layout-table01">
+                <table class="layout-table02">
                     <thead>
                     <tr>
                         <th>ユーザ名</th>
-                        <th>権限</th>
+                        <th>役職</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -67,6 +96,7 @@
                     <!-- 要素の数ループする -->
                     <tr th:if="${!#lists.isEmpty(groupMembers)}" th:each="groupMember : ${groupMembers}">
                         <td th:text="${groupMember.userName}"></td>
+
 
                         <td  th:if="${groupMember.groupRole  == 0}"
                              th:text="一般">一般
@@ -77,15 +107,21 @@
                         <td th:if="${groupMember.groupRole  == 2}"
                             th:text="講師">講師
                         </td>
+                        <td th:if="${groupMember.groupRole  == 3}"
+                            th:text="企業関係者">企業関係者
+                        </td>
+                        <td th:if="${groupMember.groupRole  == 4}"
+                            th:text="代表者">代表者
+                        </td>
 
-                        <div sec:authorize="hasAnyRole('1','3')">
-                            <form th:action="@{groups/deleteGroupMember}" method="post">
-                                <input type="hidden" name="userId" th:value="${groupMember.userId}">
-                                <td>
-                                    <button type="submit"  class="btn btn-primary">退会</button>
-                                </td>
-                            </form>
-                        </div>
+<!--                        <div>-->
+<!--                            <form th:action="@{groups/deleteGroupMember}" method="post">-->
+<!--                                <input type="hidden" name="userId" th:value="${groupMember.userId}">-->
+<!--                                <td sec:authorize="hasAnyRole('1','3')">-->
+<!--                                    <button type="submit"  class="btn btn-primary">退会</button>-->
+<!--                                </td>-->
+<!--                            </form>-->
+<!--                        </div>-->
                     </tr>
                     </tbody>
                 </table>

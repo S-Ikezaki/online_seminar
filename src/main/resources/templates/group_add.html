@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Harbbit | GroupAdd</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
 
 
     <script>
@@ -102,17 +104,17 @@
                 <h2 class="page_title">グループ新規作成</h2>
                 <form th:action="@{/groups/addGroup}" method="post" th:object="${group}" >
 
-
-                    <input type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()">ゼミ
-                    <input type="radio" name="groupRole" id="announcement_comp" value="1" onclick="buttonClick()">発表型コンペ
-                    <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()">提出型コンペ
+                    <input sec:authorize="hasAnyRole('0','1','3')" type="radio" name="groupRole" id="seminar" checked value="0" onclick="buttonClick()" th:text="ゼミ">
+                    <input type="radio" name="groupRole" id="announcement_comp" value="1" onclick="buttonClick()" th:text="発表型コンペ">
+                    <input type="radio" name="groupRole" id="submission_comp" value="2" onclick="buttonClick()" th:text="提出型コンペ">
+                    <br>
                     <br>
 
                     <div class="form-group">
                         <label for="groupName">グループ名</label>
                         <input type="text" id="groupName" name="groupName" th:value="${groupName}" class="form-control w50">
                     </div>
-
+                    <br><br>
                     <div class="form-group">
                         <label for="groupBio">グループ概要</label>
                         <textarea id="groupBio" name="groupBio" rows="8" class="form-control w80"></textarea>
