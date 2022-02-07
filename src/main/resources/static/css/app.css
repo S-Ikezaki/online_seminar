@@ -59,7 +59,29 @@ a {
     height: calc(100vh - 56px)
 }
 
-.seminar_title {
+.w50{
+    width: 50%;
+}
+
+.w80{
+    width: 80%;
+}
+
+.w25{
+    width:  25%;
+}
+
+.w10{
+    width: 10%;
+}
+
+.w55{
+    width: 55%;
+}
+
+
+
+.page_title {
     padding: 1rem 2rem;
     background: #224abe;
     color: white;
@@ -75,7 +97,7 @@ a {
 
 table.layout-table01 {
     table-layout: auto;
-    width: 100%;
+    width: 75%;
     text-align: center;
 }
 

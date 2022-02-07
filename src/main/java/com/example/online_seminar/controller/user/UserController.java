@@ -6,13 +6,22 @@ import com.example.online_seminar.repository.CertificationRepository;
 import com.example.online_seminar.repository.GroupRepository;
 import com.example.online_seminar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequestMapping("users")
 public class UserController {
+
+
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 
     private final UserRepository userRepository;
     private final CertificationRepository certificationRepository;
@@ -100,18 +109,38 @@ public class UserController {
 //    }
 
     // パスワード更新
-    @PostMapping("updatepass")
-    public String updatePassword(
-            @ModelAttribute() String userId,
-            @ModelAttribute() String password,
-            Model model
-    ) {
-        Certification certification = new Certification();
+    @GetMapping("/updatepass")
+    public String updatePassword() {
+        System.out.println("UserController");
+
+        return "teacher/teacher_edit_password";
+    }
+
+    @PostMapping("/editpass")
+    public  String editPassword(@RequestParam("password") String password , Authentication loginUser , Certification certification) {
+        String userId = loginUser.getName();
+
+        String newpass = "";
+
+        passwordEncoder().encode(password);
+
+        System.out.println(newpass);
+
+        certificationRepository.updatePasswordById(newpass,userId);
+
+        int role = certification.getRole();
+        System.out.println(role);
+
+
         certification.setUserId(userId);
-        certification.setPassword(password);
+        certification.setPassword(newpass);
+        certification.setRole(role);
+
+        System.out.println(certification);
+
         certificationRepository.save(certification);
 
-        return "";
+        return "/main_menu.html";
     }
 
     // ユーザが所属しているグループを取得

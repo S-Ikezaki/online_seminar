@@ -26,17 +26,18 @@
                 <!--                <div class="card shadow">-->
                 <!--                    <div class="card-header">-->
 
+
 <!--                <h2 class="seminar_title" th:text="${userName.userName}"></h2>-->
 
                 <!--参加ゼミ一覧表示-->
                 <div sec:authorize="hasAnyRole('0','1','3')">
-                    <table class="layout-table01">
+                    <table class="layout-table01 ">
                         <caption>参加しているゼミ</caption>
                         <thead>
                         <tr>
-                            <th>ゼミ名</th>
-                            <th>概要</th>
-                            <th>ゼミメニューへ</th>
+                            <th class="w10">ゼミ名</th>
+                            <th class="w55">概要</th>
+                            <th class="w10">ゼミメニューへ</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,9 +66,9 @@
                     <caption>参加しているコンペ</caption>
                     <thead>
                     <tr>
-                        <th>コンペ名</th>
-                        <th>概要</th>
-                        <th>コンペメニューへ</th>
+                        <th class="w10">コンペ名</th>
+                        <th class="w55">概要</th>
+                        <th class="w10">コンペメニューへ</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -110,7 +111,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary"
-                                    th:attr="onClick='location.href=\'' +@{/users/group_search} + '\''">
+                                    th:attr="onClick='location.href=\'' +@{/users/updatepass} + '\''">
                                 <i class="fas fa-unlock-alt"></i></i> パスワード変更
                             </button>
                         </td>

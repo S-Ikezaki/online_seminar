@@ -7,6 +7,7 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
+import org.hibernate.result.UpdateCountOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -200,13 +201,13 @@ public class GroupController {
         System.out.println(tagList.get(6).getTagName());
 
         System.out.println("for確認：外");
-        for (int i = 0; i < tagList.size(); i++ ){
+        for (int i = 0; i < tagList.size(); i++) {
             System.out.println("for確認：内: " + i);
-            if (tagList.get(i).getTagName().equalsIgnoreCase(tagName)){
+            if (tagList.get(i).getTagName().equalsIgnoreCase(tagName)) {
                 System.out.println("tagNameが存在してるとき");
                 break;
             }
-            if (!(tagList.get(i).getTagName().equals(tagName)) && i >= tagList.size()){
+            if (!(tagList.get(i).getTagName().equals(tagName)) && i >= tagList.size()) {
                 System.out.println("tagNameが存在しないとき");
                 tag.setTagName(tagName);
                 System.out.println(tag);
@@ -265,7 +266,7 @@ public class GroupController {
 
     //ゼミ作成リクエストの１件削除用
     @GetMapping("/requestDelete")
-    public String requestDelete(@RequestParam("requestId") long requestId){
+    public String requestDelete(@RequestParam("requestId") long requestId) {
 
         //確認用
         System.out.println(requestId);
@@ -358,16 +359,19 @@ public class GroupController {
 
     //グループ一件追加用メソッド
     @PostMapping("/addGroup")
-    public String addGroup(@Validated @ModelAttribute Group group,Authentication loginUser,GroupMember groupMember,
-                           Model model, BindingResult result){
+    public String addGroup(@Validated @ModelAttribute Group group, Authentication loginUser, GroupMember groupMember,
+                           Model model, BindingResult result) {
 
         group.setGroupId(group.getGroupId());
         group.setGroupName(group.getGroupName());
         group.setGroupRole(group.getGroupRole());
         group.setGroupBio(group.getGroupBio());
 
-        model.addAttribute("groups",group);
-        if(result.hasErrors()){
+        System.out.println(group.getGroupId());
+        System.out.println(group.getGroupName());
+
+        model.addAttribute("groups", group);
+        if (result.hasErrors()) {
             return "error";
         }
 
@@ -378,38 +382,40 @@ public class GroupController {
 
     //グループ作成HTMLを開くための処理
     @GetMapping("/teacher/showCreateMenu")
-    public String showCreateMenu(Model model){ return "group_add"; }
+    public String showCreateMenu(Model model) {
+        return "group_add";
+    }
 
     //グループ専用のディレクトリ作成
     @PostMapping("/createDirectory")
-    public static void createDirectory(Group group){
+    public static void createDirectory(Group group) {
 
-        String pathName = "C:/groups/"+group.getGroupId();
+        String pathName = "C:/groups/" + group.getGroupId();
         Path p = Paths.get(pathName);
 
-        try{
+        try {
             Files.createDirectories(p);
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    //グループ作成時に作成者をグループに追加する（下竹）
+    //グループ作成時に作成者をグループに追加する
     @PostMapping("/addUser")
-    public String addUser(Authentication loginUser,GroupMember groupMember,Group group){
+    public String addUser(Authentication loginUser, GroupMember groupMember, Group group) {
 
         System.out.println("adduser");
 
-        int group_role=1;
-        Group group_info = groupRepository.findByGroupNameAndGroupRole(group.getGroupName(),group.getGroupRole());
+        int group_role = 1;
+        Group group_info = groupRepository.findByGroupNameAndGroupRole(group.getGroupName(), group.getGroupRole());
 
-        System.out.println("group_member_role:"+group_role);
+        System.out.println("group_member_role:" + group_role);
 
-        System.out.println("groupMUId:"+group_info);
-        System.out.println("userID:"+loginUser.getName());
+        System.out.println("groupMUId:" + group_info);
+        System.out.println("userID:" + loginUser.getName());
 
         int group_Id = group_info.getGroupId();
-        System.out.println("グループID"+group_Id);
+        System.out.println("グループID" + group_Id);
 
         groupMember.setGroupId(group_Id);
         groupMember.setUserId(loginUser.getName());
@@ -418,9 +424,9 @@ public class GroupController {
         User user = userRepository.findByUserId(loginUser.getName());
         groupMember.setUserName(user.getUserName());
 
-        System.out.println("groupMUName:"+groupMember.getUserName());
+        System.out.println("groupMUName:" + groupMember.getUserName());
 
-        group.setGroupId(0);
+        group.setGroupId(group_info.getGroupId());
         createDirectory(group);
         System.out.println(groupMember);
 
@@ -432,20 +438,19 @@ public class GroupController {
         } else if (group.getGroupRole() == 1) {
             //System.out.println("発表型コンペメニュー");
             return "seminar/seminar_competition_presentation";
-        } else if (group.getGroupRole() == 2){
+        } else if (group.getGroupRole() == 2) {
             //System.out.println("提出型コンペメニュー");
             return "seminar/seminar_competition_submission";
-        }else{
+        } else {
             return "error";
         }
     }
 
-
     //グループの一覧表示 　データはとってこれる　
     @GetMapping("/showGroupList")
 //    @ResponseBody
-    public String showGroupList(Model model,String id){
-        model.addAttribute("groups",groupRepository.findByUser(id));
+    public String showGroupList(Model model, String id) {
+        model.addAttribute("groups", groupRepository.findByUser(id));
         return "group/showGroupList";
     }
 
@@ -464,14 +469,13 @@ public class GroupController {
     }
 
     //グループのメンバー一覧表示
-    @GetMapping("/showGroupMemberList/{groupId}")
-    public String showGroupMemberList(Model model,
-                                      @PathVariable("groupId") String groupId) {
+    @PostMapping("/showGroupMemberList")
+    public String showGroupMemberList(Model model,int groupId) {
 
         System.out.println(groupId + "グループID");
-
         List<GroupMember> groupMembers = groupMemberRepository.findByGroupId(groupId);
         System.out.println(groupMembers);
+        model.addAttribute("groupId",groupId);
         model.addAttribute("groupMembers", groupMembers);
 
         return "seminar/group_member_list";
@@ -569,7 +573,7 @@ public class GroupController {
     }
 
     @PostMapping("/meeting/{groupId}")
-    public String skyway(@PathVariable int groupId, Model model, Authentication loginUser){
+    public String skyway(@PathVariable int groupId, Model model, Authentication loginUser) {
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());
 
@@ -581,7 +585,7 @@ public class GroupController {
     }
 
     @PostMapping("/meeting/join/{groupId}")
-    public String joinMeeting(@PathVariable int groupId, Model model, Authentication loginUser){
+    public String joinMeeting(@PathVariable int groupId, Model model, Authentication loginUser) {
 //        @RequestParam(name = "peer_id") String peerId,
 
         User loginUserName = userRepository.findByUserId(loginUser.getName());

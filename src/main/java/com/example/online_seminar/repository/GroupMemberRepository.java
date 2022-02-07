@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMember, Integer> {
 
-    List<GroupMember> findByGroupId(String groupId);
+    List<GroupMember> findByGroupId(int groupId);
 
     @Query(name = "Member.findByGroupRoleNq", nativeQuery = true)
     List<GroupMember> findByGroupRoleNq(int id);
