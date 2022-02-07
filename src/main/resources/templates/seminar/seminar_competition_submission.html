@@ -81,14 +81,14 @@
                 <br>
                 <table>
                     <tr>
-                        <td>
-                            <form th:if="${meeting == null && groupMember.groupRole != 0}"
-                                  th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-video"></i> 新しく会議を始める
-                                </button>
-                            </form>
-                        </td>
+<!--                        <td>-->
+<!--                            <form th:if="${meeting == null && groupMember.groupRole != 0}"-->
+<!--                                  th:action="@{'/groups/meeting/' + ${groupId}}" target="_blank" method="post">-->
+<!--                                <button type="submit" class="btn btn-primary">-->
+<!--                                    <i class="fas fa-video"></i> 新しく会議を始める-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--                        </td>-->
 
                         <td>
                             <form th:action="@{/files/filesShare}" method="post">
