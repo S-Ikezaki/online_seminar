@@ -265,13 +265,13 @@ public class GroupController {
     }
 
     //ゼミ作成リクエストの１件削除用
-    @GetMapping("/requestDelete")
-    public String requestDelete(@RequestParam("requestId") long requestId) {
+    @PostMapping("/requestDelete")
+    public String requestDelete(int requestId) {
 
         //確認用
         System.out.println(requestId);
 
-        requestRepository.deleteById(requestId);
+        requestRepository.deleteById((long) requestId);
 
         return "search/search";
     }
@@ -381,7 +381,7 @@ public class GroupController {
     }
 
     //グループ作成HTMLを開くための処理
-    @GetMapping("/teacher/showCreateMenu")
+    @GetMapping("/showCreateMenu")
     public String showCreateMenu(Model model) {
         return "group_add";
     }
