@@ -113,14 +113,14 @@
                             th:text="代表者">代表者
                         </td>
 
-<!--                        <div>-->
-<!--                            <form th:action="@{groups/deleteGroupMember}" method="post">-->
-<!--                                <input type="hidden" name="userId" th:value="${groupMember.userId}">-->
-<!--                                <td sec:authorize="hasAnyRole('1','3')">-->
-<!--                                    <button type="submit"  class="btn btn-primary">退会</button>-->
-<!--                                </td>-->
-<!--                            </form>-->
-<!--                        </div>-->
+                        <div>
+                            <form th:action="@{groups/deleteGroupMember}" method="post">
+                                <input type="hidden" name="userId" th:value="${groupMember.userId}">
+                                <td sec:authorize="hasAnyRole('1','2','3')">
+                                    <button type="submit"  class="btn btn-primary">退会</button>
+                                </td>
+                            </form>
+                        </div>
                     </tr>
                     </tbody>
                 </table>

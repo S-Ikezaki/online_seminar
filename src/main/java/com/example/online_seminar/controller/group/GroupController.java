@@ -176,6 +176,7 @@ public class GroupController {
         model.addAttribute("userName", userName);
         model.addAttribute("role", loginUser.getAuthorities());
 
+
         System.out.println(loginUser.getAuthorities());
         model.addAttribute("seminars", seminar);
         model.addAttribute("competitions", competition);

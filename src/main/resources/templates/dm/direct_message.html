@@ -8,6 +8,21 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Harbbit | DM</title>
 
+    <script>
+        window.onload = function (){
+            let input = document.getElementById("input");
+
+            input.value="";
+
+            input.style.display = "none";
+        }
+
+        function buttonClick(){
+            let input = document.getElementById("input");
+
+            input.style.display = "";
+        }
+    </script>
 
     <style>
         /*.tabs {*/
@@ -63,6 +78,7 @@
 <!-- コンテンツの表示 -->
 <main class="offcanvas-outside bg-light"
       layout:fragment="content">
+
     <div class="container-fluid">
         <!-- トグルボタン -->
         <div th:replace="~{fragments/sidebar :: toggler}">
@@ -145,7 +161,7 @@
                     <td th:if="${user.getCertification().getRole() == '3' }"
                         th:text="${user.getTeachers().getSchool().getSchoolName()}">所属
                     </td>
-                    <td><input th:value="DM" class="btn btn-primary" type="submit"></td>
+                    <td><input th:value="DM" class="btn btn-primary" type="submit" onclick="buttonClick()"></td>
                 </form>
             </tr>
             </tbody>
@@ -163,7 +179,7 @@
                 <tbody>
                 <tr th:each="dm : ${dms}">
                     <form action="" method="POST">
-                        <input name="" type="hidden" value="">
+                        <input name="" type="hidden" value="" onclick="buttonClick()">
                         <td th:text="${dm.getCreateUserName()}"></td>
                         <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
                         <td th:text="${dm.getCreateDatetime()}"></td>
@@ -174,11 +190,13 @@
             <br>
         </div>
         <form method="POST" th:action="@{/dm/send}">
-            <label>
-                <input maxlength="500" name="message" required type="text">
-                <input name="addressUser" th:object="${addressUser}" type="hidden">
-            </label>
-            <input name="send" type="submit" class="btn btn-primary" value="送信">
+            <div id="input">
+                <label>
+                    <input maxlength="500" name="message" required type="text">
+                    <input name="addressUser" th:object="${addressUser}" type="hidden">
+                </label>
+                <input name="send" type="submit" class="btn btn-primary" value="送信">
+            </div>
         </form>
     </div>
         </div>
