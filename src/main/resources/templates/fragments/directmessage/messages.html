@@ -9,7 +9,7 @@
     <div th:fragment="messages">
         <div th:if="${addressUser != null}">
             <h5 th:text="${addressUser.getUserName()}"></h5>
-            <table>
+            <table class="table table-bordered">
                 <div class="dm" th:if="${!#lists.isEmpty(dms)}">
                     <tbody>
                     <tr th:each="dm : ${dms}">
@@ -25,7 +25,7 @@
             <br>
 
             <input id="message" maxlength="500" required type="text">
-            <button id="send" th:onclick="|sendDirectMessage('__${addressUser.getUserId()}__', document.getElementById('message').value)|" type="button">送信
+            <button id="send" class="btn btn-primary" th:onclick="|sendDirectMessage('__${addressUser.getUserId()}__', document.getElementById('message').value)|" type="button">送信
             </button>
 
         </div>

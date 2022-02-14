@@ -7,27 +7,25 @@
     <link crossorigin="anonymous" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" rel="stylesheet"/>
     <title>Harbbit | DM</title>
-
-    <script>
-        window.onload = function () {
-            let input = document.getElementById("input");
-
-            input.value = "";
-
-            input.style.display = "none";
-        }
-
-        function buttonClick() {
-            let input = document.getElementById("input");
-
-            input.style.display = "";
-        }
-    </script>
-
-    <title>DM画面</title>
     <meta th:content="${_csrf.token}" th:name="_csrf"/>
     <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!--    <script>-->
+<!--        window.onload = function () {-->
+<!--            let input = document.getElementById("input");-->
+
+<!--            input.value = "";-->
+
+<!--            input.style.display = "none";-->
+<!--        }-->
+
+<!--        function buttonClick() {-->
+<!--            let input = document.getElementById("input");-->
+
+<!--            input.style.display = "";-->
+<!--        }-->
+<!--    </script>-->
 
     <style>
 
@@ -60,9 +58,9 @@
         }
     </style>
 
-
 </head>
 <body>
+
 <!-- サイドバーの表示-->
 <div layout:fragment="sidebar"
      th:replace="~{fragments/sidebar :: sidebar}">
@@ -81,12 +79,12 @@
             <div class="col">
 
                 <h2 class="page_title">DM</h2>
-                <label>
-                    <input maxlength="50" name="keyword" type="search">
-                </label>
-                <input class="btn btn-primary" type="submit" value="検索">
+                <form>
+                    <input id="keyword" maxlength="50" placeholder="キーワードを入力" type="search">
+                    <button class="btn btn-primary" id="search" type="button">検索</button>
+                </form>
 
-                <div class="tabs">
+                <div class="tabs" style="float: left">
                     <input checked id="all" name="tab_item" type="radio">
                     <label class="tab_item" for="all">一覧</label>
                     <input id="result" name="tab_item" type="radio">
@@ -96,6 +94,7 @@
                     <div class="tab_content" id="all_content">
                         <div th:fragment="userList" th:substituteby="fragments/directmessage/user_list :: userList">
                         </div>
+
                     </div>
 
                     <!--検索結果-->
@@ -108,7 +107,7 @@
                 </div>
 
                 <!--        DMのやり取り-->
-                <div class="dm_content" id="messages_content">
+                <div class="dm_content" id="messages_content" style="float: left">
                     <div th:fragment="messages" th:substituteby="fragments/directmessage/messages :: messages">
                     </div>
                 </div>

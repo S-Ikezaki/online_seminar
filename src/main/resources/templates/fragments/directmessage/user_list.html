@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link crossorigin="anonymous" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" rel="stylesheet"/>
 </head>
 <body>
 
 <div class="tab_content" id="all_content">
     <div th:fragment="userList">
-        <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${#lists.isEmpty(users)}">
-            <h6>ユーザを検索してDMをしてみよう</h6>
-        </tr>
-        <tr th:each="user : ${users}" th:if="${!#lists.isEmpty(users)}">
-            <form id="dm">
-                <td th:text="${user.getUserName()}"></td>
-                <td><small><small><small th:if="${user.getCertification().getRole() == '0' }"
-                                         th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
-                </td>
-                <td><small><small><small th:if="${user.getCertification().getRole() == '1' }"
-                                         th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                </td>
-                <td><small><small><small th:if="${user.getCertification().getRole() == '2' }"
-                                         th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
-                </td>
-                <td><small><small><small th:if="${user.getCertification().getRole() == '3' }"
-                                         th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                </td>
-                <td>
-                    <button type="button" th:onclick="|showMessage('__${user.getUserId()}__')|">DM</button>
-                </td>
-            </form>
-        </tr>
-        </tbody>
+        <table class="table table-bordered">
+            <tbody>
+            <tr th:if="${#lists.isEmpty(users)}">
+                <h6>ユーザを検索してDMをしてみよう</h6>
+            </tr>
+            <tr th:each="user : ${users}" th:if="${!#lists.isEmpty(users)}">
+                <form id="dm">
+                    <td th:text="${user.getUserName()}"></td>
+                    <td th:if="${user.getCertification().getRole() == 0 }">
+                        <small><small><small th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 1 }">
+                        <small><small><small th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 2 }">
+                        <small><small><small th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 3 }">
+                        <small><small><small th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" th:onclick="|showMessage('__${user.getUserId()}__')|" type="button">DM</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -47,42 +44,33 @@
 <!--検索結果-->
 <div class="tab_content" id="result_content">
     <div th:fragment="searchUser">
-        <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${#lists.isEmpty(searchUsers)}">
-            <h6>条件に一致するユーザがいません</h6>
-        </tr>
-        <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}" id="searchUsers">
-            <form id="dm2">
-                <td th:text="${user.getUserName()}">ユーザー名</td>
-                <td>
-                    <small><small><small th:if="${user.getCertification().getRole() == '0' }"
-                                         th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
-                </td>
-                <td>
-                    <small><small><small th:if="${user.getCertification().getRole() == '1' }"
-                                         th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                </td>
-                <td>
-                    <small><small><small th:if="${user.getCertification().getRole() == '2' }"
-                                         th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
-                </td>
-                <td>
-                    <small><small><small th:if="${user.getCertification().getRole() == '3' }"
-                                         th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
-                </td>
-                <td>
-                    <button type="button" th:onclick="|showMessage('__${user.getUserId()}__')|">DM</button>
-                </td>
-            </form>
-        </tr>
-        </tbody>
+        <table class="table table-bordered">
+            <tbody>
+            <tr th:if="${#lists.isEmpty(searchUsers)}">
+                <h6>条件に一致するユーザがいません</h6>
+            </tr>
+            <tr id="searchUsers" th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}">
+                <form id="dm2">
+                    <td th:text="${user.getUserName()}">ユーザー名</td>
+                    <td th:if="${user.getCertification().getRole() == 0 }">
+                        <small><small><small th:text="${'(' + user.getStudents().getSchool().getSchoolName() + '  ' + user.getStudents().getSchoolGrade() + '年' + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 1 }">
+                        <small><small><small th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 2 }">
+                        <small><small><small th:text="${'(' + user.getEmployees().getEnterprise().getEnterpriseName() + ')'}"></small></small></small>
+                    </td>
+                    <td th:if="${user.getCertification().getRole() == 3 }">
+                        <small><small><small th:text="${'(' + user.getTeachers().getSchool().getSchoolName() + ')'}"></small></small></small>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" th:onclick="|showMessage('__${user.getUserId()}__')|" type="button">DM</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
