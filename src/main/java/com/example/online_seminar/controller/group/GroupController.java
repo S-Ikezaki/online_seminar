@@ -302,6 +302,13 @@ public class GroupController {
         return "search/search";
     }
 
+//    //ゼミ作成画面への遷移
+//    @PostMapping("/addGroup")
+//    public String addGroup(){
+//
+//        return "group_add";
+//    }
+
     //検索ボタンが押された時の処理
     @PostMapping("/search_group_detail")
     public String SearchGroupDetail(@RequestParam(value = "keyword", required = false) String keyword,
@@ -320,7 +327,7 @@ public class GroupController {
         System.out.println(userId);
 
         if (Objects.equals(checkBoxReq, "request")) {
-            System.out.println("リクエスト成功");
+            System.out.println("リクエスト検索成功");
             List<Request> requestList = requestRepository.findAll();
             model.addAttribute("requestList", requestList);
 
