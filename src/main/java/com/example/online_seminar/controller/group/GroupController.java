@@ -7,6 +7,7 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -128,23 +129,24 @@ public class GroupController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sdfCalender = sdf.format((calendar.getTime()));
 
-        List<GroupMember> groupLeader = groupMemberRepository.findByGroupRoleNq(groupId);
+        List<GroupMember> groupLeader = groupMemberRepository.findByGroupIdAndAndGroupRoleOrGroupRole(groupId, 2, 3);
 
-        List<GroupMember> groupMember = groupMemberRepository.findByUserId(userId);
+        String userName = userRepository.findByUserId(userId).getUserName();
 
+//        System.out.println(groupMember.size());
         System.out.println(groupLeader.size());
 
         //受け取り確認用
         System.out.println(groupLeader);
-        System.out.println(groupMember);
+//        System.out.println(groupMember);
         System.out.println(groupId);//学生が申請したグループのID
         System.out.println(userId);//申請した学生のID
-        System.out.println(groupMember.get(0).getUserName()); //申請した学生の名前
+//        System.out.println(groupMember.get(0).getUserName()); //申請した学生の名前
         System.out.println(groupLeader.get(0).getUserId()); //申請を受け取る教師のID
         System.out.println(comment);//参加申請画面で書かれたコメント
 
         participation.setCreateUserId(userId);
-        participation.setCreateUserName(groupMember.get(0).getUserName());
+        participation.setCreateUserName(userName);
         participation.setGroupId(groupId);
         participation.setAddressUserId(groupLeader.get(0).getUserId());
         participation.setParticipationContents(comment);
@@ -158,30 +160,28 @@ public class GroupController {
 
         participationRepository.save(participation);
 
-        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
-        List<Group> seminar = new ArrayList<Group>();
-        List<Group> competition = new ArrayList<Group>();
+//        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
+//        List<Group> seminar = new ArrayList<Group>();
+//        List<Group> competition = new ArrayList<Group>();
+//
+//        for (Group group : groupList) {
+//            if (group.getGroupRole() == 0) {
+//                seminar.add(group);
+//            } else {
+//                competition.add(group);
+//            }
+//        }
+//
+//        model.addAttribute("userId", loginUser.getName());
+//        model.addAttribute("userName", userName);
+//        model.addAttribute("role", loginUser.getAuthorities());
+//
+//
+//        System.out.println(loginUser.getAuthorities());
+//        model.addAttribute("seminars", seminar);
+//        model.addAttribute("competitions", competition);
 
-        for (Group group : groupList) {
-            if (group.getGroupRole() == 0) {
-                seminar.add(group);
-            } else {
-                competition.add(group);
-            }
-        }
-
-        User userName = userRepository.findByUserId(userId);
-
-        model.addAttribute("userId", loginUser.getName());
-        model.addAttribute("userName", userName);
-        model.addAttribute("role", loginUser.getAuthorities());
-
-
-        System.out.println(loginUser.getAuthorities());
-        model.addAttribute("seminars", seminar);
-        model.addAttribute("competitions", competition);
-
-        return "main_menu";
+        return "seminar/seminar_apply_complete";
     }
 
     //ゼミ作成リクエスト画面に遷移
@@ -290,15 +290,24 @@ public class GroupController {
 
     //ゼミ作成リクエストの１件削除用
     @PostMapping("/requestDelete")
-    public String requestDelete(int requestId) {
+    public String requestDelete(@RequestParam("requestId") int requestId){
 
         //確認用
         System.out.println(requestId);
 
-        requestRepository.deleteById((long) requestId);
+        tagRequestRepository.deleteByRequestId(requestId);
+
+        requestRepository.deleteByRequestId(requestId);
 
         return "search/search";
     }
+
+//    //ゼミ作成画面への遷移
+//    @PostMapping("/addGroup")
+//    public String addGroup(){
+//
+//        return "group_add";
+//    }
 
     //検索ボタンが押された時の処理
     @PostMapping("/search_group_detail")
@@ -318,7 +327,7 @@ public class GroupController {
         System.out.println(userId);
 
         if (Objects.equals(checkBoxReq, "request")) {
-            System.out.println("仮成功");
+            System.out.println("リクエスト検索成功");
             List<Request> requestList = requestRepository.findAll();
             model.addAttribute("requestList", requestList);
 
@@ -506,6 +515,19 @@ public class GroupController {
         model.addAttribute("groupMembers", groupMembers);
 
         return "seminar/group_member_list";
+    }
+
+    //グループメンバー削除
+    @PostMapping("/deleteGroupMember")
+    public String deleteGroupMember(Model model, int groupId, String userId){
+
+        System.out.println("delete:"+groupId);
+        System.out.println("delete:"+userId);
+
+        groupMemberRepository.deleteByGroupIdAndUserId(groupId,userId);
+        System.out.println("削除完了");
+
+        return "forward:/groups/showGroupMemberList";
     }
 
     //グループのタグを表示

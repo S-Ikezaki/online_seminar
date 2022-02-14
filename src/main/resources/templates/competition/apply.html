@@ -59,7 +59,7 @@
             text-align: center;
         }
     </style>
-    <title>join apply</title>
+    <title>Harbbit | コンペ参加申請</title>
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -82,18 +82,17 @@
                     <!--    <h6 th:object="${id}" th:text="${id}">仮表示</h6>-->
                     <h2 class="page_title" data-en="Harbbit">コンペ参加申請画面</h2>
                 </div>
-                <form th:object="${id}" th:action="@{/groups/apply/execution}" method="get">
+                <form th:object="${groupId}" th:action="@{/groups/apply/execution}" method="get">
                     <div class="FlexTextarea">
                         <div class="FlexTextarea__dummy" aria-hidden="true">
                         </div>
-                        <textarea name="comment" id="FlexTextarea" class="FlexTextarea__textarea">
-                </textarea><br>
+                        <textarea name="comment" id="FlexTextarea" class="FlexTextarea__textarea"></textarea><br>
                     </div>
 
                     <div class="button_wrapper">
                         <!--        後で操作しているアカウントのロールによってstudentかteacherのどちらのメニュー画面に遷移するか決定するcontrollerクラスに情報を渡すようなコードに変える-->
                         <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">
-                        <button type="submit" class="button_transition" name="groupId" th:value="${id}"> 申請 </button>
+                        <button type="submit" class="button_transition" name="groupId" th:value="${groupId}"> 申請</button>
 
                         <button type="button" class="button_transition" onclick="history.back()"> 戻る </button>
                     </div>
