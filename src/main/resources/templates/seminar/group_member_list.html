@@ -10,19 +10,19 @@
         let roleName = document.createTextNode("");
         try {
             if (role == 0) {
-                role= role.replace('0','一般');
+                role = role.replace('0', '一般');
                 console.log(role)
             } else if (role === 1) {
-                role = role.replace('1','代表');
+                role = role.replace('1', '代表');
                 console.log(role)
             } else if (role === 2) {
-                role = role.replace('2','講師');
+                role = role.replace('2', '講師');
                 console.log(role)
-            }else if (role === 3) {
-                role = role.replace('3','企業関係者');
+            } else if (role === 3) {
+                role = role.replace('3', '企業関係者');
                 console.log(role)
-            }else if (role === 4) {
-                role = role.replace('4','代表者');
+            } else if (role === 4) {
+                role = role.replace('4', '代表者');
                 console.log(role)
             }
         } catch (e) {
@@ -31,13 +31,23 @@
     }
 
 
-
 </script>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
     <title>Harbbit | groupMember</title>
+    <script>
+        function warning() {
+            var result = confirm('本当に退会を実行しますか？');
+            if (result) {
+                console.log('退会を実行しました');
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <!-- サイドバーの表示-->
@@ -57,30 +67,30 @@
         <div class="row">
             <div class="col">
 
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>ユーザ名</th>-->
-<!--            <th>権限</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        &lt;!&ndash; messageが空でない場合、messageの要素をmessageに格納する &ndash;&gt;-->
-<!--        &lt;!&ndash; 要素の数ループする &ndash;&gt;-->
-<!--        <tr th:if="${!#lists.isEmpty(groupMembers)}" th:each="groupMember : ${groupMembers}">-->
-<!--            <td th:text="${groupMember.userName}"></td>-->
-<!--            <td id="groupRole" th:text="${groupMember.groupRole}"></td>-->
-<!--            <div sec:authorize="hasAnyRole('1','3')">-->
-<!--                <form th:action="@{groups/deleteGroupMember}" method="post">-->
-<!--                    <input type="hidden" name="userId" th:value="${groupMember.userId}">-->
-<!--                    <td>-->
-<!--                        <button type="submit">退会</button>-->
-<!--                    </td>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--=======-->
+                <!--        <thead>-->
+                <!--        <tr>-->
+                <!--            <th>ユーザ名</th>-->
+                <!--            <th>権限</th>-->
+                <!--        </tr>-->
+                <!--        </thead>-->
+                <!--        <tbody>-->
+                <!--        &lt;!&ndash; messageが空でない場合、messageの要素をmessageに格納する &ndash;&gt;-->
+                <!--        &lt;!&ndash; 要素の数ループする &ndash;&gt;-->
+                <!--        <tr th:if="${!#lists.isEmpty(groupMembers)}" th:each="groupMember : ${groupMembers}">-->
+                <!--            <td th:text="${groupMember.userName}"></td>-->
+                <!--            <td id="groupRole" th:text="${groupMember.groupRole}"></td>-->
+                <!--            <div sec:authorize="hasAnyRole('1','3')">-->
+                <!--                <form th:action="@{groups/deleteGroupMember}" method="post">-->
+                <!--                    <input type="hidden" name="userId" th:value="${groupMember.userId}">-->
+                <!--                    <td>-->
+                <!--                        <button type="submit">退会</button>-->
+                <!--                    </td>-->
+                <!--                </form>-->
+                <!--            </div>-->
+                <!--        </tr>-->
+                <!--        </tbody>-->
+                <!--    </table>-->
+                <!--=======-->
                 <h2 class="page_title">参加メンバー</h2>
                 <br>
                 <table class="layout-table02">
@@ -98,8 +108,8 @@
                         <td th:text="${groupMember.userName}"></td>
 
 
-                        <td  th:if="${groupMember.groupRole  == 0}"
-                             th:text="一般">一般
+                        <td th:if="${groupMember.groupRole  == 0}"
+                            th:text="一般">一般
                         </td>
                         <td th:if="${groupMember.groupRole  == 1}"
                             th:text="代表">代表
@@ -115,21 +125,22 @@
                         </td>
 
                         <div>
-                            <form th:action="@{groups/deleteGroupMember}" method="post">
-                                <input type="hidden" name="userId" th:value="${groupMember.userId}">
-                                <td sec:authorize="hasAnyRole('1','2','3')">
-                                    <button type="submit"  class="btn btn-primary">退会</button>
-                                </td>
-                            </form>
+                            <td sec:authorize="hasAnyRole('1','2','3')">
+                                <form th:action="@{/groups/deleteGroupMember}" method="post">
+                                    <input type="hidden" name="userId" th:value="${groupMember.userId}">
+                                    <input type="hidden" name="groupId" th:value="${groupMember.groupId}">
+                                    <button class="btn btn-primary" onclick="return warning()">退会</button>
+                                </form>
+                            </td>
                         </div>
                     </tr>
                     </tbody>
                 </table>
                 <br>
-                <form th:action="@{/groups/showGroupMessage}" method="post">
+                <!--<form th:action="@{/groups/showGroupMessage}" method="post">
                     <input type="hidden" name="groupId" th:value="${groupId}">
-                    <button class="btn btn-primary">グループメニューに戻る</button>
-                </form>
+                    <button class="btn btn-primary">メニューに戻る</button>
+                </form>-->
             </div>
         </div>
     </div>

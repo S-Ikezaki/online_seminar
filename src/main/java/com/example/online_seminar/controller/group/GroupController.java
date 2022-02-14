@@ -7,6 +7,7 @@ import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -506,6 +507,19 @@ public class GroupController {
         model.addAttribute("groupMembers", groupMembers);
 
         return "seminar/group_member_list";
+    }
+
+    //グループメンバー削除
+    @PostMapping("/deleteGroupMember")
+    public String deleteGroupMember(Model model, int groupId, String userId){
+
+        System.out.println("delete:"+groupId);
+        System.out.println("delete:"+userId);
+
+        groupMemberRepository.deleteByGroupIdAndUserId(groupId,userId);
+        System.out.println("削除完了");
+
+        return "forward:/groups/showGroupMemberList";
     }
 
     //グループのタグを表示
