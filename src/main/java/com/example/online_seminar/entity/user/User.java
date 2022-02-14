@@ -80,9 +80,11 @@ public class User implements Serializable {
 
     @OneToMany
     @JoinColumn(name="create_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-    //@JoinColumn(name="address_user_id",referencedColumnName = "user_id")
-    //宛先が難しいです
-    List<DirectMessage> directMessages;
+    List<DirectMessage> CreateDirectMessages;
+
+    @OneToMany
+    @JoinColumn(name="address_user_id",referencedColumnName = "user_id", insertable = false, updatable=false)
+    List<DirectMessage> AddressDirectMessages;
 
     @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "user_id",insertable = false, updatable=false)

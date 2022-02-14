@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="tab_content" id="dm_user_list">
+<div class="tab_content" id="all_content">
     <div th:fragment="userList">
         <thead>
         <tr>
@@ -56,7 +56,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(searchUsers)}">
-            <h6>条件に一致するユーザがいませんでした</h6>
+            <h6>条件に一致するユーザがいません</h6>
         </tr>
         <tr th:each="user : ${searchUsers}" th:if="${!#lists.isEmpty(searchUsers)}" id="searchUsers">
             <form id="dm2">

@@ -7,29 +7,28 @@
 
 <div class="dm_content" id="messages_content">
     <div th:fragment="messages">
-        <h5 th:text="${addressUser.getUserName()}"></h5>
-        <table>
-            <div class="dm" th:if="${!#lists.isEmpty(dms)}">
-                <tbody>
-                <tr th:each="dm : ${dms}">
-                    <form action="" method="POST">
-                        <td th:text="${dm.getCreateUserName()}"></td>
-                        <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
-                        <td th:text="${dm.getCreateDatetime()}"></td>
-                    </form>
-                </tr>
-                </tbody>
-            </div>
-        </table>
-        <br>
+        <div th:if="${addressUser != null}">
+            <h5 th:text="${addressUser.getUserName()}"></h5>
+            <table>
+                <div class="dm" th:if="${!#lists.isEmpty(dms)}">
+                    <tbody>
+                    <tr th:each="dm : ${dms}">
+                        <form action="" method="POST">
+                            <td th:text="${dm.getCreateUserName()}"></td>
+                            <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
+                            <td th:text="${dm.getCreateDatetime()}"></td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </div>
+            </table>
+            <br>
 
-        <form>
-            <label>
-                <input maxlength="500" id="message" required type="text">
-                <input name="addressUser" th:object="${addressUser}" type="hidden">
-            </label>
-            <button id="send" type="button" th:onclick="|showMessage('__${user.getUserId()}__')|">送信</button>
-        </form>
+            <input id="message" maxlength="500" required type="text">
+            <button id="send" th:onclick="|sendDirectMessage('__${addressUser.getUserId()}__', document.getElementById('message').value)|" type="button">送信
+            </button>
+
+        </div>
     </div>
 </div>
 

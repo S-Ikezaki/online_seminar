@@ -70,7 +70,7 @@
         <label class="tab_item" for="result">検索結果</label>
 
         <!--一覧-->
-        <div class="tab_content" th:fragment="user_list" id="all_content">
+        <div class="tab_content" id="all_content">
             <div th:substituteby="fragments/directmessage/user_list :: userList" th:fragment="userList">
             </div>
 
@@ -96,10 +96,6 @@
 
         const keyword = document.getElementById('keyword');
         const search = document.getElementById('search');
-        const message = document.getElementById('message');
-        const directMessage = document.getElementById('dm');
-        const directMessage2 = document.getElementById('dm2');
-        const sendMessage = document.getElementById('send');
 
         let token = $("meta[name='_csrf']").attr("content");
         let header = $("meta[name='_csrf_header']").attr("content");
@@ -108,26 +104,22 @@
         });
 
         search.addEventListener('click', () => {
-            console.log("search:")
             searchUser();
-        })
+        });
 
-        // sendMessage.addEventListener('click', () => {
-        //     sendDirectMessage();
-        // })
-
-        function sendDirectMessage() {
+        function sendDirectMessage(userId, message) {
             $.ajax({
                 url: "/dm/send",
                 type: "POST",
                 data: {
-                    message: "",
-                    userId: "",
-                    userName: ""
+                    message: message,
+                    userId: userId,
                 },
+                dataType: "html",
                 cache: false,
             }).done(function (data) {
-                // $('#').html(data);
+                $('#messages_content').html(data);
+                showUserList();
             }).fail(function () {
                 alert("失敗しました");
             })
