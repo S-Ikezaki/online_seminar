@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Harbbit | GroupAddComplete</title>
+</head>
+<body>
+<div align="center">
+    <h2>
+        パスワードを変更しました<br>
+        2秒後に自動的にメインメニューに戻ります。
+    </h2>
+    <form th:action="@{/}" method="get" name="form"></form>
+<!--    <META http-equiv="Refresh" th:content="3;URL=@{main_menu}">-->
+</div>
+
+<script>
+
+    setTimeout(function(){
+        document.form.submit();
+        // window.location.href = @{/group/};
+    }, 2*1000);
+
+</script>
+
+</body>
+</html>

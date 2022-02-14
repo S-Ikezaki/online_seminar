@@ -117,30 +117,20 @@ public class UserController {
     }
 
     @PostMapping("/editpass")
-    public  String editPassword(@RequestParam("password") String password , Authentication loginUser , Certification certification) {
+    public String editPassword(@RequestParam("password") String password , Authentication loginUser , Certification certification, Model model) {
         String userId = loginUser.getName();
 
-        String newpass = "";
-
-        passwordEncoder().encode(password);
-
-        System.out.println(newpass);
-
-        certificationRepository.updatePasswordById(newpass,userId);
+        String hashPass = passwordEncoder().encode(password);
 
         int role = certification.getRole();
-        System.out.println(role);
-
 
         certification.setUserId(userId);
-        certification.setPassword(newpass);
+        certification.setPassword(hashPass);
         certification.setRole(role);
-
-        System.out.println(certification);
 
         certificationRepository.save(certification);
 
-        return "/main_menu.html";
+        return "teacher/teacher_edit_pass_complete";
     }
 
     // ユーザが所属しているグループを取得
