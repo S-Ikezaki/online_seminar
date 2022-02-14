@@ -39,8 +39,6 @@ public class DirectMessage implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "address_user_id",referencedColumnName = "user_id",insertable = false, updatable=false)
-//    @JoinColumn(name = "create_user_id",referencedColumnName = "user_id",insertable=false, updatable=false)
-    //宛先が難しいです
     private User addressUser;
 
     @PrePersist

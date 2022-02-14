@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="dm_content" id="messages_content">
+    <div th:fragment="messages">
+        <div th:if="${addressUser != null}">
+            <h5 th:text="${addressUser.getUserName()}"></h5>
+            <table class="table table-bordered">
+                <div class="dm" th:if="${!#lists.isEmpty(dms)}">
+                    <tbody>
+                    <tr th:each="dm : ${dms}">
+                        <form action="" method="POST">
+                            <td th:text="${dm.getCreateUserName()}"></td>
+                            <td th:text="${dm.getDirectMessageContent()}">DM内容</td>
+                            <td th:text="${dm.getCreateDatetime()}"></td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </div>
+            </table>
+            <br>
+
+            <input id="message" maxlength="500" required type="text">
+            <button id="send" class="btn btn-primary" th:onclick="|sendDirectMessage('__${addressUser.getUserId()}__', document.getElementById('message').value)|" type="button">送信
+            </button>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
