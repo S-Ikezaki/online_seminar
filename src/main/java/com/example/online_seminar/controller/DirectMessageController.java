@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,18 +23,11 @@ import java.util.List;
 @RequestMapping("/dm")
 public class DirectMessageController {
 
-    // DMに必要な情報をまとめて管理（削除予定）
-    public User addressUser = new User();
-    public List<User> userList = new ArrayList<User>();
-    public List<User> searchUserList = new ArrayList<User>();
-    public List<DirectMessage> directMessages = new ArrayList<DirectMessage>();
-    public List<DirectMessage> directMessageList = new ArrayList<DirectMessage>();
-
     public final DirectMessageRepository directMessageRepository;
     public final UserRepository userRepository;
 
     @Autowired
-    public DMService dmService;
+    DMService dmService;
 
     public DirectMessageController(
             DirectMessageRepository directMessageRepository,
@@ -48,105 +41,94 @@ public class DirectMessageController {
     @ResponseBody
     public List<User> getUserList(String userId) {
 
-        System.out.println("ここから");
-        System.out.println(directMessageList.get(0).getCreateUser().getUserName());
-        System.out.println(directMessageList.get(0).getAddressUser().getUserName());
-
         List<User> users = new ArrayList<User>();
+        List<DirectMessage> directMessageList = new ArrayList<DirectMessage>();
+        directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(userId, userId);
+        Collections.reverse(directMessageList);
         for(DirectMessage directMessage: directMessageList){
             if(directMessage.getCreateUserId().equals(userId)){
                 if(!users.contains(directMessage.getAddressUser())){
-                    System.out.println("ここ！！！：" + directMessage.getAddressUser().getUserName());
                     users.add(directMessage.getAddressUser());
-//                    System.out.println(users.size());
-                    System.out.println("if1：ID" + users.get(users.size()-1).getUserId());
-                    System.out.println("if1：NAME" + users.get(users.size()-1).getUserName());
                 }
             } else {
                 if(!users.contains(directMessage.getCreateUser())){
                     users.add(directMessage.getCreateUser());
-//                    System.out.println(users.size());
-//                    System.out.println("if1：" + users.get(users.size()-1).getUserId());
-//                    System.out.println("if2：" + users.get(users.size()-1).getUserName());
                 }
             }
         }
+
         return users;
     }
 
-    // メッセージの履歴があるユーザ一覧取得
+    // DM画面への遷移
     @GetMapping("/")
-    public String getMessageUser(Authentication id, Model model) {
-        String userId = id.getName();
+    public String getMessageUser(Authentication loginUser, Model model) {
+        String userId = loginUser.getName();
+        List<User> userList = getUserList(userId);
 
-        // DMに必要な情報をまとめて初期化（暫定、消す予定）
-//        userList.clear();
-        userList = new ArrayList<>();
-        searchUserList.clear();
-        directMessages.clear();
-        addressUser = new User();
-
-        directMessageList.clear();
-        directMessageList = dmService.FindAllByAddressUserIdOrCreateUserId(userId);
-//        directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(userId,userId);
-        Collections.reverse(directMessageList);
-
-        userList = getUserList(userId);
-//        List<User> userList = getUserList(userId);
-
-        model.addAttribute("addressUser",addressUser);
         model.addAttribute("users",userList);
-        model.addAttribute("searchUsers",searchUserList);
-        model.addAttribute("dms",directMessages);
 
         return "dm/direct_message";
+    }
+
+    @PostMapping("/show")
+    public String getMessageUserList(Authentication loginUser, Model model) {
+
+        String userId = loginUser.getName();
+        List<User> userList = getUserList(userId);
+
+        model.addAttribute("users",userList);
+
+        return "dm/direct_message :: userList";
     }
 
     // 指定された相手とのDMを取得
-    @PostMapping("dmToPerson/{addressUserId}")
-    public String showDirectMessagePerson(@PathVariable("addressUserId") String addressUserId, Authentication user, Model model) {
+    @PostMapping("/message")
+    public String showDirectMessagePerson(@RequestBody String addressUserId, Authentication loginUser, Model model) {
 
-        String userId = user.getName();
+        String userId = loginUser.getName();
 
-//        List<DirectMessage> directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
-        directMessages = dmService.FindDirectMessage(addressUserId,userId);
-//        directMessages = directMessageRepository.findDirectMessage(addressUserId,userId);
-//        User addressUser = userRepository.findByUserId(addressUserId);
-        addressUser = dmService.FindByUserId(addressUserId);
-//        addressUser = userRepository.findByUserId(addressUserId);
+        String decodeAddressUserId = URLDecoder.decode(addressUserId);
+        decodeAddressUserId = decodeAddressUserId.substring(decodeAddressUserId.indexOf("=") + 1);
 
-        model.addAttribute("addressUser",addressUser);
-        model.addAttribute("users",userList);
-        model.addAttribute("searchUsers",searchUserList);
-        model.addAttribute("dms",directMessages);
+        User addressUser = new User();
 
-        return "dm/direct_message";
+        List<DirectMessage> directMessageList = directMessageRepository.findDirectMessage(decodeAddressUserId,userId);
+        addressUser = userRepository.findByUserId(decodeAddressUserId);
+
+        model.addAttribute("dms",directMessageList);
+        model.addAttribute("addressUser", addressUser);
+
+        return "dm/direct_message :: messages";
     }
 
     // ユーザをキーワードで検索（名前）
-    @GetMapping("/search")
-    public String searchUser(@ModelAttribute("keyword") String keyword, BindingResult result,Authentication loginUser ,Model model) {
+    @PostMapping("/search")
+    public String searchUser(@RequestBody String data, Authentication loginUser , Model model) {
 
-        searchUserList = dmService.FindAllByUserNameLike(keyword);
-//        searchUserList = userRepository.findAllByUserNameLike("%" + keyword + "%");
+        String decodeKeyword = URLDecoder.decode(data);
+        String keyword = decodeKeyword.substring(decodeKeyword.indexOf("=") + 1);
+
+        List<User> searchUserList = new ArrayList<User>();
+        searchUserList = userRepository.findAllByUserNameLike("%" + keyword.substring(keyword.indexOf("=") + 1) + "%");
 
         searchUserList.removeIf(user -> user.getUserId().equals(loginUser.getName()));
 
-        model.addAttribute("addressUser",addressUser);
-        model.addAttribute("users",userList);
         model.addAttribute("searchUsers",searchUserList);
-        model.addAttribute("dms", directMessages);
 
-        return "dm/direct_message";
+        return "dm/direct_message :: searchList";
     }
 
     // ダイレクトメッセージの送信
     @PostMapping("/send")
-    public String sendMessage(@ModelAttribute("message") String message, BindingResult result, Authentication loginUser, Model model) {
+    public String sendMessage(@RequestBody String data, Authentication loginUser, Model model) {
 
-        if (result.hasErrors()){
-            return "login";
-        }
+        String decodeData = URLDecoder.decode(data);
+        String message = decodeData.substring(decodeData.indexOf("=") + 1, decodeData.indexOf("&"));
+        String addressUserId = decodeData.substring(decodeData.lastIndexOf("=") + 1);
+        User addressUser = userRepository.findByUserId(addressUserId);
+        String addressUserName = addressUser.getUserName();
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sdfCalender = sdf.format((calendar.getTime()));
@@ -157,34 +139,27 @@ public class DirectMessageController {
         directMessage.setDirectMessageId(0);
         directMessage.setCreateUserId(loginUserId);
         directMessage.setCreateUserName(userRepository.findByUserId(loginUserId).getUserName());
-        directMessage.setAddressUserId(addressUser.getUserId());
-        directMessage.setAddressUserName(addressUser.getUserName());
+        directMessage.setAddressUserId(addressUserId);
+        directMessage.setAddressUserName(addressUserName);
         directMessage.setDirectMessageContent(message);
         directMessage.setCreateDatetime(Date.valueOf(sdfCalender));
 
-//        dmService.SaveDirectMessage(directMessage);
-//        directMessageRepository.save(directMessage);
+        try {
+            dmService.saveAndFlushDM(directMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        directMessageList.clear();
-        directMessageList = dmService.saveAndFindDM(directMessage, loginUserId);
-//        directMessageList = dmService.FindAllByAddressUserIdOrCreateUserId(loginUserId);
-//        directMessageList = directMessageRepository.findAllByAddressUserIdOrCreateUserId(loginUserId,loginUserId);
-        Collections.reverse(directMessageList);
+        List<DirectMessage> directMessageList = directMessageRepository.findDirectMessage(addressUserId,loginUserId);
 
-        directMessages = dmService.FindDirectMessage(addressUser.getUserId(),loginUserId);
-//        directMessages = directMessageRepository.findDirectMessage(addressUser.getUserId(),loginUserId);
+        List<User> userList = getUserList(loginUserId);
 
-
-
-        userList = new ArrayList<>();
-        userList = getUserList(loginUserId);
-
-        model.addAttribute("addressUser",addressUser);
         model.addAttribute("users",userList);
-        model.addAttribute("searchUsers",searchUserList);
-        model.addAttribute("dms", directMessages);
+        model.addAttribute("addressUser", addressUser);
+        model.addAttribute("dms", directMessageList);
 
-        return "dm/direct_message";
+        return "dm/direct_message :: messages";
     }
 
 }
+
