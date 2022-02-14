@@ -20,6 +20,16 @@
             document.search.elements["checkBoxReq"].checked = false;
         }
 
+        function warning() {
+            var result = confirm('本当に拒否しますか？');
+            if (result) {
+                console.log('リクエストを拒否しました');
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -37,16 +47,6 @@
         </div>
 
         <h2 class="page_title" th:text="検索画面"></h2>
-
-<!--<<<<<<< HEAD-->
-<!--    &lt;!&ndash; キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す &ndash;&gt;-->
-<!--    <form name="search" th:action="@{/groups/search_group_detail}" method="post">-->
-<!--        <input type="hidden" name="userId" th:object="${userId}" th:value="${userId}">-->
-<!--        <input type="search" name="keyword" placeholder="タグを入力">-->
-<!--        <button class="btn btn-primary">-->
-<!--            <i class="fas fa-search"></i>-->
-<!--        </button>-->
-<!--=======-->
         <!-- キーワードとチェックボックスの値をGroupControllerのsearch_group_detailに渡す -->
         <form name="search" th:action="@{/groups/search_group_detail}" method="post">
             <div class="form-control">
@@ -89,21 +89,25 @@
             </tr>
         </table>
 
-        <form th:action="@{/groups/requestDelete}" method="post">
             <table class="table">
                 <tr th:each="request: ${requestList}" class="align-middle">
                     <td th:text="${request.requestUserName}"></td>
                     <td th:text="${request.requestContent}"></td>
                     <td align="right">
-                        <button class="btn btn-primary"
+                        <th><button class="btn btn-primary"
                                 th:attr="onClick='location.href=\'' +@{/groups/showCreateMenu} + '\''">
-                            <i class="far fa-plus-square"></i> グループ作成
-                        </button>
-                        <button type="submit" name="requestId" th:value="${request.getRequestId()}">拒否</button>
+                                <i class="far fa-plus-square"></i> グループ作成
+                            </button>
+                        </th>
+                        <th>
+                            <form th:action="@{/groups/requestDelete}" method="post">
+                            <button type="submit" name="requestId" th:value="${request.getRequestId()}"
+                            onclick="return warning();">拒否</button>
+                            </form>
+                        </th>
                     </td>
                 </tr>
             </table>
-        </form>
 
         <form th:action="@{/groups/request_seminar}" method="get">
             <div sec:authorize="hasAnyRole('0')">

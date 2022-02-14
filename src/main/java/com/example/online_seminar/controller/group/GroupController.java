@@ -290,12 +290,14 @@ public class GroupController {
 
     //ゼミ作成リクエストの１件削除用
     @PostMapping("/requestDelete")
-    public String requestDelete(int requestId) {
+    public String requestDelete(@RequestParam("requestId") int requestId){
 
         //確認用
         System.out.println(requestId);
 
-        requestRepository.deleteById((long) requestId);
+        tagRequestRepository.deleteByRequestId(requestId);
+
+        requestRepository.deleteByRequestId(requestId);
 
         return "search/search";
     }
@@ -318,7 +320,7 @@ public class GroupController {
         System.out.println(userId);
 
         if (Objects.equals(checkBoxReq, "request")) {
-            System.out.println("仮成功");
+            System.out.println("リクエスト成功");
             List<Request> requestList = requestRepository.findAll();
             model.addAttribute("requestList", requestList);
 
