@@ -108,21 +108,23 @@ public class UserController {
 //        Date date = new Date();
 //    }
 
-    // パスワード更新
-    @GetMapping("/updatepass")
+    //パスワード更新
+    @GetMapping("/updatePass")
     public String updatePassword() {
         System.out.println("UserController");
 
         return "teacher/teacher_edit_password";
     }
 
-    @PostMapping("/editpass")
-    public String editPassword(@RequestParam("password") String password , Authentication loginUser , Certification certification, Model model) {
+    @PostMapping("/editPass")
+    public  String editPassword(String password , Authentication loginUser , Certification certification) {
+
         String userId = loginUser.getName();
 
         String hashPass = passwordEncoder().encode(password);
 
         int role = certification.getRole();
+
 
         certification.setUserId(userId);
         certification.setPassword(hashPass);

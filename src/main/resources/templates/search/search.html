@@ -94,10 +94,14 @@
                     <td th:text="${request.requestUserName}"></td>
                     <td th:text="${request.requestContent}"></td>
                     <td align="right">
-                        <th><button class="btn btn-primary"
-                                th:attr="onClick='location.href=\'' +@{/groups/showCreateMenu} + '\''">
+                        <th>
+<!--                            <form th:action="@{/groups}" method="post">-->
+                            <button class="btn btn-primary"
+                                th:attr="onClick='location.href=\'' +@{/groups/showCreateMenu} + '\''"
+                                onclick="location.href='/group_add'">
                                 <i class="far fa-plus-square"></i> グループ作成
                             </button>
+<!--                            </form>-->
                         </th>
                         <th>
                             <form th:action="@{/groups/requestDelete}" method="post">

@@ -3,6 +3,7 @@ package com.example.online_seminar.repository;
 import com.example.online_seminar.entity.group.GroupMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,5 +19,8 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, Intege
     List<GroupMember> findByGroupIdAndAndGroupRoleOrGroupRole(int groupId, int role, int role2);
 
     GroupMember findByGroupIdAndUserId(int groupId, String userId);
+
+    @Transactional
+    List<GroupMember> deleteByGroupIdAndUserId(int groupId, String userId);
 
 }
