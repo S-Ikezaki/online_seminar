@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
     <title>Harbbit | Meeting </title>
     <meta th:content="${_csrf.token}" th:name="_csrf"/>
     <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link crossorigin="anonymous" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" rel="stylesheet"/>
 </head>
 <body>
 
 <!-- コンテンツの表示 -->
 <main layout:fragment="content"
-      >
+>
     <div class="container-fluid">
 
         <p></p>
@@ -24,182 +24,182 @@
         <div class="row">
             <div class="col">
 
-<h2 class="page_title">会議</h2>
-<div id="js-videos-container" class="videos-container">
-    <video id="js-local-video" autoplay muted="true"></video>
-</div>
+                <h2 class="page_title">会議</h2>
+                <div class="videos-container" id="js-videos-container">
+                    <video autoplay id="js-local-video" muted="true"></video>
+                </div>
 
 
-
-<div class="controller-container">
-<!--    <p>Your id: <span id="js-local-id">...</span></p>-->
-    <button class="btn btn-primary" id="js-leave-trigger">退室</button>
-    <pre class="messages" id="js-messages"></pre>
-    <input type="text" id="msg" placeholder="チャットを入力">
-    <button class="btn btn-primary" id="send">送信</button>
-</div>
+                <div class="controller-container">
+                    <!--    <p>Your id: <span id="js-local-id">...</span></p>-->
+                    <button class="btn btn-primary" id="js-leave-trigger">退室</button>
+                    <pre class="messages" id="js-messages"></pre>
+                    <input id="msg" placeholder="チャットを入力" type="text">
+                    <button class="btn btn-primary" id="send">送信</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
-<script type="text/javascript" src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js" type="text/javascript"></script>
 
-<script>
-    const Peer = window.Peer;
-    const localVideo = document.getElementById('js-local-video');
-    // const localId = document.getElementById('js-local-id');
-    const videosContainer = document.getElementById('js-videos-container');
-    const messages = document.getElementById('js-messages');
-    const leaveTrigger = document.getElementById('js-leave-trigger');
-    const msg = document.getElementById('msg');
-    const sendButton = document.getElementById('send');
+    <script>
+        const Peer = window.Peer;
+        const localVideo = document.getElementById('js-local-video');
+        // const localId = document.getElementById('js-local-id');
+        const videosContainer = document.getElementById('js-videos-container');
+        const messages = document.getElementById('js-messages');
+        const leaveTrigger = document.getElementById('js-leave-trigger');
+        const msg = document.getElementById('msg');
+        const sendButton = document.getElementById('send');
 
-    (async function main() {
+        (async function main() {
 
-        const localStream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true,
-        });
-        localVideo.srcObject = localStream;
 
-        let token = $("meta[name='_csrf']").attr("content");
-        let header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
+            const localStream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true,
+            }).catch(function (err){
+                console.log("エラー！！！！" + err);
+            });
+            localVideo.srcObject = localStream;
 
-        const peer = new Peer({
-            key: 'b61e8381-31ba-47a5-a59c-ad88ab1472a2',
-            debug: 3,
-        });
-
-        peer.on('open', (id) => {
-            // localId.textContent = id;
-
-            const room = peer.joinRoom([[${groupId}]], {
-                mode: 'sfu',
-                stream: localStream,
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(header, token);
             });
 
-            room.on('open', () => {
-                chatlog('===[[${userName}]] さんが参加しました===', room);
-                // DBに会議情報追加
-                if ("[[${flg}]]" === "open") {
-                    console.log("open:")
-                    $.ajax({
-                        url: "/meetings/open",
-                        type: "POST",
-                        data: {
-                            group_id: [[${groupId}]]
-                        }
-                    }).done(function () {
-                        alert("会議を開始しました");
-                    })
-                        .fail(function () {
+            const peer = new Peer({
+                key: 'b61e8381-31ba-47a5-a59c-ad88ab1472a2',
+                debug: 3,
+            });
+
+            peer.on('open', (id) => {
+                // localId.textContent = id;
+
+                const room = peer.joinRoom([[${groupId}]], {
+                    mode: 'sfu',
+                    stream: localStream,
+                });
+
+                room.on('open', () => {
+                    chatlog('===[[${userName}]] さんが参加しました===', room);
+                    // DBに会議情報追加
+                    if ("[[${flg}]]" === "open") {
+                        console.log("open:")
+                        $.ajax({
+                            url: "/meetings/open",
+                            type: "POST",
+                            data: {
+                                group_id: [[${groupId}]]
+                            }
+                        }).done(function () {
+                        })
+                            .fail(function () {
+                                console.log("error!!!");
+                            })
+                    }
+
+                    // 参加
+                    if ("[[${flg}]]" === "join") {
+                        $.ajax({
+                            url: "/meetings/join",
+                            type: "POST",
+                            data: {
+                                group_id: [[${groupId}]]
+                            }
+                        }).done(function () {
+                        }).fail(function () {
                             console.log("error!!!");
                         })
-                }
-
-                // 参加
-                if ("[[${flg}]]" === "join") {
-                    $.ajax({
-                        url: "/meetings/join",
-                        type: "POST",
-                        data: {
-                            group_id: [[${groupId}]]
-                        }
-                    }).done(function () {
-                        alert("会議に参加しました");
-                    }).fail(function () {
-                        console.log("error!!!");
-                    })
-                }
-            });
-
-            sendButton.addEventListener('click', () => {
-                if (msg.value !== ""){
-                    chatlog('[[${userName}]]： ' + msg.value, room);
-                    msg.value = "";
-                }
-            })
-
-            room.on('data', function(data){
-                messages.textContent += (data.data + '\n');
-            })
-
-            room.on('peerJoin', peerId => {
-            });
-
-            room.on('stream', async stream => {
-                const remoteVideo = document.createElement('video');
-                remoteVideo.srcObject = stream;
-                remoteVideo.playsInline = true;
-                remoteVideo.setAttribute('data-peer-id', stream.peerId);
-                videosContainer.append(remoteVideo);
-
-                await remoteVideo.play().catch(console.error);
-            });
-
-            room.on('peerLeave', peerId => {
-                const remoteVideo = videosContainer.querySelector(`[data-peer-id="${peerId}"]`);
-                remoteVideo.srcObject.getTracks().forEach(track => {
-                    track.stop();
+                    }
                 });
-                remoteVideo.srcObject = null;
-                remoteVideo.remove();
 
-            });
+                sendButton.addEventListener('click', () => {
+                    if (msg.value !== "") {
+                        chatlog('[[${userName}]]： ' + msg.value, room);
+                        msg.value = "";
+                    }
+                })
 
-            room.once('close', () => {
-                const remoteVideos = videosContainer.querySelectorAll('[data-peer-id]');
-                Array.from(remoteVideos)
-                    .forEach(remoteVideo => {
-                        remoteVideo.srcObject.getTracks().forEach(track => track.stop());
-                        remoteVideo.srcObject = null;
-                        remoteVideo.remove();
+                room.on('data', function (data) {
+                    messages.textContent += (data.data + '\n');
+                })
+
+                room.on('peerJoin', peerId => {
+                });
+
+                room.on('stream', async stream => {
+                    const remoteVideo = document.createElement('video');
+                    remoteVideo.srcObject = stream;
+                    remoteVideo.playsInline = true;
+                    remoteVideo.setAttribute('data-peer-id', stream.peerId);
+                    videosContainer.append(remoteVideo);
+
+                    await remoteVideo.play().catch(console.error);
+                });
+
+                room.on('peerLeave', peerId => {
+                    const remoteVideo = videosContainer.querySelector(`[data-peer-id="${peerId}"]`);
+                    remoteVideo.srcObject.getTracks().forEach(track => {
+                        track.stop();
                     });
+                    remoteVideo.srcObject = null;
+                    remoteVideo.remove();
 
+                });
+
+                room.once('close', () => {
+                    const remoteVideos = videosContainer.querySelectorAll('[data-peer-id]');
+                    Array.from(remoteVideos)
+                        .forEach(remoteVideo => {
+                            remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+                            remoteVideo.srcObject = null;
+                            remoteVideo.remove();
+                        });
+
+                });
+
+                leaveTrigger.addEventListener('click', () => {
+                    chatlog('===[[${userName}]] さんが退室しました===', room)
+                    room.close();
+                    closePeer();
+                    $(window).off("beforeunload");
+                }, {once: true});
             });
 
-            leaveTrigger.addEventListener('click', () => {
-                chatlog('===[[${userName}]] さんが退室しました===' ,room)
-                room.close();
+            /*ウィンドウを閉じたときに処理をする*/
+            $(window).on('beforeunload', function () {
                 closePeer();
-                $(window).off("beforeunload");
-            }, { once: true });
-        });
+            });
 
-        /*ウィンドウを閉じたときに処理をする*/
-        $(window).on('beforeunload', function () {
-            closePeer();
-        });
+            peer.on('error', console.error);
+        })();
 
-        peer.on('error', console.error);
-    })();
+        //チャット
+        function chatlog(msg, room) {
+            room.send(msg);
+            messages.textContent += (msg + '\n');
+        }
 
-    //チャット
-    function chatlog(msg, room) {
-        room.send(msg);
-        messages.textContent += (msg + '\n');
-    }
+        function closePeer() {
+            $.ajax({
+                url: "/meetings/close",
+                type: "POST",
+                data: {
+                    group_id: [[${groupId}]]
+                }
+            }).done(function () {
+                alert('退室しました');
+                window.close();
+            }).fail(function () {
+                alert("退室に失敗しました");
+            })
+        }
 
-    function closePeer() {
-        $.ajax({
-            url: "/meetings/close",
-            type: "POST",
-            data: {
-                group_id: [[${groupId}]]
-            }
-        }).done(function () {
-            alert('退室しました');
-            window.close();
-        }).fail(function () {
-            alert("退室に失敗しました");
-        })
-    }
-
-</script>
+    </script>
 </main>
 </body>
 </html>
