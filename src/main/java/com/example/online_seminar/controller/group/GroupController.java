@@ -3,11 +3,11 @@ package com.example.online_seminar.controller.group;
 import com.example.online_seminar.entity.group.*;
 import com.example.online_seminar.entity.tag.Tag;
 import com.example.online_seminar.entity.tag.TagRequest;
+import com.example.online_seminar.entity.user.Certification;
 import com.example.online_seminar.entity.user.Participation;
 import com.example.online_seminar.entity.user.Request;
 import com.example.online_seminar.entity.user.User;
 import com.example.online_seminar.repository.*;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -94,6 +94,7 @@ public class GroupController {
     public String Transition(@RequestParam("groupRole") int role,
                              @RequestParam("groupId") String groupId,
                              @RequestParam("userId") String userId,
+                             Certification certification,
                              Model model
     ) {
 
@@ -101,6 +102,10 @@ public class GroupController {
         System.out.println(role);
         System.out.println(groupId);
         System.out.println(userId);
+
+        int userRole = certification.getRole();
+
+        model.addAttribute("role", userRole);
 
         //ロールによって遷移先を分ける
         if (role == 0) {
@@ -175,6 +180,7 @@ public class GroupController {
 
         model.addAttribute("applyList", applyList);
         model.addAttribute("groupId", groupId);
+
 
         return "group_apply_list";
     }
