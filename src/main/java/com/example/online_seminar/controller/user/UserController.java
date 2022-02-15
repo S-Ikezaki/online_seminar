@@ -117,14 +117,15 @@ public class UserController {
     }
 
     @PostMapping("/editPass")
-    public  String editPassword(String password , Authentication loginUser , Certification certification) {
+    public  String editPassword(String password , Authentication loginUser) {
 
         String userId = loginUser.getName();
 
         String hashPass = passwordEncoder().encode(password);
 
-        int role = certification.getRole();
+        Certification certification = new Certification();
 
+        int role = certificationRepository.findByUserId(userId).getRole();
 
         certification.setUserId(userId);
         certification.setPassword(hashPass);
