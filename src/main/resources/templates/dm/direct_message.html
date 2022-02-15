@@ -79,7 +79,7 @@
             <div class="col">
 
                 <h2 class="page_title">DM</h2>
-                <form>
+                <form onsubmit="return false;">
                     <input id="keyword" maxlength="50" placeholder="キーワードを入力" type="search">
                     <button class="btn btn-primary" id="search" type="button">検索</button>
                 </form>
@@ -128,7 +128,10 @@
         });
 
         search.addEventListener('click', () => {
-            searchUser();
+            if(keyword.value !== ""){
+                searchUser();
+                document.getElementById('result').checked = true;
+            }
         });
 
         function sendDirectMessage(userId, message) {
