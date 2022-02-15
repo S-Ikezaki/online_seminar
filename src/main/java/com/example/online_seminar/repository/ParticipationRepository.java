@@ -7,5 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface ParticipationRepository extends JpaRepository<Participation, String> {
+public interface ParticipationRepository extends JpaRepository<Participation, Integer> {
+
+    List<Participation> findByGroupId(int groupId);
+
+    void deleteByParticipationId(int participationId);
+
 }

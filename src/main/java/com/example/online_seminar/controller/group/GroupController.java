@@ -32,6 +32,8 @@ import java.util.Objects;
 @RequestMapping("groups")
 public class GroupController {
 
+    private final CertificationRepository certificationRepository;
+
     private final GroupRepository groupRepository;
 
     private final TagGroupRepository tagGroupRepository;
@@ -55,7 +57,8 @@ public class GroupController {
     private final MeetingMemberRepository meetingMemberRepository;
 
     @Autowired
-    public GroupController(GroupRepository groupRepository,
+    public GroupController(CertificationRepository certificationRepository,
+                           GroupRepository groupRepository,
                            TagGroupRepository tagGroupRepository,
                            GroupMessageRepository groupMessageRepository,
                            GroupMemberRepository groupMemberRepository,
@@ -66,6 +69,7 @@ public class GroupController {
                            ParticipationRepository participationRepository,
                            MeetingRepository meetingRepository,
                            MeetingMemberRepository meetingMemberRepository) {
+        this.certificationRepository = certificationRepository;
         this.groupRepository = groupRepository;
         this.tagGroupRepository = tagGroupRepository;
         this.groupMessageRepository = groupMessageRepository;
@@ -160,28 +164,56 @@ public class GroupController {
 
         participationRepository.save(participation);
 
-//        List<Group> groupList = groupRepository.findByUser(userId);  //参加しているグループの一覧表示
-//        List<Group> seminar = new ArrayList<Group>();
-//        List<Group> competition = new ArrayList<Group>();
-//
-//        for (Group group : groupList) {
-//            if (group.getGroupRole() == 0) {
-//                seminar.add(group);
-//            } else {
-//                competition.add(group);
-//            }
-//        }
-//
-//        model.addAttribute("userId", loginUser.getName());
-//        model.addAttribute("userName", userName);
-//        model.addAttribute("role", loginUser.getAuthorities());
-//
-//
-//        System.out.println(loginUser.getAuthorities());
-//        model.addAttribute("seminars", seminar);
-//        model.addAttribute("competitions", competition);
-
         return "seminar/seminar_apply_complete";
+    }
+
+    // 参加申請一覧表示
+    @PostMapping("/apply/list")
+    public String showApplyList(int groupId, Model model) {
+
+        List<Participation> applyList = participationRepository.findByGroupId(groupId);
+
+        model.addAttribute("applyList", applyList);
+        model.addAttribute("groupId", groupId);
+
+        return "group_apply_list";
+    }
+
+    // 参加申請の承認・拒否
+    @PostMapping("/apply/reply")
+    public String replyApply(@RequestParam("create_user_id") String userId,
+                             @RequestParam("apply_id") int applyId,
+                             @RequestParam("reply") int reply,
+                             @RequestParam("group_id") int groupId,
+                             Model model) {
+
+        if (reply == 0) {
+            String userName = userRepository.findByUserId(userId).getUserName();
+            int role = certificationRepository.findByUserId(userId).getRole();
+
+            GroupMember groupMember = new GroupMember();
+
+            groupMember.setGroupId(groupId);
+            groupMember.setUserId(userId);
+            groupMember.setUserName(userName);
+            if(role == 0) {
+                groupMember.setGroupRole(0);
+            } else if (role == 1 || role == 3) {
+                groupMember.setGroupRole(2);
+            } else {
+                groupMember.setGroupRole(1);
+            }
+
+            groupMemberRepository.save(groupMember);
+        }
+
+        participationRepository.deleteById(applyId);
+
+        List<Participation> applyList = participationRepository.findByGroupId(groupId);
+
+        model.addAttribute("applyList", applyList);
+
+        return "group_apply_list";
     }
 
     //ゼミ作成リクエスト画面に遷移

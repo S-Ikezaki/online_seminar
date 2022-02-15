@@ -137,6 +137,15 @@
                     </button>
                 </form>
             </td>
+            <td>
+                <form th:if="${groupMember.groupRole == 2 || groupMember.groupRole == 3}"
+                        th:action="@{/groups/apply/list}" method="post">
+                    <input type="hidden" name="groupId" th:value="${groupId}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-mailbox"></i>参加申請
+                    </button>
+                </form>
+            </td>
         </tr>
     </table>
 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" rel="stylesheet"/>
+    <title>Harbbit | 申請一覧</title>
+</head>
+<body>
+
+<!-- サイドバーの表示-->
+<div layout:fragment="sidebar"
+     th:replace="~{fragments/sidebar :: sidebar}">
+</div>
+
+<!-- コンテンツの表示 -->
+<main class="offcanvas-outside bg-light"
+      layout:fragment="content">
+
+    <div class="container-fluid">
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <h2 class="page_title">申請一覧</h2>
+
+                <div class="apply_content">
+                    <div class="apply_message" th:if="${#lists.isEmpty(applyList)}">
+                        <h6>参加申請は一件もありません</h6>
+                    </div>
+
+                    <div class="apply_list" th:if="${!#lists.isEmpty(applyList)}">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>申請者名</th>
+                                <th>申請コメント</th>
+                                <th>申請日時</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="apply : ${applyList}">
+                                <form th:action="@{/groups/apply/reply}" id="apply" method="post" onsubmit="return applySubmit()">
+                                <td th:field="createUserName" th:text="${apply.getCreateUserName()}"></td>
+                                <td th:text="${apply.getParticipationContents()}"></td>
+                                <td th:text="${apply.getCreateDatetime()}"></td>
+                                <td><button class="btn btn-primary" id="apply_ok" type="submit" name="reply" value="0">承認</button></td>
+                                <td><button class="btn btn-primary" id="apply_ng" type="submit" name="reply" value="1">拒否</button></td>
+                                    <input type="hidden" name="create_user_id" th:value="${apply.getCreateUserId()}">
+                                    <input type="hidden" name="apply_id" th:value="${apply.getParticipationId()}">
+                                    <input type="hidden" name="group_id" th:value="${apply.getGroupId()}">
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <table>
+                    <tr>
+                        <td>
+                            <form th:action="@{/groups/showGroupMessage}" method="post">
+                                <input type="hidden" name="groupId" th:value="${groupId}">
+                                <button class="btn btn-primary">ゼミメニュー</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/groups/showGroupMemberList}" method="post">
+                                <input type="hidden" name="groupId" th:value="${groupId}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-users"></i>メンバー一覧
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applySubmit(reply){
+            return window.confirm("本当に実行しますか？");
+        }
+
+    </script>
+
+</main>
+
+</body>
+</html>
